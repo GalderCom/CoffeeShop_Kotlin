@@ -14,7 +14,7 @@
         android:layout_width="200dp"
         android:layout_height="50dp"
         android:text="Кофе бар"
-        android:src="@drawable/img"/>
+        android:src="@drawable/label_splash"/>
     <LinearLayout
 
         android:layout_margin="45dp"

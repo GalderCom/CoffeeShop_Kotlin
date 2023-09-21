@@ -1,13 +1,11 @@
 package com.example.coffeeshop_20
 
-import android.net.http.HttpResponseCache.install
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
 
 class MainActivity : AppCompatActivity() {
@@ -16,6 +14,12 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         WindowCompat.setDecorFitsSystemWindows(window, false);
+
+       window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
+                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+
+        supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Menu()).commit();
+
 
        /* getData();*/
         WorkWithMenu();
@@ -67,6 +71,7 @@ class MainActivity : AppCompatActivity() {
         buttonMenu.setOnClickListener {
             UnSelect(textMenuMENU)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_start);
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Menu()).commit();
         }
 
 
@@ -74,6 +79,7 @@ class MainActivity : AppCompatActivity() {
         buttonOrder.setOnClickListener {
             UnSelect(textMenuORDER)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_center1);
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Cart()).commit();
         }
 
 
@@ -81,6 +87,7 @@ class MainActivity : AppCompatActivity() {
         buttonHeart.setOnClickListener {
             UnSelect(textMenuHEART)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_center2);
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Favourites()).commit();
         }
 
 
@@ -88,6 +95,7 @@ class MainActivity : AppCompatActivity() {
         buttonAccount.setOnClickListener {
             UnSelect(textMenuACCOUNT)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_end1);
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
         }
     }
 
