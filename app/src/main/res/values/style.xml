@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="menu_text" parent="TextAppearance.Compat.Notification">
+        <item name="android:textColor">@color/main_orange</item>
+        <item name="android:textSize"> 18sp </item>
+        <item name="android:layout_marginStart">12dp</item>
+        <item name="android:fontFamily">@font/raleway_italic</item>
+
+
+        <!-- Тень -->
+        <item name="android:shadowDx">4</item>
+        <item name="android:shadowDy">-3</item>
+        <item name="android:shadowColor">#F2272727</item>
+        <item name="android:shadowRadius">3</item>
+    </style>
+
+
+</resources>

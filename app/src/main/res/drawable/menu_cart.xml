@@ -1,0 +1,43 @@
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="800dp"
+    android:height="800dp"
+    android:viewportWidth="800"
+    android:viewportHeight="800">
+  <path
+      android:pathData="M650,316.7l-23.7,-86.8c-9.1,-33.5 -13.7,-50.2 -23.1,-62.8c-9.3,-12.6 -22,-22.2 -36.6,-27.9c-14.6,-5.7 -32,-5.7 -66.7,-5.7M150,316.7l23.7,-86.8c9.1,-33.5 13.7,-50.2 23.1,-62.8c9.3,-12.6 22,-22.2 36.6,-27.9c14.6,-5.7 32,-5.7 66.7,-5.7"
+      android:strokeWidth="50"
+      android:fillColor="#00000000"
+      android:strokeColor="@color/white"/>
+  <path
+      android:pathData="M300,133.3c0,-18.4 14.9,-33.3 33.3,-33.3h133.3c18.4,0 33.3,14.9 33.3,33.3s-14.9,33.3 -33.3,33.3H333.3C314.9,166.7 300,151.7 300,133.3z"
+      android:strokeWidth="50"
+      android:fillColor="#00000000"
+      android:strokeColor="@color/white"/>
+  <path
+      android:pathData="M266.7,433.3v133.3"
+      android:strokeLineJoin="round"
+      android:strokeWidth="50"
+      android:fillColor="#00000000"
+      android:strokeColor="@color/main_orange"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="M533.3,433.3v133.3"
+      android:strokeLineJoin="round"
+      android:strokeWidth="50"
+      android:fillColor="#00000000"
+      android:strokeColor="@color/main_orange"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="M400,433.3v133.3"
+      android:strokeLineJoin="round"
+      android:strokeWidth="50"
+      android:fillColor="#00000000"
+      android:strokeColor="@color/main_orange"
+      android:strokeLineCap="round"/>
+  <path
+      android:pathData="M128.8,548.5c18.2,72.8 27.3,109.1 54.4,130.3C210.3,700 247.8,700 322.8,700h154.4c75,0 112.5,0 139.6,-21.2c27.1,-21.2 36.2,-57.6 54.4,-130.3c28.6,-114.4 42.9,-171.6 12.9,-210c-30,-38.5 -89,-38.5 -206.9,-38.5H322.8c-117.9,0 -176.9,0 -206.9,38.5c-17.6,22.6 -20,51.6 -13.1,94.9"
+      android:strokeWidth="50"
+      android:fillColor="#00000000"
+      android:strokeColor="@color/white"
+      android:strokeLineCap="round"/>
+</vector>

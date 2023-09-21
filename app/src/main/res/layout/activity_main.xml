@@ -1,0 +1,139 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/main_background_blue"
+    android:orientation="vertical">
+
+
+
+
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/mainFragmentContainer"
+        android:layout_weight="1"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        />
+
+
+    <LinearLayout
+        android:alpha="0.85"
+        android:id="@+id/bottomNavigationLayout"
+        android:layout_gravity="bottom"
+        android:paddingTop="8dp"
+        android:paddingBottom="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:background="@drawable/menu_glass_start"
+        android:gravity="center">
+
+
+
+
+        <LinearLayout
+            android:id="@+id/menu_menuButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:gravity="center">
+
+            <ImageView
+
+                android:layout_width="28dp"
+                android:layout_height="28dp"
+                android:src="@drawable/menu_home" />
+
+            <TextView
+                android:id="@+id/menu_home"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Меню"
+                style="@style/menu_text"
+                android:paddingEnd="4dp"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/menu_orderButton"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/menu_cart" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/menu_order"
+                android:visibility="gone"
+                android:text="Заказ"
+                style="@style/menu_text"
+                android:paddingEnd="4dp"
+                />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/menu_heartButton"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:paddingStart="14dp"
+            android:paddingEnd="14dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/menu_heart" />
+
+            <TextView
+                android:id="@+id/menu_heart"
+                style="@style/menu_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingEnd="4dp"
+                android:text="Избр."
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/menu_accountButton"
+            android:paddingStart="14dp"
+            android:paddingEnd="28dp"
+            android:layout_width="wrap_content"
+            android:layout_height="50dp"
+            android:gravity="center">
+
+            <ImageView
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:src="@drawable/menu_account" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/menu_account"
+                android:visibility="gone"
+                android:text="Профиль"
+                style="@style/menu_text"
+                android:paddingEnd="4dp"/>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</LinearLayout >
