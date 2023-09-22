@@ -1,12 +1,17 @@
 package com.example.coffeeshop_20
 
+import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
+import android.view.View.inflate
 import android.view.animation.AnimationUtils
+import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.WindowCompat
+import androidx.fragment.app.FragmentManager
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,8 +27,28 @@ class MainActivity : AppCompatActivity() {
 
 
        /* getData();*/
+
+
+
+
         WorkWithMenu();
     }
+
+    var backPressedTime: Long = 0
+
+
+    override fun onBackPressed() {
+
+        if(textMenuACCOUNT.visibility == View.VISIBLE)
+        {
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
+        }
+        else{
+            onBackPressed()
+        }
+        backPressedTime = System.currentTimeMillis()
+    }
+
     /*private fun getClient() : SupabaseClient{
 
         return createSupabaseClient(
@@ -95,7 +120,10 @@ class MainActivity : AppCompatActivity() {
         buttonAccount.setOnClickListener {
             UnSelect(textMenuACCOUNT)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_end1);
+
             supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
+
+
         }
     }
 

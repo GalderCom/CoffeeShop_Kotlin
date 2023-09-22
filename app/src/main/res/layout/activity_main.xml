@@ -10,9 +10,6 @@
 
 
     <FrameLayout
-        android:layout_marginTop="20dp"
-        android:layout_marginStart="25dp"
-        android:layout_marginEnd="25dp"
         android:id="@+id/mainFragmentContainer"
         android:layout_weight="1"
         android:layout_width="match_parent"
@@ -25,9 +22,9 @@
         android:id="@+id/bottomNavigationLayout"
         android:layout_gravity="bottom"
         android:paddingTop="8dp"
-        android:paddingBottom="20dp"
+        android:paddingBottom="10dp"
         android:layout_width="match_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:background="@drawable/menu_glass_start"
         android:gravity="center">
 

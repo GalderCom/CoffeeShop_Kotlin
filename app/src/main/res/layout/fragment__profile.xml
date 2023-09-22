@@ -7,6 +7,8 @@
     tools:context=".Fragment_Profile"
     android:layout_gravity="center"
     android:orientation="vertical"
+    android:layout_marginStart="25dp"
+    android:layout_marginEnd="25dp"
     android:scrollbars="vertical">
 
     <LinearLayout
@@ -15,113 +17,134 @@
         android:orientation="vertical">
 
 
+            <LinearLayout
+                android:layout_marginTop="60dp"
+                android:gravity="center"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                <androidx.cardview.widget.CardView
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    app:cardCornerRadius="100dp">
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:src="@drawable/photo"
+                        android:scaleType="centerCrop"/>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="40dp"
-        android:gravity="center"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-        <androidx.cardview.widget.CardView
-            android:layout_width="150dp"
-            android:layout_height="150dp"
-            app:cardCornerRadius="100dp"/>
+
+            <LinearLayout
+                android:layout_marginTop="18dp"
+                android:gravity="center"
+                android:layout_marginStart="20dp"
+                android:layout_marginEnd="20dp"
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Артём"
+                    android:letterSpacing="0.05"
+                    android:textSize="25sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/raleway_italic"/>
+
+                <TextView
+                    android:layout_marginTop="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="+7 (941)  432-20-13"
+                    android:textSize="20sp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="@font/oswal_regular"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop="36dp"
+                android:layout_gravity="left"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:letterSpacing="0.04"
+                    android:layout_marginTop="2dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Омск"
+                    android:textSize="20sp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="@font/raleway_italic"/>
+
+                <TextView
+                    android:id="@+id/textView_my_data"
+                    android:letterSpacing="0.04"
+                    android:layout_marginTop="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Мои данные"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/raleway_regular"/>
+
+                <TextView
+                    android:letterSpacing="0.04"
+                    android:layout_marginTop="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Мои заказы"
+                    android:textSize="22sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/raleway_regular"/>
+
+                <TextView
+                    android:letterSpacing="0.04"
+                    android:layout_marginTop="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Сохраненные адреса"
+                    android:textSize="20sp"
+                    android:textColor="@color/white"
+                    android:fontFamily="@font/raleway_regular"/>
+
+                <TextView
+                    android:letterSpacing="0.04"
+                    android:layout_marginTop="22dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Удалить аккаунт"
+                    android:textSize="20sp"
+                    android:textColor="@color/red"
+                    android:fontFamily="@font/raleway_regular"/>
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_marginTop ="100dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <Button
+                    android:layout_marginStart="25dp"
+                    android:layout_marginEnd="25dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="47dp"
+                    android:layout_gravity="center|bottom"
+                    android:text="Выйти из учётной записи"
+                    style="@style/style_main_button"/>
+
+            </LinearLayout>
+
+
     </LinearLayout>
 
-    <LinearLayout
-        android:layout_marginTop="18dp"
-        android:gravity="center"
-        android:layout_marginStart="20dp"
-        android:layout_marginEnd="20dp"
-        android:layout_width="match_parent"
-        android:orientation="vertical"
-        android:layout_height="wrap_content">
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Артём"
-            android:textSize="25sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/raleway_italic"/>
-
-        <TextView
-            android:layout_marginTop="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="+7 (941)  432-20-13"
-            android:textSize="20sp"
-            android:textColor="@color/gray"
-            android:fontFamily="@font/oswal_regular"/>
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop="36dp"
-        android:layout_gravity="left"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <TextView
-            android:layout_marginTop="2dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Омск"
-            android:textSize="22sp"
-            android:textColor="@color/gray"
-            android:fontFamily="@font/raleway_italic"/>
-
-        <TextView
-            android:layout_marginTop="22dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Мои данные"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/raleway_regular"/>
-        <TextView
-            android:layout_marginTop="22dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Мои заказы"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/raleway_regular"/>
-        <TextView
-            android:layout_marginTop="22dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Сохраненные адреса"
-            android:textSize="22sp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/raleway_regular"/>
-        <TextView
-            android:layout_marginTop="22dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Удалить аккаунт"
-            android:textSize="22sp"
-            android:textColor="@color/red"
-            android:fontFamily="@font/raleway_regular"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_marginTop ="100dp"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-        <Button
-            android:layout_marginStart="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginBottom="30dp"
-            android:layout_width="match_parent"
-            android:layout_height="47dp"
-            android:layout_gravity="center|bottom"
-            android:text="Выйти из учётной записи"
-            style="@style/style_main_button"/>
-    </LinearLayout>
-
-
-
-
-    </LinearLayout>
 </ScrollView>

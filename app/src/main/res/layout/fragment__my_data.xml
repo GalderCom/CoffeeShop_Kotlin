@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".Fragment_MyData"
+    android:layout_marginTop="55dp"
+    android:layout_marginLeft="25dp"
+    android:layout_marginRight="25dp">
+
+
+    <FrameLayout
+
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/button_back"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:background="@drawable/button_back"
+            android:src="@drawable/back_ico"
+            android:scaleType="center"
+            android:layout_gravity="top"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/style_heading"
+            android:text="Мои данные"
+            android:layout_gravity="center|top"/>
+
+    </FrameLayout>
+
+
+
+    <LinearLayout
+        android:layout_marginTop="40dp"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Имя"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="@font/raleway_regular"
+                    android:letterSpacing="0.13"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" *"
+                    android:textSize="16sp"
+                    android:textColor="@color/main_orange"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00FFFFFF"
+                android:fontFamily="@font/raleway_regular"
+                android:text="Артём"
+                android:paddingTop="0dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:letterSpacing="0.04"
+                android:inputType="text"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/orange_line"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="22dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Пол"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="@font/raleway_regular"
+                    android:letterSpacing="0.13"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" *"
+                    android:textSize="16sp"
+                    android:textColor="@color/main_orange"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00FFFFFF"
+                android:fontFamily="@font/raleway_regular"
+                android:text="Мужской"
+                android:paddingTop="0dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:letterSpacing="0.04"
+                android:inputType="text"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/orange_line"/>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_marginTop="22dp"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Дата рождения"
+                    android:textSize="16sp"
+                    android:textColor="@color/gray"
+                    android:fontFamily="@font/raleway_regular"
+                    android:letterSpacing="0.13"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text=" *"
+                    android:textSize="16sp"
+                    android:textColor="@color/main_orange"/>
+
+            </LinearLayout>
+
+            <EditText
+                android:layout_marginTop="4dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:backgroundTint="#00FFFFFF"
+                android:fontFamily="@font/oswald_light"
+                android:text="26.06.2004"
+                android:paddingTop="0dp"
+                android:paddingBottom="3dp"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:letterSpacing="0.04"
+                android:inputType="date"/>
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/orange_line"/>
+
+        </LinearLayout>
+
+        <Button
+            android:layout_marginTop="35dp"
+            android:layout_marginLeft="25dp"
+            android:layout_marginRight="25dp"
+            android:layout_width="match_parent"
+            android:layout_height="47dp"
+            style="@style/style_main_button"
+            android:text="Сохранить"/>
+
+
+</LinearLayout>
+
+
+
+
+
+
+</LinearLayout>
