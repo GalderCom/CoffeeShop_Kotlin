@@ -25,11 +25,19 @@ class Fragment_Profile : Fragment() {
         var view: View? = null
         view = inflater.inflate(R.layout.fragment__profile, container, false)
 
-        val textViewMyData: TextView = view.findViewById(R.id.textView_my_data);
-        textViewMyData.setOnClickListener(){
-           parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_MyData()).commit();
+        val MyDataClick: TextView = view.findViewById(R.id.textView_my_data);
+        MyDataClick.setOnClickListener(){
+           parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_MyData(),"MY_DATA").commit();
         }
 
+        val MyOrderClick: TextView = view.findViewById(R.id.textView_my_order);
+        MyOrderClick.setOnClickListener(){
+            parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_MyData(),"MY_DATA").commit();
+        }
+        val MySaveAdresClick: TextView = view.findViewById(R.id.textView_my_saveAdres);
+        MySaveAdresClick.setOnClickListener(){
+            parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_MyData(),"MY_DATA").commit();
+        }
 
         // Inflate the layout for this fragment
         return view

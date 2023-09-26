@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     tools:context=".Fragment_MyData"
-    android:layout_marginTop="55dp"
+    android:layout_marginTop="30dp"
     android:layout_marginLeft="25dp"
     android:layout_marginRight="25dp">
 
@@ -21,7 +21,7 @@
             android:layout_width="45dp"
             android:layout_height="45dp"
             android:background="@drawable/button_back"
-            android:src="@drawable/back_ico"
+            android:src="@drawable/arrow_left"
             android:scaleType="center"
             android:layout_gravity="top"/>
 

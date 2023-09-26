@@ -1,27 +1,22 @@
 package com.example.coffeeshop_20
 
-import android.opengl.Visibility
 import android.os.Bundle
 import android.view.View
-import android.view.View.inflate
 import android.view.animation.AnimationUtils
-import android.widget.ImageButton
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.WindowCompat
-import androidx.fragment.app.FragmentManager
+import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 
-class MainActivity : AppCompatActivity() {
+class Activity_Main : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        WindowCompat.setDecorFitsSystemWindows(window, false);
 
-       window.decorView.systemUiVisibility = View.SYSTEM_UI_FLAG_HIDE_NAVIGATION or
-                View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+
+
+
 
         supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Menu()).commit();
 
@@ -38,15 +33,14 @@ class MainActivity : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-
-        if(textMenuACCOUNT.visibility == View.VISIBLE)
+        val my_data =  supportFragmentManager.findFragmentByTag("MY_DATA")
+        if(my_data != null && my_data.isVisible())
         {
             supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
         }
         else{
-            onBackPressed()
+            finish()
         }
-        backPressedTime = System.currentTimeMillis()
     }
 
     /*private fun getClient() : SupabaseClient{

@@ -50,7 +50,7 @@ class SignInActivity : AppCompatActivity() {
 
         if(numberPhone.text.length == 12)
         {
-            val intent = Intent(this,MainActivity::class.java)
+            val intent = Intent(this,Activity_Main::class.java)
             startActivity(intent);
             finish();
         }

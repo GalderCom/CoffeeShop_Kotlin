@@ -1,20 +1,23 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
-    <style name="Base.Theme.CoffeeShop_20" parent="Theme.Material3.DayNight.NoActionBar">
-        <!-- Customize your light theme here. -->
-        <!-- <item name="colorPrimary">@color/my_light_primary</item> -->
-    </style>
 
-    <style name="Theme.CoffeeShop_20" parent="Base.Theme.CoffeeShop_20" />
 
-    <style name="Theme.AppCompat.Light.NoActionBar.FullScreen" parent="@style/Theme.AppCompat.Light.NoActionBar" >
+
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowContentOverlay">@null</item>
-        <item name="android:statusBarColor">@color/transparent</item>
-        <item name="android:navigationBarColor">@color/transparent</item>
-        <item name="android:showMetadataInPreview">false</item>
-        <item name="android:windowLayoutInDisplayCutoutMode">shortEdges</item>
+        <item name="android:statusBarColor">#1A1A1B</item>
+        <item name="android:navigationBarColor">#F22D2F32</item>
+
+    </style>
+
+    <style name="AppSplash" parent="Theme.AppCompat.Light.NoActionBar" >
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowActionBar">false</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:statusBarColor">#1A1A1B</item>
+        <item name="android:navigationBarColor">#F22D2F32</item>
 
     </style>
 </resources>

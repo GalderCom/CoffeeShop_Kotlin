@@ -30,10 +30,10 @@ class Fragment_MyData : Fragment() {
     ): View? {
        val  view = inflater.inflate(R.layout.fragment__my_data, container, false)
 
-       /* val buttonBack: ImageButton = view.findViewById(R.id.button_back);
+        val buttonBack: ImageButton = view.findViewById(R.id.button_back);
         buttonBack.setOnClickListener(){
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
-        }*/
+            parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
+        }
 
         // Inflate the layout for this fragment
         return view;
