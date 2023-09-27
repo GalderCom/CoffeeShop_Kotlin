@@ -9,7 +9,7 @@ import android.view.View
 import android.widget.EditText
 import androidx.core.view.WindowCompat
 
-class SignInActivity : AppCompatActivity() {
+class Activity_SignIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_in)
@@ -50,7 +50,7 @@ class SignInActivity : AppCompatActivity() {
 
         if(numberPhone.text.length == 12)
         {
-            val intent = Intent(this,Activity_Main::class.java)
+            val intent = Intent(this,Activity_CodeFromSMS::class.java)
             startActivity(intent);
             finish();
         }

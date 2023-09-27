@@ -1,18 +1,159 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     tools:context=".Fragment_Menu"
-    android:layout_gravity="center">
+    android:orientation="vertical">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:text="Меню"
-        android:textColor="@color/white"
-        android:textSize="20sp"/>
 
-</FrameLayout>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/style_heading"
+            android:text="Меню"
+            android:layout_gravity="center|top"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/oswal_regular"
+            android:textColor="@color/gray"
+            android:textSize="20sp"
+            android:letterSpacing="0.04"
+            android:text="Хорошего вам дня"
+            android:layout_gravity="center|top"/>
+
+
+        <LinearLayout
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="30dp"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="50dp">
+            <Button
+                android:id="@+id/button_coffee"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/pacifico_regular"
+                android:letterSpacing="0.1"
+                android:textAllCaps="false"
+                android:text="Кофе"
+
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/menu_select_button"/>
+            <Button
+                android:id="@+id/button_bakery"
+                android:textSize="18sp"
+                android:textColor="@color/white"
+                android:fontFamily="@font/pacifico_regular"
+                android:letterSpacing="0.1"
+                android:textAllCaps="false"
+                android:text="Выпечка"
+
+                android:layout_marginStart="15dp"
+                android:layout_weight="1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@drawable/menu_un_select_button"/>
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:layout_width="40dp"
+                android:layout_height="415dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="20sp"
+                android:layout_marginBottom="20sp"
+                android:background="@drawable/menu_vertical_line_type"
+                android:gravity="center|top"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/classic_type_coffee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|top">
+
+                    <TextView
+                        android:id="@+id/classic_type_text_coffee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/menu_classic_type_coffee"
+                        android:backgroundTint="#FF5900" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/autor_type_coffee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|top">
+
+                    <TextView
+                        android:id="@+id/autor_type_text_coffee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/menu_autor_type_coffee" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/raf_type_coffee"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center|top">
+
+                    <TextView
+                        android:id="@+id/raf_type_text_coffee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:background="@drawable/menu_raf_type_coffee" />
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/cold_type_coffee"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center|top">
+
+                    <TextView
+                        android:id="@+id/cold_type_text_coffee"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/menu_cold_type_coffee" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginEnd="25dp"
+                android:layout_weight="1" />
+
+
+        </LinearLayout>
+
+
+
+</LinearLayout>
