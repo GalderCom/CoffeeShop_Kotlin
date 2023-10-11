@@ -18,6 +18,7 @@ import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import kotlinx.coroutines.launch
 import java.text.ParsePosition
+import kotlin.reflect.jvm.internal.impl.descriptors.deserialization.PlatformDependentDeclarationFilter.All
 
 class FragmentMenu : Fragment() {
 
@@ -42,44 +43,40 @@ class FragmentMenu : Fragment() {
         super.onCreate(savedInstanceState)
 
     }
-    private lateinit var mRecyclerView:RecyclerView;
     private lateinit var mHostActivity:Activity;
-    private lateinit var arrayT :ArrayList<DataClass.Coffee>;
+    private lateinit var CustomAdapterMenu: CustomAdapterMenu;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment__menu, container, false)
 
-
-
-
-
-
         init(view);
-
         unselectTypeCoffee()
         selectTypeCoffee(typeTextClassic);
-
         Click();
 
+        var supa = ConnectSupaBase();
+        var mRecyclerView:RecyclerView = view.findViewById(R.id.listMenu1)
+
+
+            lifecycleScope.launch {
+                CustomAdapterMenu = CustomAdapterMenu(supa.getDataCoffee())
+                mRecyclerView.adapter = CustomAdapterMenu
+
+
+            }
 
 
 
-        val supa = ConnectSupaBase();
-       // arrayT = ArrayList()
-        mRecyclerView = view.findViewById(R.id.listMenu1)
 
 
 
 
 
-      //  val customAdapter = CustomAdapterMenu(mHostActivity,arrayT)
 
 
-        lifecycleScope.launch {
-            mRecyclerView.adapter = CustomAdapterMenu(supa.getDataCoffee())
-        }
+
 
 
 
