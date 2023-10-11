@@ -5,32 +5,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_gravity="center"
-    tools:context=".Fragment_MyData"
+    tools:context=".FragmentMyData"
     android:layout_marginTop="30dp"
     android:layout_marginLeft="25dp"
     android:layout_marginRight="25dp">
 
 
     <FrameLayout
-
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
         <ImageButton
             android:id="@+id/button_back"
-            android:layout_width="45dp"
-            android:layout_height="45dp"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:background="@drawable/button_back"
-            android:src="@drawable/arrow_left"
             android:scaleType="center"
-            android:layout_gravity="top"/>
+            android:layout_gravity="start"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             style="@style/style_heading"
             android:text="Мои данные"
-            android:layout_gravity="center|top"/>
+            android:layout_gravity="center"/>
 
     </FrameLayout>
 
@@ -84,9 +82,10 @@
                 android:inputType="text"/>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/orange_line"/>
+                android:src="@drawable/line_smal"/>
 
         </LinearLayout>
 
@@ -133,9 +132,10 @@
                 android:inputType="text"/>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/orange_line"/>
+                android:src="@drawable/line_smal"/>
 
         </LinearLayout>
 
@@ -182,9 +182,10 @@
                 android:inputType="date"/>
 
             <ImageView
-                android:layout_width="wrap_content"
+                android:scaleType="centerCrop"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:src="@drawable/orange_line"/>
+                android:src="@drawable/line_smal"/>
 
         </LinearLayout>
 

@@ -1,6 +1,10 @@
 plugins {
     id("com.android.application")
     id("org.jetbrains.kotlin.android")
+
+    //kotlin("plugin.serialization") version "1.6.0"
+
+    id("org.jetbrains.kotlin.plugin.serialization") version "1.6.0"
 }
 
 android {
@@ -36,6 +40,14 @@ android {
 }
 
 dependencies {
+
+    implementation(platform("io.github.jan-tennert.supabase:bom:1.1.0"))
+    implementation("io.github.jan-tennert.supabase:postgrest-kt:0.7.6")
+    implementation ("io.ktor:ktor-client-cio:2.3.2")
+    implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+
+
+
 
     implementation("androidx.core:core-splashscreen:1.0.1")
 

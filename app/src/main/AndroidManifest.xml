@@ -15,20 +15,20 @@
         android:theme="@style/AppTheme"
         tools:targetApi="31">
         <activity
-            android:name=".Activity_CodeFromSMS"
+            android:name=".ActivityCodeFromSMS"
             android:exported="false" />
         <activity
-            android:name=".Activity_SignIn"
+            android:name=".ActivitySignIn"
             android:exported="false" />
         <activity
-            android:name=".Activity_Splash"
+            android:name=".ActivitySplash"
             android:exported="true"
             android:theme="@style/AppSplash">
 
         </activity>
 
         <activity
-            android:name=".Activity_Main"
+            android:name=".ActivityMain"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

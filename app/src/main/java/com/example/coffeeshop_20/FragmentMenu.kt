@@ -1,6 +1,7 @@
 package com.example.coffeeshop_20
 
 import android.annotation.SuppressLint
+import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -8,11 +9,17 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Adapter
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
+import kotlinx.coroutines.launch
+import java.text.ParsePosition
 
-class Fragment_Menu : Fragment() {
+class FragmentMenu : Fragment() {
 
 
 
@@ -35,12 +42,18 @@ class Fragment_Menu : Fragment() {
         super.onCreate(savedInstanceState)
 
     }
-
+    private lateinit var mRecyclerView:RecyclerView;
+    private lateinit var mHostActivity:Activity;
+    private lateinit var arrayT :ArrayList<DataClass.Coffee>;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment__menu, container, false)
+
+
+
+
 
 
         init(view);
@@ -51,9 +64,39 @@ class Fragment_Menu : Fragment() {
         Click();
 
 
+
+
+        val supa = ConnectSupaBase();
+       // arrayT = ArrayList()
+        mRecyclerView = view.findViewById(R.id.listMenu1)
+
+
+
+
+
+      //  val customAdapter = CustomAdapterMenu(mHostActivity,arrayT)
+
+
+        lifecycleScope.launch {
+            mRecyclerView.adapter = CustomAdapterMenu(supa.getDataCoffee())
+        }
+
+
+
         return view;
     }
 
+    override fun onAttach(activity: Activity) {
+        super.onAttach(activity)
+        mHostActivity = activity;
+    }
+    override fun onResume() {
+
+
+        super.onResume()
+
+
+    }
     private fun init(view: View){
         buttonCoffee = view.findViewById(R.id.button_coffee);
         buttonBakery = view.findViewById(R.id.button_bakery);
@@ -144,7 +187,7 @@ class Fragment_Menu : Fragment() {
 
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            Fragment_Menu().apply {
+            FragmentMenu().apply {
                 arguments = Bundle().apply {
                 }
             }

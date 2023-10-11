@@ -5,20 +5,14 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.TextView
 
-
-
-class Fragment_MyData : Fragment() {
+class FragmentProfile : Fragment() {
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-
 
     }
 
@@ -26,27 +20,30 @@ class Fragment_MyData : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
 
-
     ): View? {
-       val  view = inflater.inflate(R.layout.fragment__my_data, container, false)
 
-        val buttonBack: ImageButton = view.findViewById(R.id.button_back);
-        buttonBack.setOnClickListener(){
-            parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
+        var view: View? = null
+        view = inflater.inflate(R.layout.fragment__profile, container, false)
+
+        val MyDataClick: FrameLayout = view.findViewById(R.id.frameLayout_my_data);
+        MyDataClick.setOnClickListener(){
+           parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMyData(),"MY_DATA").commit();
         }
 
+
         // Inflate the layout for this fragment
-        return view;
-
-
+        return view
     }
+
 
     companion object {
+
+        @JvmStatic
         fun newInstance(param1: String, param2: String) =
-            Fragment_MyData().apply {
+            FragmentProfile().apply {
 
             }
-    }
 
+    }
 
 }

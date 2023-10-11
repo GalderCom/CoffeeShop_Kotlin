@@ -4,21 +4,21 @@ import android.os.Bundle
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
+import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.launch
 
-class Activity_Main : AppCompatActivity() {
+class ActivityMain : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
 
 
-
-
-
-        supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Menu()).commit();
+        supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMenu()).commit();
 
 
        /* getData();*/
@@ -36,37 +36,12 @@ class Activity_Main : AppCompatActivity() {
         val my_data =  supportFragmentManager.findFragmentByTag("MY_DATA")
         if(my_data != null && my_data.isVisible())
         {
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
         }
         else{
             finish()
         }
     }
-
-    /*private fun getClient() : SupabaseClient{
-
-        return createSupabaseClient(
-            supabaseUrl = "https://fnnlozofxzdkvjkzyjzk.supabase.co",
-            supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZubmxvem9meHpka3Zqa3p5anprIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUwNDU3MDAsImV4cCI6MjAxMDYyMTcwMH0.L799DC4l4sGGWoy2B_LR-Yv9jzJzqyjnykvx9FNF_XE"
-        )
-        {
-            install(Postgrest)
-        }
-
-    }*/
-
-
-   /* private fun getData()
-    {
-        lifecycleScope.launch {
-            val client = getClient()
-            val supabaseResponse= client.postgrest["Users"].select()
-            val data = supabaseResponse.decodeList<User>()
-            Log.e("supabase",data.toString());
-        }
-    }*/
-
-    data class User(val id: Int, val name: String,val data_birthday: String,val phone: String, val photo_id: Int)
 
     private lateinit var textMenuMENU: TextView;
     private lateinit var textMenuORDER: TextView;
@@ -90,7 +65,7 @@ class Activity_Main : AppCompatActivity() {
         buttonMenu.setOnClickListener {
             UnSelect(textMenuMENU)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_start);
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Menu()).commit();
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMenu()).commit();
         }
 
 
@@ -98,7 +73,7 @@ class Activity_Main : AppCompatActivity() {
         buttonOrder.setOnClickListener {
             UnSelect(textMenuORDER)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_center1);
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Cart()).commit();
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentCart()).commit();
         }
 
 
@@ -106,7 +81,7 @@ class Activity_Main : AppCompatActivity() {
         buttonHeart.setOnClickListener {
             UnSelect(textMenuHEART)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_center2);
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Favourites()).commit();
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentFavourites()).commit();
         }
 
 
@@ -115,7 +90,7 @@ class Activity_Main : AppCompatActivity() {
             UnSelect(textMenuACCOUNT)
             glassLayout.setBackgroundResource(R.drawable.menu_glass_end1);
 
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,Fragment_Profile()).commit();
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
 
 
         }

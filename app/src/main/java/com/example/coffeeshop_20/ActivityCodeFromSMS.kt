@@ -1,6 +1,5 @@
 package com.example.coffeeshop_20
 
-import android.content.DialogInterface.OnKeyListener
 import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
@@ -9,11 +8,10 @@ import android.view.KeyEvent
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
-import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 
-class Activity_CodeFromSMS : AppCompatActivity() {
+class ActivityCodeFromSMS : AppCompatActivity() {
 
     private lateinit var number1: EditText;
     private lateinit var number2: EditText;
@@ -149,7 +147,7 @@ class Activity_CodeFromSMS : AppCompatActivity() {
         {
 
             Toast.makeText(applicationContext,"Код верный",Toast.LENGTH_SHORT).show();
-            val intent = Intent(this,Activity_Main::class.java)
+            val intent = Intent(this,ActivityMain::class.java)
             startActivity(intent);
             finish();
         }

@@ -7,7 +7,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.core.view.WindowCompat
 
-class Activity_Splash : AppCompatActivity() {
+class ActivitySplash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_splash)
@@ -15,7 +15,7 @@ class Activity_Splash : AppCompatActivity() {
         WindowCompat.setDecorFitsSystemWindows(window, false);
 
         Handler(Looper.getMainLooper()).postDelayed({
-            val intent  = Intent(this, Activity_SignIn::class.java)
+            val intent  = Intent(this, ActivitySignIn::class.java)
             startActivity(intent);
             finish();
         },1000)
