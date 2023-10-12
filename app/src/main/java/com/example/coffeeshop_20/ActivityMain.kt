@@ -1,14 +1,14 @@
 package com.example.coffeeshop_20
 
+import android.content.Context
 import android.os.Bundle
+import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
-import android.widget.ListView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
 
 class ActivityMain : AppCompatActivity() {
@@ -18,30 +18,12 @@ class ActivityMain : AppCompatActivity() {
 
 
 
+
         supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMenu()).commit();
-
-
-       /* getData();*/
-
-
-
-
         WorkWithMenu();
     }
 
-    var backPressedTime: Long = 0
 
-
-    override fun onBackPressed() {
-        val my_data =  supportFragmentManager.findFragmentByTag("MY_DATA")
-        if(my_data != null && my_data.isVisible())
-        {
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
-        }
-        else{
-            finish()
-        }
-    }
 
     private lateinit var textMenuMENU: TextView;
     private lateinit var textMenuORDER: TextView;

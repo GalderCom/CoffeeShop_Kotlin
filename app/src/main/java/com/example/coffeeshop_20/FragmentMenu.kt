@@ -1,7 +1,6 @@
 package com.example.coffeeshop_20
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
@@ -9,22 +8,21 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Adapter
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
+import androidx.core.view.isNotEmpty
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import kotlinx.coroutines.launch
-import java.text.ParsePosition
-import kotlin.reflect.jvm.internal.impl.descriptors.deserialization.PlatformDependentDeclarationFilter.All
 
 class FragmentMenu : Fragment() {
 
 
 
-    private var selectType = "CLASSIC";
+    private var selectCategory = 1;
+    private var selectButton = 1;
     private var selectCoffeeBakery = true;
 
     private lateinit var buttonCoffee:Button;
@@ -39,12 +37,12 @@ class FragmentMenu : Fragment() {
     private lateinit var typeTextAutor:TextView;
     private lateinit var typeTextRaf:TextView;
     private lateinit var typeTextCold:TextView;
+    //private lateinit var mRecyclerView:RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
     }
-    private lateinit var mHostActivity:Activity;
-    private lateinit var CustomAdapterMenu: CustomAdapterMenu;
+    private lateinit var customAdapterMenu: CustomAdapterMenu;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -52,45 +50,48 @@ class FragmentMenu : Fragment() {
         val view = inflater.inflate(R.layout.fragment__menu, container, false)
 
         init(view);
-        unselectTypeCoffee()
-        selectTypeCoffee(typeTextClassic);
-        Click();
-
-        var supa = ConnectSupaBase();
-        var mRecyclerView:RecyclerView = view.findViewById(R.id.listMenu1)
+        unselectCategoryCoffee()
+        selectCategoryCoffee(typeTextClassic);
+        click(view);
 
 
+        val supa = ConnectSupaBase();
+
+
+        if(AllDataFromBase.coffeeArray.isEmpty())
+        {
             lifecycleScope.launch {
-                CustomAdapterMenu = CustomAdapterMenu(supa.getDataCoffee())
-                mRecyclerView.adapter = CustomAdapterMenu
-
-
+                customAdapterMenu = CustomAdapterMenu(supa.getDataCoffee())
+                AllDataFromBase.coffeeArray = supa.getDataCoffee();
+                sortingCoffee(view)
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
+        }
+        else
+        {
+            sortingCoffee(view)
+        }
 
         return view;
     }
 
-    override fun onAttach(activity: Activity) {
-        super.onAttach(activity)
-        mHostActivity = activity;
-    }
-    override fun onResume() {
 
+    @SuppressLint("NotifyDataSetChanged")
+    private fun sortingCoffee(view: View)
+    {
+        val arrayCoffee = ArrayList<DataClass.Coffee>()
 
-        super.onResume()
+        val mRecyclerView:RecyclerView = view.findViewById(R.id.listMenu1)
+
+        val customAdapter = CustomAdapterMenu(arrayCoffee)
+        mRecyclerView.adapter = customAdapter;
+
+        for (i in 0 until AllDataFromBase.coffeeArray.size) {
+            if (AllDataFromBase.coffeeArray[i].categoryId == selectCategory) {
+                arrayCoffee.add(AllDataFromBase.coffeeArray[i])
+            }
+            customAdapter.notifyDataSetChanged()
+            mRecyclerView.isNotEmpty()
+        }
 
 
     }
@@ -109,47 +110,65 @@ class FragmentMenu : Fragment() {
         typeTextCold = view.findViewById(R.id.cold_type_text_coffee);
 
     }
-    private fun Click()
+    private fun click(view: View)
     {
         //coffee
         buttonCoffee.setOnClickListener()
         {
-            unselectCoffeeBakery();
-            selectCoffeeBakery(buttonCoffee);
-            selectCoffeeBakery = true;
+            if(selectButton != 1)
+            {
+                selectButton = 1
+                unselectCoffeeBakery();
+                selectCoffeeBakery(buttonCoffee);
+                selectCoffeeBakery = true;
+            }
         }
 
         //bakery
         buttonBakery.setOnClickListener(){
-            unselectCoffeeBakery();
-            selectCoffeeBakery(buttonBakery);
-            selectCoffeeBakery = false;
+            if(selectButton != 2) {
+                selectButton = 2
+                unselectCoffeeBakery();
+                selectCoffeeBakery(buttonBakery);
+                selectCoffeeBakery = false;
+            }
         }
-
 
 
         typeClassic.setOnClickListener(){
-            unselectTypeCoffee()
-            selectTypeCoffee(typeTextClassic);
-            selectType = "CLASSIC"
+            if(selectCategory != 1) {
+                unselectCategoryCoffee()
+                selectCategoryCoffee(typeTextClassic);
+                selectCategory = 1
+                sortingCoffee(view)
+            }
         }
 
         typeAutor.setOnClickListener(){
-            unselectTypeCoffee()
-            selectTypeCoffee(typeTextAutor);
-            selectType = "AUTOR"
+            if(selectCategory != 2) {
+                unselectCategoryCoffee()
+                selectCategoryCoffee(typeTextAutor);
+                selectCategory = 2
+                sortingCoffee(view)
+            }
         }
 
         typeRaf.setOnClickListener(){
-            unselectTypeCoffee()
-            selectTypeCoffee(typeTextRaf);
-            selectType = "RAF"
+            if(selectCategory != 3) {
+                unselectCategoryCoffee()
+                selectCategoryCoffee(typeTextRaf);
+                selectCategory = 3
+                sortingCoffee(view)
+            }
         }
 
         typeCold.setOnClickListener(){
-            unselectTypeCoffee()
-            selectTypeCoffee(typeTextCold);
-            selectType = "COLD"
+            if(selectCategory != 4) {
+                unselectCategoryCoffee()
+                selectCategoryCoffee(typeTextCold);
+                selectCategory = 4
+                sortingCoffee(view)
+            }
         }
     }
 
@@ -162,12 +181,12 @@ class FragmentMenu : Fragment() {
 
     }
     @SuppressLint("ResourceAsColor")
-    private fun selectTypeCoffee(text:TextView){
+    private fun selectCategoryCoffee(text:TextView){
         text.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#BE4E28"))
     }
 
-    @SuppressLint("ResourceAsColor")
-    private fun unselectTypeCoffee(){
+
+    private fun unselectCategoryCoffee(){
         val color = "#FFFFFF"
 
         typeTextAutor.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
@@ -177,16 +196,5 @@ class FragmentMenu : Fragment() {
         typeTextCold.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
 
         typeTextRaf.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
-    }
-
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentMenu().apply {
-                arguments = Bundle().apply {
-                }
-            }
     }
 }

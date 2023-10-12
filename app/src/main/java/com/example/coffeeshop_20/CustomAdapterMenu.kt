@@ -1,16 +1,13 @@
 package com.example.coffeeshop_20
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import kotlinx.coroutines.CoroutineScope
-import java.text.FieldPosition
 
-class CustomAdapterMenu(private var data: List<DataClass.Coffee>): RecyclerView.Adapter<CustomAdapterMenu.ViewHolder>() {
+class CustomAdapterMenu(private var data: ArrayList<DataClass.Coffee>): RecyclerView.Adapter<CustomAdapterMenu.ViewHolder>() {
 
 
     class ViewHolder(itemView: View,private val listener: OnClickListener): RecyclerView.ViewHolder(itemView),View.OnClickListener{
@@ -26,10 +23,12 @@ class CustomAdapterMenu(private var data: List<DataClass.Coffee>): RecyclerView.
         }
     }
 
+
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
         holder.name.text = data[position].name;
-        holder.shorDescription.text = data[position].description;
+        holder.shorDescription.text = data[position].shortDescription;
+        holder.price.text  = data[position].price.toString();
 
 
     }

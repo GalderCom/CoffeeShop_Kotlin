@@ -151,8 +151,9 @@
 
 
                     <androidx.recyclerview.widget.RecyclerView
+                        android:layout_marginStart="20dp"
                         android:id="@+id/listMenu1"
-                        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+                        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         app:spanCount="2"/>

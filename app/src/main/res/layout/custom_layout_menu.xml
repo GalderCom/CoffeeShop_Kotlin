@@ -6,10 +6,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="14dp"
 
-    android:layout_marginTop="10dp"
-    android:layout_marginStart="10dp"
-    android:layout_marginEnd="10dp"
-    android:layout_marginBottom="10dp"
+    android:layout_marginBottom="20dp"
     >
     <ImageView
         android:layout_width="match_parent"
@@ -30,7 +27,7 @@
 
         <TextView
             android:id="@+id/name"
-            android:layout_marginTop="3dp"
+            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Капучино"
@@ -41,7 +38,7 @@
 
         <TextView
             android:id="@+id/short_description"
-            android:layout_marginTop="-5dp"
+            android:layout_marginTop="-3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Итальянский кофе"
