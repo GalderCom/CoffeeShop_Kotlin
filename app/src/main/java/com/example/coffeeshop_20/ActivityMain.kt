@@ -17,13 +17,22 @@ class ActivityMain : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-
-
         supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMenu()).commit();
         WorkWithMenu();
     }
 
 
+
+    override fun onBackPressed() {
+        val my_data =  supportFragmentManager.findFragmentByTag("MY_DATA")
+        if(my_data != null && my_data.isVisible())
+        {
+            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
+        }
+        else{
+            finish()
+        }
+    }
 
     private lateinit var textMenuMENU: TextView;
     private lateinit var textMenuORDER: TextView;

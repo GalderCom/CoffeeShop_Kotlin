@@ -194,7 +194,7 @@
             android:layout_marginLeft="25dp"
             android:layout_marginRight="25dp"
             android:layout_width="match_parent"
-            android:layout_height="47dp"
+            android:layout_height="40dp"
             style="@style/style_main_button"
             android:text="Сохранить"/>
 

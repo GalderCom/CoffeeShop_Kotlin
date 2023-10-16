@@ -27,7 +27,6 @@ class ConnectSupaBase {
             install(Postgrest)
             //install other modules
         }
-
         return client;
     }
 
@@ -37,6 +36,7 @@ class ConnectSupaBase {
             client().postgrest["test"].insert(city)
 
     }*/
+ 
 
 
 
@@ -60,8 +60,33 @@ class ConnectSupaBase {
 
                val tempItem = DataClass.Coffee(id,name,description,shortDescription,image,categoryID,price)
                arrayList.add(tempItem);
-             //  customAdapter.notifyDataSetChanged()
            }
+
+        return arrayList;
+    }
+
+    suspend fun getDataBakery( ): ArrayList<DataClass.Bakery>{
+
+        val arrayList:  ArrayList<DataClass.Bakery> = ArrayList()
+
+        val coffee = client().postgrest["Bakery"].select()
+        val arrayObject = JSONArray(coffee.body.toString())
+
+        for (i in  0 until  arrayObject.length() ){ //step 1
+
+            val itemObj = arrayObject.getJSONObject(i)
+
+            val id = itemObj.getInt("id")
+            val name = itemObj.getString("name")
+            val description = itemObj.getString("description");
+            val image = itemObj.getInt("image")
+            val composition = itemObj.getString("composition")
+            val price = itemObj.getInt("price")
+            val weight = itemObj.getString("weight")
+
+            val tempItem = DataClass.Bakery(id, name, description, image,composition, price, weight)
+            arrayList.add(tempItem);
+        }
 
         return arrayList;
     }

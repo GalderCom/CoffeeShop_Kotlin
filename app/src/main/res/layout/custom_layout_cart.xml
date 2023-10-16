@@ -13,6 +13,7 @@
                 <androidx.cardview.widget.CardView
                     android:layout_gravity="center_vertical"
                     android:layout_width="75dp"
+                    android:backgroundTint="@color/transparent"
                     android:layout_height="75dp"
                     android:layout_marginStart="13dp"
                     app:cardCornerRadius="10dp">
@@ -20,7 +21,8 @@
                             android:id="@+id/cart_image"
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
-                            android:scaleType="centerCrop"/>
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/img"/>
                 </androidx.cardview.widget.CardView>
 
                 <FrameLayout
@@ -99,33 +101,36 @@
                                     android:src="@drawable/ico_syrup"/>
                         </LinearLayout>
 
-                        <FrameLayout
+                        <LinearLayout
                             android:layout_marginEnd="13dp"
                             android:layout_gravity="end|center"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
-                                <Button
-                                    android:layout_gravity="start"
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:background="@drawable/button_minus" />
 
-                                <TextView
-                                    android:gravity="center"
+                                <ImageView
+                                    android:layout_gravity="bottom"
+                                    android:layout_width="19dp"
+                                    android:layout_height="28dp"
+                                    android:background="@drawable/select_coffee"
+                                    android:backgroundTint="@color/white"/>
+
+                                <ImageView
+                                    android:layout_gravity="bottom"
+                                    android:layout_marginStart="12dp"
+                                    android:layout_marginEnd="12dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:background="@drawable/cart_bcg_plus"
-                                    android:text="1"
-                                    android:fontFamily="@font/oswald_medium"
-                                    android:textSize="18sp"
-                                    android:textColor="@color/white"/>
+                                    android:background="@drawable/select_coffee"
+                                    android:backgroundTint="@color/white"/>
 
-                                <Button
-                                    android:layout_gravity="end"
+                                <ImageView
+                                    android:layout_gravity="bottom"
                                     android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:background="@drawable/button_plus" />
-                        </FrameLayout>
+                                    android:layout_height="45dp"
+                                    android:background="@drawable/select_coffee" />
+
+
+                        </LinearLayout>
 
                 </FrameLayout>
         </LinearLayout>

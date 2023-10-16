@@ -11,7 +11,6 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.core.view.isNotEmpty
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -42,7 +41,8 @@ class FragmentMenu : Fragment() {
         super.onCreate(savedInstanceState)
 
     }
-    private lateinit var customAdapterMenu: CustomAdapterMenu;
+    private lateinit var customAdapterMenu: CustomAdaptersCoffee;
+    private lateinit var customAdapterBakery: CustomAdapterBakery;
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -61,8 +61,21 @@ class FragmentMenu : Fragment() {
         if(AllDataFromBase.coffeeArray.isEmpty())
         {
             lifecycleScope.launch {
-                customAdapterMenu = CustomAdapterMenu(supa.getDataCoffee())
+                customAdapterMenu = CustomAdaptersCoffee(supa.getDataCoffee())
                 AllDataFromBase.coffeeArray = supa.getDataCoffee();
+                sortingCoffee(view)
+            }
+        }
+        else
+        {
+            sortingCoffee(view)
+        }
+
+        if(AllDataFromBase.bakeryArray.isEmpty())
+        {
+            lifecycleScope.launch {
+                customAdapterBakery = CustomAdapterBakery(supa.getDataBakery())
+                AllDataFromBase.bakeryArray = supa.getDataBakery();
                 sortingCoffee(view)
             }
         }
@@ -82,7 +95,7 @@ class FragmentMenu : Fragment() {
 
         val mRecyclerView:RecyclerView = view.findViewById(R.id.listMenu1)
 
-        val customAdapter = CustomAdapterMenu(arrayCoffee)
+        val customAdapter = CustomAdaptersCoffee(arrayCoffee)
         mRecyclerView.adapter = customAdapter;
 
         for (i in 0 until AllDataFromBase.coffeeArray.size) {
@@ -93,8 +106,31 @@ class FragmentMenu : Fragment() {
             mRecyclerView.isNotEmpty()
         }
 
+    }
+
+
+
+    @SuppressLint("NotifyDataSetChanged")
+    private fun sortingBakery(view: View)
+    {
+        val arrayBakery = ArrayList<DataClass.Bakery>()
+
+        val mRecyclerView:RecyclerView = view.findViewById(R.id.listMenu1)
+
+        val customAdapter = CustomAdapterBakery(arrayBakery)
+        mRecyclerView.adapter = customAdapter;
+
+        for (i in 0 until AllDataFromBase.bakeryArray.size) {
+
+            arrayBakery.add(AllDataFromBase.bakeryArray[i])
+            customAdapter.notifyDataSetChanged()
+            mRecyclerView.isNotEmpty()
+        }
+
 
     }
+
+
     private fun init(view: View){
         buttonCoffee = view.findViewById(R.id.button_coffee);
         buttonBakery = view.findViewById(R.id.button_bakery);
@@ -108,10 +144,13 @@ class FragmentMenu : Fragment() {
         typeTextAutor = view.findViewById(R.id.autor_type_text_coffee);
         typeTextRaf = view.findViewById(R.id.raf_type_text_coffee);
         typeTextCold = view.findViewById(R.id.cold_type_text_coffee);
+        containerCategory = view.findViewById(R.id.containerCategory);
 
     }
+    lateinit var containerCategory: LinearLayout;
     private fun click(view: View)
     {
+
         //coffee
         buttonCoffee.setOnClickListener()
         {
@@ -120,7 +159,10 @@ class FragmentMenu : Fragment() {
                 selectButton = 1
                 unselectCoffeeBakery();
                 selectCoffeeBakery(buttonCoffee);
+                containerCategory.visibility = View.VISIBLE
                 selectCoffeeBakery = true;
+
+                sortingCoffee(view)
             }
         }
 
@@ -130,7 +172,10 @@ class FragmentMenu : Fragment() {
                 selectButton = 2
                 unselectCoffeeBakery();
                 selectCoffeeBakery(buttonBakery);
+                containerCategory.visibility  = View.GONE
                 selectCoffeeBakery = false;
+
+                sortingBakery(view);
             }
         }
 

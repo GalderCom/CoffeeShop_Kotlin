@@ -8,6 +8,7 @@ class AllDataFromBase {
     companion object{
 
         var coffeeArray:ArrayList<DataClass.Coffee> = ArrayList();
+        var bakeryArray:ArrayList<DataClass.Bakery> = ArrayList();
 
     }
 

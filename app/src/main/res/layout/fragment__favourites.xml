@@ -17,90 +17,16 @@
         android:layout_marginBottom="41dp"/>
 
 
-    <FrameLayout
-        android:layout_width="match_parent"
-        android:layout_height="80dp"
-        android:layout_marginEnd="25dp"
-        android:layout_marginStart="25dp"
-        android:background="@drawable/cart_bcg">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Пусто"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:fontFamily="@font/oswal_regular"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/gray"/>
 
-        <LinearLayout
-            android:layout_margin="7dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            <androidx.cardview.widget.CardView
-                android:layout_gravity="center_vertical"
-                android:layout_width="65dp"
-                android:layout_height="65dp"
-                app:cardCornerRadius="10dp">
-                <ImageView
-                    android:id="@+id/cart_image"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"/>
-            </androidx.cardview.widget.CardView>
-
-            <LinearLayout
-                android:layout_marginStart="9dp"
-                android:orientation="vertical"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-                <TextView
-                    android:layout_marginTop="-5dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Капучино"
-                    android:textColor="@color/white"
-                    android:fontFamily="@font/raleway_medium"
-                    android:textSize="16sp"
-                    android:letterSpacing="0.02"/>
-                <TextView
-                    android:layout_marginTop="-4dp"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Итальянский кофе"
-                    android:textColor="@color/gray"
-                    android:fontFamily="@font/oswald_light"
-                    android:textSize="14sp"
-                    android:letterSpacing="0.05"/>
-
-                <LinearLayout
-                    android:layout_gravity="bottom|left"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/oswald_medium"
-                        android:letterSpacing="0.05"
-                        android:text="160"
-                        android:textColor="@color/white"
-                        android:textSize="18sp" />
-                    <ImageView
-                        android:layout_marginStart="3dp"
-                        android:layout_marginTop="2dp"
-                        android:layout_gravity="center_vertical"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:src="@drawable/ico_rub"/>
-                </LinearLayout>
-            </LinearLayout>
-        </LinearLayout>
-
-        <Button
-            android:layout_gravity="end|top"
-            android:layout_width="45dp"
-            android:layout_height="28dp"
-            android:background="@drawable/favour_cross"/>
-
-        <Button
-            android:layout_gravity="end|bottom"
-            android:layout_width="45dp"
-            android:layout_height="35dp"
-            android:background="@drawable/favor_plus"/>
-
-    </FrameLayout>
     <LinearLayout
         android:layout_marginEnd="25dp"
         android:layout_marginTop="20dp"
@@ -111,7 +37,7 @@
             android:id="@+id/count_coffee_favourites"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="1"
+            android:text="0"
             android:textColor="@color/main_orange"
             android:textSize="20sp"
             android:fontFamily="@font/oswald_medium"/>

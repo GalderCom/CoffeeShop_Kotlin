@@ -2,18 +2,17 @@ package com.example.coffeeshop_20
 
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.OnClickListener
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomAdapterMenu(private var data: ArrayList<DataClass.Coffee>): RecyclerView.Adapter<CustomAdapterMenu.ViewHolder>() {
-
-
-    class ViewHolder(itemView: View,private val listener: OnClickListener): RecyclerView.ViewHolder(itemView),View.OnClickListener{
+class CustomAdapterBakery(private var data: ArrayList<DataClass.Bakery>): RecyclerView.Adapter<CustomAdapterBakery.ViewHolder>() {
+    class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
+        RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var name: TextView = itemView.findViewById(R.id.name);
-        var shorDescription: TextView = itemView.findViewById(R.id.short_description);
+        var weight: TextView = itemView.findViewById(R.id.short_description);
         var price: TextView = itemView.findViewById(R.id.price)
+
         init {
             itemView.setOnClickListener(this)
         }
@@ -27,16 +26,18 @@ class CustomAdapterMenu(private var data: ArrayList<DataClass.Coffee>): Recycler
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
         holder.name.text = data[position].name;
-        holder.shorDescription.text = data[position].shortDescription;
-        holder.price.text  = data[position].price.toString();
+        holder.price.text = data[position].price.toString();
+        holder.weight.text = data[position].weight;
 
 
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.custom_layout_menu,parent,false)
-        return ViewHolder(view,OnClickListener{})
+        val view = LayoutInflater.from(parent.context)
+            .inflate(R.layout.custom_layout_menu, parent, false)
+        return ViewHolder(view, View.OnClickListener {})
     }
+
     override fun getItemCount(): Int {
         return data.size
     }

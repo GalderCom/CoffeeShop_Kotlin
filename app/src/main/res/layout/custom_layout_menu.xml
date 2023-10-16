@@ -5,6 +5,7 @@
     android:backgroundTint="@color/transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="14dp"
+    android:layout_marginStart="20dp"
 
     android:layout_marginBottom="20dp"
     >
@@ -16,32 +17,39 @@
 
     <LinearLayout
         android:layout_gravity="center|top"
-        android:layout_marginTop="12.5dp"
+        android:layout_margin="12.5dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
             <androidx.cardview.widget.CardView
                 android:layout_width="130dp"
+                android:backgroundTint="@color/transparent"
                 android:layout_height="130dp"
-                app:cardCornerRadius="11sp"/>
+                app:cardCornerRadius="11sp">
+                <ImageView
+                    android:id="@+id/imageMenu"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/img"
+                    android:scaleType="centerCrop"/>
+            </androidx.cardview.widget.CardView>
 
         <TextView
+            android:layout_marginTop="2dp"
+            android:maxWidth="130dp"
             android:id="@+id/name"
-            android:layout_marginTop="5dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Капучино"
             android:textColor="@color/white"
+            android:lineHeight="14sp"
             android:textSize="14sp"
             android:fontFamily="@font/raleway_medium"
             android:letterSpacing="0.07"/>
 
         <TextView
             android:id="@+id/short_description"
-            android:layout_marginTop="-3dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Итальянский кофе"
             android:textColor="@color/gray"
             android:textSize="11sp"
             android:fontFamily="@font/oswald_light"
@@ -69,7 +77,7 @@
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="160"
+                android:text=""
                 android:textColor="@color/white"
                 android:fontFamily="@font/oswald_medium"
                 android:textSize="16sp"

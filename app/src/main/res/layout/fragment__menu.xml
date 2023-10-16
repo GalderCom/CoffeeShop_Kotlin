@@ -7,8 +7,6 @@
     tools:context=".FragmentMenu"
     android:orientation="vertical">
 
-
-
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -55,8 +53,7 @@
                 android:fontFamily="@font/pacifico_regular"
                 android:letterSpacing="0.1"
                 android:textAllCaps="false"
-                android:text="Выпечка"
-
+                android:text="Закуски"
                 android:layout_marginStart="20dp"
                 android:layout_weight="1"
                 android:layout_width="match_parent"
@@ -70,6 +67,7 @@
             android:layout_height="match_parent">
 
             <LinearLayout
+                android:id="@+id/containerCategory"
                 android:layout_width="40dp"
                 android:layout_height="415dp"
                 android:layout_gravity="center_vertical"
@@ -147,21 +145,13 @@
 
             </LinearLayout>
 
-
-
-
                     <androidx.recyclerview.widget.RecyclerView
-                        android:layout_marginStart="20dp"
                         android:id="@+id/listMenu1"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"
                         app:spanCount="2"/>
 
-
-
         </LinearLayout>
-
-
 
 </LinearLayout>
