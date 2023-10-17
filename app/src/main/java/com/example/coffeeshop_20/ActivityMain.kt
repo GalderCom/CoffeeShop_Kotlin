@@ -24,8 +24,8 @@ class ActivityMain : AppCompatActivity() {
 
 
     override fun onBackPressed() {
-        val my_data =  supportFragmentManager.findFragmentByTag("MY_DATA")
-        if(my_data != null && my_data.isVisible())
+        val myData =  supportFragmentManager.findFragmentByTag("MY_DATA")
+        if(myData != null && myData.isVisible)
         {
             supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
         }

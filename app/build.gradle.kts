@@ -45,6 +45,7 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:postgrest-kt:0.7.6")
     implementation ("io.ktor:ktor-client-cio:2.3.2")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
+    implementation("io.github.jan-tennert.supabase:storage-kt:0.7.6")
 
 
 

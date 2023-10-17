@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.core.view.isNotEmpty
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
@@ -53,6 +54,15 @@ class FragmentMenu : Fragment() {
         unselectCategoryCoffee()
         selectCategoryCoffee(typeTextClassic);
         click(view);
+
+
+
+       lifecycleScope.launch {
+           /* val bucket =  ConnectSupaBase().getBucket();
+           Toast.makeText(view.context, bucket.toString(),Toast.LENGTH_LONG).show();*/
+           ConnectSupaBase().registor();
+        }
+
 
 
         val supa = ConnectSupaBase();

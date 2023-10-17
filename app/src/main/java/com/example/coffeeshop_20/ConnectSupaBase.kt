@@ -7,8 +7,13 @@ import androidx.lifecycle.lifecycleScope
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
+import io.github.jan.supabase.gotrue.gotrue
+import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.storage.Bucket
+import io.github.jan.supabase.storage.Storage
+import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
@@ -25,6 +30,7 @@ class ConnectSupaBase {
         ) {
             install(GoTrue)
             install(Postgrest)
+            install(Storage)
             //install other modules
         }
         return client;
@@ -36,7 +42,20 @@ class ConnectSupaBase {
             client().postgrest["test"].insert(city)
 
     }*/
- 
+    suspend fun registor()
+   {
+       client().gotrue.signUpWith(Email) {
+           email = "example@email.com"
+           password = "example-password"
+       }
+    }
+
+    suspend fun getBucket(): Bucket?{
+        val bucket = client().storage.retrieveBucketById(bucketId = "Coffee")
+
+        return bucket;
+    }
+
 
 
 
