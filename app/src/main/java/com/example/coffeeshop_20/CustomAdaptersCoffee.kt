@@ -29,7 +29,7 @@ class CustomAdaptersCoffee(private var data: ArrayList<DataClass.Coffee>): Recyc
         override fun onBindViewHolder(holder: ViewHolder, position: Int) {
             holder.itemView.tag = data[position];
             holder.name.text = data[position].name;
-            holder.shorDescription.text = data[position].shortDescription;
+            holder.shorDescription.text = data[position].short_description;
             holder.price.text = data[position].price.toString();
 
 

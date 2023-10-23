@@ -109,7 +109,7 @@ class FragmentMenu : Fragment() {
         mRecyclerView.adapter = customAdapter;
 
         for (i in 0 until AllDataFromBase.coffeeArray.size) {
-            if (AllDataFromBase.coffeeArray[i].categoryId == selectCategory) {
+            if (AllDataFromBase.coffeeArray[i].category_id == selectCategory) {
                 arrayCoffee.add(AllDataFromBase.coffeeArray[i])
             }
             customAdapter.notifyDataSetChanged()
