@@ -54,19 +54,24 @@ class FragmentMenu : Fragment() {
         unselectCategoryCoffee()
         selectCategoryCoffee(typeTextClassic);
         click(view);
-
+        coffeeOrBakery(view)
 
 
        lifecycleScope.launch {
-           /* val bucket =  ConnectSupaBase().getBucket();
-           Toast.makeText(view.context, bucket.toString(),Toast.LENGTH_LONG).show();*/
-           ConnectSupaBase().registor();
+
+                //ConnectSupaBase().getBucket();
+                ConnectSupaBase().getBucketList();
+
+
         }
 
 
+        return view;
+    }
 
+    private fun coffeeOrBakery(view: View)
+    {
         val supa = ConnectSupaBase();
-
 
         if(AllDataFromBase.coffeeArray.isEmpty())
         {
@@ -93,8 +98,6 @@ class FragmentMenu : Fragment() {
         {
             sortingCoffee(view)
         }
-
-        return view;
     }
 
 

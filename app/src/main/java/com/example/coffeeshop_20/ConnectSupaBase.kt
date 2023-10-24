@@ -1,5 +1,6 @@
 package com.example.coffeeshop_20
 
+import android.util.Log
 import android.widget.ArrayAdapter
 import android.widget.ListView
 import org.json.JSONArray
@@ -13,10 +14,12 @@ import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.storage.Bucket
 import io.github.jan.supabase.storage.Storage
+import io.github.jan.supabase.storage.downloadAuthenticatedTo
 import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
+import java.io.File
 
 class ConnectSupaBase {
 
@@ -36,12 +39,12 @@ class ConnectSupaBase {
         return client;
     }
 
-   /* suspend fun insertData(){
+    suspend fun insertData(){
 
-            val city = Test(name = "The Shire")
-            client().postgrest["test"].insert(city)
+            val city = DataClass.Coffee(25,"dsad","dsad","Dsads",1,1,200);
+            client().postgrest["Coffee"].insert(city)
 
-    }*/
+    }
     suspend fun registor()
    {
        client().gotrue.signUpWith(Email) {
@@ -50,12 +53,44 @@ class ConnectSupaBase {
        }
     }
 
-    suspend fun getBucket(): Bucket?{
-        val bucket = client().storage.retrieveBucketById(bucketId = "Coffee")
-
-        return bucket;
+    suspend fun signIn()
+    {
+        client().gotrue.loginWith(Email) {
+            email = "example@email.com"
+            password = "example-password"
+        }
     }
 
+    suspend fun getBucket(): Bucket? {
+
+        return client().storage.retrieveBucketById(bucketId = "Coffee");
+
+    }
+    suspend fun getBucketList(): List<Bucket>? {
+
+        // return client().storage.retrieveBucketById(bucketId = "Coffee");
+
+        //https://fnnlozofxzdkvjkzyjzk.supabase.co/storage/v1/object/public/Coffee/1.png
+
+
+        val bucket = client().storage["Coffee"]
+
+/*        val bucket = client().storage["Coffee"]
+        val bytes = bucket.downloadPublic("1.png")*/
+/*        client().storage.createBucket(id = "icons") {
+            public = true
+            fileSizeLimit = 5.megabytes
+        }*/
+        val bucketret = client().storage.retrieveBucketById(bucketId = "Coffee")
+        val ret = client().storage.retrieveBuckets()
+        val bucketImageList = client().storage["Coffee"]
+        val files = bucketImageList.list()
+
+        Log.e("return", bucketret.toString())
+        Log.e("returnList", files.toString())
+        return ret
+
+    }
 
 
 
