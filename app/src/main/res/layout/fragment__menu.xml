@@ -5,6 +5,7 @@
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:context=".FragmentMenu"
+    android:background="@color/blue"
     android:orientation="vertical">
 
         <TextView
@@ -14,136 +15,22 @@
             android:text="Меню"
             android:layout_gravity="center|top"/>
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/oswal_regular"
-            android:textColor="@color/gray"
-            android:textSize="18sp"
-            android:letterSpacing="0.04"
-            android:text="Хорошего вам дня"
-            android:layout_gravity="center|top"/>
-
-
-        <LinearLayout
-            android:layout_marginTop="20dp"
-            android:layout_marginBottom="30dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginEnd="20dp"
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/category_list"
+            android:layout_marginTop="25dp"
+            android:layout_marginEnd="25dp"
+            android:layout_marginStart="25dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp">
-            <Button
-                android:id="@+id/button_coffee"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/pacifico_regular"
-                android:letterSpacing="0.1"
-                android:textAllCaps="false"
-                android:text="Кофе"
-
-                android:layout_marginEnd="20dp"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/menu_select_button"/>
-            <Button
-                android:id="@+id/button_bakery"
-                android:textSize="18sp"
-                android:textColor="@color/white"
-                android:fontFamily="@font/pacifico_regular"
-                android:letterSpacing="0.1"
-                android:textAllCaps="false"
-                android:text="Закуски"
-                android:layout_marginStart="20dp"
-                android:layout_weight="1"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:background="@drawable/menu_un_select_button"/>
-        </LinearLayout>
-
+            android:layout_height="45dp"
+            android:orientation="horizontal"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
         <LinearLayout
+            android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <LinearLayout
-                android:id="@+id/containerCategory"
-                android:layout_width="40dp"
-                android:layout_height="415dp"
-                android:layout_gravity="center_vertical"
-                android:layout_marginTop="20sp"
-                android:layout_marginBottom="20sp"
-                android:background="@drawable/menu_vertical_line_type"
-                android:gravity="center|top"
-                android:orientation="vertical">
 
-                <LinearLayout
-                    android:id="@+id/classic_type_coffee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|top"
-                    android:layout_marginBottom="10dp">
-
-                    <TextView
-                        android:id="@+id/classic_type_text_coffee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="20dp"
-                        android:background="@drawable/menu_classic_type_coffee"
-                        android:backgroundTint="#FF5900" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:id="@+id/autor_type_coffee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|top"
-                    android:layout_marginBottom="10dp">
-
-                    <TextView
-                        android:id="@+id/autor_type_text_coffee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/menu_autor_type_coffee" />
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/raf_type_coffee"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center|top">
-
-                    <TextView
-                        android:id="@+id/raf_type_text_coffee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/menu_raf_type_coffee" />
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/cold_type_coffee"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center|top">
-
-                    <TextView
-                        android:id="@+id/cold_type_text_coffee"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
-                        android:background="@drawable/menu_cold_type_coffee" />
-
-                </LinearLayout>
-
-            </LinearLayout>
 
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/listMenu1"

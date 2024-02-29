@@ -10,6 +10,8 @@ class AllDataFromBase {
         var coffeeArray:ArrayList<DataClass.Coffee> = ArrayList();
         var bakeryArray:ArrayList<DataClass.Bakery> = ArrayList();
 
+        var category:ArrayList<DataClass.Category> = ArrayList();
+
     }
 
 

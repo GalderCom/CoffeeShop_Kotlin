@@ -1,12 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
     <item>
-        <bitmap android:src="@drawable/main_button"/>
-    </item>
-    <item>
         <shape xmlns:android="http://schemas.android.com/apk/res/android" android:shape="rectangle">
             <corners android:radius="12dp"/>
-            <gradient android:angle="90" android:startColor="#5B964329" android:centerColor="#797A3A28" android:endColor="#882A2326"/>
+            <stroke android:color="#28000000" android:width="3dp"/>
+            <gradient android:centerX="0.6" android:endColor="#B3232221" android:centerColor="#B3522F23" android:startColor="#B39D4326"/>
         </shape>
     </item>
 </layer-list>

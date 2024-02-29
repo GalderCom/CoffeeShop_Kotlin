@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ActivitySignIn"
-    android:background="@drawable/main_background_blue"
+    android:background="@color/blue"
     android:orientation="vertical">
 
     <LinearLayout
@@ -79,7 +79,6 @@
         android:layout_marginEnd="45dp"
         android:layout_marginStart="45dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
         style="@style/style_main_button"
         android:text="Готово"
         android:onClick="Click_SignIn"/>

@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/main_background_blue"
+    android:background="@color/blue"
     android:orientation="vertical"
     tools:context=".ActivityCodeFromSMS">
 
@@ -59,7 +59,7 @@
             android:layout_marginEnd="15dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/code_field"/>
+            android:background="@drawable/button_dark1"/>
 
         <EditText
             android:inputType="number"
@@ -74,7 +74,7 @@
             android:layout_marginEnd="15dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/code_field"/>
+            android:background="@drawable/button_dark1"/>
 
         <EditText
             android:inputType="number"
@@ -89,7 +89,7 @@
             android:layout_marginEnd="15dp"
             android:layout_width="50dp"
             android:layout_height="50dp"
-            android:background="@drawable/code_field"/>
+            android:background="@drawable/button_dark1"/>
 
         <EditText
             android:inputType="number"
@@ -99,7 +99,7 @@
             android:layout_marginEnd="15dp"
             android:maxLines="1"
 
-            android:background="@drawable/code_field"
+            android:background="@drawable/button_dark1"
             android:fontFamily="@font/oswal_regular"
             android:maxLength="1"
             android:textAlignment="center"
@@ -155,7 +155,6 @@
         android:layout_marginLeft="45dp"
         android:layout_marginRight="45dp"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
         style="@style/style_main_button"
         android:text="Готово"/>
 

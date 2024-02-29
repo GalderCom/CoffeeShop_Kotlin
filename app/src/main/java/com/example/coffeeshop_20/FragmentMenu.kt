@@ -4,6 +4,7 @@ import android.annotation.SuppressLint
 import android.content.res.ColorStateList
 import android.graphics.Color
 import android.os.Bundle
+import android.os.Message
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -44,6 +45,7 @@ class FragmentMenu : Fragment() {
     }
     private lateinit var customAdapterMenu: CustomAdaptersCoffee;
     private lateinit var customAdapterBakery: CustomAdapterBakery;
+    @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,27 +53,49 @@ class FragmentMenu : Fragment() {
         val view = inflater.inflate(R.layout.fragment__menu, container, false)
 
         init(view);
-        unselectCategoryCoffee()
-        selectCategoryCoffee(typeTextClassic);
-        click(view);
-        coffeeOrBakery(view)
+//        unselectCategoryCoffee()
+        //selectCategoryCoffee(typeTextClassic);
+        //click(view);
+       // coffeeOrBakery(view)
 
 
-       lifecycleScope.launch {
+       /*lifecycleScope.launch {
 
                 //ConnectSupaBase().getBucket();
                 ConnectSupaBase().getBucketList();
 
 
-        }
+        }*/
 
+
+
+        lifecycleScope.launch {
+
+            if(AllDataFromBase.category.isEmpty())
+            {
+                AllDataFromBase.category = ConnectSupaBase().selectCategory();
+            }
+
+            val customAdapterCategory = CustomAdapterCategory(AllDataFromBase.category)
+            val mRecyclerCategory:RecyclerView = view.findViewById(R.id.category_list)
+
+            mRecyclerCategory.adapter = customAdapterCategory;
+
+            customAdapterCategory.notifyDataSetChanged()
+            mRecyclerCategory.isNotEmpty()
+
+
+
+
+
+        }
 
         return view;
     }
 
     private fun coffeeOrBakery(view: View)
     {
-        val supa = ConnectSupaBase();
+      /*  val supa = ConnectSupaBase();
 
         if(AllDataFromBase.coffeeArray.isEmpty())
         {
@@ -97,14 +121,14 @@ class FragmentMenu : Fragment() {
         else
         {
             sortingCoffee(view)
-        }
+        }*/
     }
 
 
     @SuppressLint("NotifyDataSetChanged")
     private fun sortingCoffee(view: View)
     {
-        val arrayCoffee = ArrayList<DataClass.Coffee>()
+      /*  val arrayCoffee = ArrayList<DataClass.Coffee>()
 
         val mRecyclerView:RecyclerView = view.findViewById(R.id.listMenu1)
 
@@ -117,7 +141,7 @@ class FragmentMenu : Fragment() {
             }
             customAdapter.notifyDataSetChanged()
             mRecyclerView.isNotEmpty()
-        }
+        }*/
 
     }
 
@@ -126,7 +150,7 @@ class FragmentMenu : Fragment() {
     @SuppressLint("NotifyDataSetChanged")
     private fun sortingBakery(view: View)
     {
-        val arrayBakery = ArrayList<DataClass.Bakery>()
+       /* val arrayBakery = ArrayList<DataClass.Bakery>()
 
         val mRecyclerView:RecyclerView = view.findViewById(R.id.listMenu1)
 
@@ -138,17 +162,13 @@ class FragmentMenu : Fragment() {
             arrayBakery.add(AllDataFromBase.bakeryArray[i])
             customAdapter.notifyDataSetChanged()
             mRecyclerView.isNotEmpty()
-        }
-
-
+        }*/
     }
 
 
     private fun init(view: View){
-        buttonCoffee = view.findViewById(R.id.button_coffee);
-        buttonBakery = view.findViewById(R.id.button_bakery);
 
-        typeClassic = view.findViewById(R.id.classic_type_coffee);
+       /* typeClassic = view.findViewById(R.id.classic_type_coffee);
         typeAutor = view.findViewById(R.id.autor_type_coffee);
         typeRaf = view.findViewById(R.id.raf_type_coffee);
         typeCold = view.findViewById(R.id.cold_type_coffee);
@@ -157,14 +177,14 @@ class FragmentMenu : Fragment() {
         typeTextAutor = view.findViewById(R.id.autor_type_text_coffee);
         typeTextRaf = view.findViewById(R.id.raf_type_text_coffee);
         typeTextCold = view.findViewById(R.id.cold_type_text_coffee);
-        containerCategory = view.findViewById(R.id.containerCategory);
+        containerCategory = view.findViewById(R.id.containerCategory);*/
 
     }
     lateinit var containerCategory: LinearLayout;
     private fun click(view: View)
     {
 
-        //coffee
+//*        //coffee
         buttonCoffee.setOnClickListener()
         {
             if(selectButton != 1)
@@ -227,15 +247,14 @@ class FragmentMenu : Fragment() {
                 selectCategory = 4
                 sortingCoffee(view)
             }
-        }
+        }//*
     }
 
     private fun selectCoffeeBakery(btn:Button){
-        btn.setBackgroundResource(R.drawable.menu_select_button)
+
     }
     private fun unselectCoffeeBakery(){
-        buttonCoffee.setBackgroundResource(R.drawable.menu_un_select_button)
-        buttonBakery.setBackgroundResource(R.drawable.menu_un_select_button)
+
 
     }
     @SuppressLint("ResourceAsColor")

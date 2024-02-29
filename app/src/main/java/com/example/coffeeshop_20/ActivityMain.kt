@@ -55,7 +55,6 @@ class ActivityMain : AppCompatActivity() {
         val buttonMenu: LinearLayout = findViewById(R.id.menu_menuButton)
         buttonMenu.setOnClickListener {
             UnSelect(textMenuMENU)
-            glassLayout.setBackgroundResource(R.drawable.menu_glass_start);
             supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMenu()).commit();
         }
 
@@ -63,7 +62,7 @@ class ActivityMain : AppCompatActivity() {
         val buttonOrder: LinearLayout = findViewById(R.id.menu_orderButton)
         buttonOrder.setOnClickListener {
             UnSelect(textMenuORDER)
-            glassLayout.setBackgroundResource(R.drawable.menu_glass_center1);
+
             supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentCart()).commit();
         }
 
@@ -71,7 +70,6 @@ class ActivityMain : AppCompatActivity() {
         val buttonHeart: LinearLayout = findViewById(R.id.menu_heartButton)
         buttonHeart.setOnClickListener {
             UnSelect(textMenuHEART)
-            glassLayout.setBackgroundResource(R.drawable.menu_glass_center2);
             supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentFavourites()).commit();
         }
 
@@ -79,7 +77,6 @@ class ActivityMain : AppCompatActivity() {
         val buttonAccount: LinearLayout = findViewById(R.id.menu_accountButton)
         buttonAccount.setOnClickListener {
             UnSelect(textMenuACCOUNT)
-            glassLayout.setBackgroundResource(R.drawable.menu_glass_end1);
 
             supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
 

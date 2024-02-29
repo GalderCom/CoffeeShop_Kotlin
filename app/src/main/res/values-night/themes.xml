@@ -7,6 +7,5 @@
         <item name="android:statusBarColor">#1A1A1B</item>
         <item name="android:navigationBarColor">#F22D2F32</item>
         <item name="colorAccent">@color/white</item>
-        <item name="android:windowBackground">@drawable/main_background_blue</item>
     </style>
 </resources>

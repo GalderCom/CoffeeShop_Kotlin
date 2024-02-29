@@ -1,5 +1,6 @@
 package com.example.coffeeshop_20
 
+import android.icu.text.CaseMap.Title
 import android.media.Image
 import android.os.VibrationEffect.Composition
 
@@ -20,5 +21,8 @@ class DataClass {
                       val composition: String = "",
                       val price: Int = 0,
                       val weight: String = "")
+    @kotlinx.serialization.Serializable
+    data class Category(val id: Int = 1,
+                        val title: String = "")
 
 }

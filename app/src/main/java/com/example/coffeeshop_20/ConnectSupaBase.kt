@@ -119,6 +119,26 @@ class ConnectSupaBase {
         return arrayList;
     }
 
+    suspend fun selectCategory( ): ArrayList<DataClass.Category>{
+
+        val arrayList:  ArrayList<DataClass.Category> = ArrayList()
+
+        val coffee = client().postgrest["Category"].select()
+        val arrayObject = JSONArray(coffee.body.toString())
+
+        for (i in  0 until  arrayObject.length() ){ //step 1
+
+            val itemObj = arrayObject.getJSONObject(i)
+            val id = itemObj.getInt("id")
+            val title = itemObj.getString("title")
+
+            val tempItem = DataClass.Category(id,title)
+            arrayList.add(tempItem);
+        }
+
+        return arrayList;
+    }
+
     suspend fun getDataBakery( ): ArrayList<DataClass.Bakery>{
 
         val arrayList:  ArrayList<DataClass.Bakery> = ArrayList()

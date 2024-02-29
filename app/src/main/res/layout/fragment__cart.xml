@@ -78,7 +78,7 @@
                         android:scaleType="centerCrop"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:src="@drawable/cart_bcg_price"/>
+                        android:src="@drawable/button_dark"/>
 
                     <TextView
                         android:layout_marginStart="13dp"
@@ -124,7 +124,7 @@
                     android:layout_marginLeft="50dp"
                     android:layout_marginRight="50dp"
                     android:layout_width="match_parent"
-                    android:layout_height="40dp"
+                    android:layout_height="45dp"
                     style="@style/style_main_button"
                     android:text="Оформить заказ"/>
             </LinearLayout>
