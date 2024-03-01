@@ -1,17 +1,18 @@
 package com.example.coffeeshop_20
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): RecyclerView.Adapter<CustomAdapterCategory.ViewHolder>() {
 
+class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): RecyclerView.Adapter<CustomAdapterCategory.ViewHolder>() {
 
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
-        var title: TextView = itemView.findViewById(R.id.title_category);
+        val title: TextView = itemView.findViewById(R.id.title_category);
 
         init {
             itemView.setOnClickListener(this)
@@ -22,19 +23,48 @@ class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): R
         }
     }
 
+    private var startClick = true;
+    var row_index = -1; //индекс элесентов
 
+    @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
         holder.title.text = data[position].title;
+
+
+        holder.title.setOnClickListener {
+            row_index = position;
+            TempData.selectCategory  = position + 1;
+            notifyDataSetChanged();
+        }
+
+
+        if (row_index==position) {
+            // Устанавливаем оранжевый цвет на нажатый элементы
+            holder.title.setTextColor(holder.itemView.context.getColor(R.color.main_orange));
+        }
+        else
+        {
+            // Устанавливаем серый цвет на все остальные элементы
+            holder.title.setTextColor(holder.itemView.context.getColor(R.color.gray));
+        }
+
+        if (position == 0 && startClick) {
+            // Устанавливаем оранжевый цвет на первый элемент
+            holder.title.setTextColor(holder.itemView.context.getColor(R.color.main_orange));
+            startClick = false;
+        }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.custom_layout_category, parent, false)
-        return ViewHolder(view, View.OnClickListener {})
+
+        return ViewHolder(view, View.OnClickListener {} )
     }
 
     override fun getItemCount(): Int {
         return data.size
     }
 }
+

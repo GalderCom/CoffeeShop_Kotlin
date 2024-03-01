@@ -1,19 +1,12 @@
 package com.example.coffeeshop_20
 
 import android.annotation.SuppressLint
-import android.content.res.ColorStateList
-import android.graphics.Color
 import android.os.Bundle
-import android.os.Message
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
 import android.widget.LinearLayout
-import android.widget.TextView
-import android.widget.Toast
-import androidx.core.view.isNotEmpty
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.coroutines.launch
@@ -21,30 +14,9 @@ import kotlinx.coroutines.launch
 class FragmentMenu : Fragment() {
 
 
-
-    private var selectCategory = 1;
-    private var selectButton = 1;
-    private var selectCoffeeBakery = true;
-
-    private lateinit var buttonCoffee:Button;
-    private lateinit var buttonBakery:Button;
-
-    private lateinit var typeClassic:LinearLayout;
-    private lateinit var typeAutor:LinearLayout;
-    private lateinit var typeRaf:LinearLayout;
-    private lateinit var typeCold:LinearLayout;
-
-    private lateinit var typeTextClassic:TextView;
-    private lateinit var typeTextAutor:TextView;
-    private lateinit var typeTextRaf:TextView;
-    private lateinit var typeTextCold:TextView;
-    //private lateinit var mRecyclerView:RecyclerView
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
     }
-    private lateinit var customAdapterMenu: CustomAdaptersCoffee;
-    private lateinit var customAdapterBakery: CustomAdapterBakery;
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -53,42 +25,26 @@ class FragmentMenu : Fragment() {
         val view = inflater.inflate(R.layout.fragment__menu, container, false)
 
         init(view);
-//        unselectCategoryCoffee()
-        //selectCategoryCoffee(typeTextClassic);
+
         //click(view);
-       // coffeeOrBakery(view)
 
-
-       /*lifecycleScope.launch {
-
-                //ConnectSupaBase().getBucket();
-                ConnectSupaBase().getBucketList();
-
-
-        }*/
-
-
-
+        //select category
         lifecycleScope.launch {
 
-            if(AllDataFromBase.category.isEmpty())
+            if(TempData.category.isEmpty())
             {
-                AllDataFromBase.category = ConnectSupaBase().selectCategory();
+                TempData.category = ConnectSupaBase().selectCategory();
             }
-
-            val customAdapterCategory = CustomAdapterCategory(AllDataFromBase.category)
+            val customAdapterCategory = CustomAdapterCategory(TempData.category)
             val mRecyclerCategory:RecyclerView = view.findViewById(R.id.category_list)
 
+            //update
             mRecyclerCategory.adapter = customAdapterCategory;
-
-            customAdapterCategory.notifyDataSetChanged()
-            mRecyclerCategory.isNotEmpty()
-
-
-
-
-
+            customAdapterCategory.notifyDataSetChanged();
         }
+
+
+
 
         return view;
     }
@@ -184,94 +140,8 @@ class FragmentMenu : Fragment() {
     private fun click(view: View)
     {
 
-//*        //coffee
-        buttonCoffee.setOnClickListener()
-        {
-            if(selectButton != 1)
-            {
-                selectButton = 1
-                unselectCoffeeBakery();
-                selectCoffeeBakery(buttonCoffee);
-                containerCategory.visibility = View.VISIBLE
-                selectCoffeeBakery = true;
-
-                sortingCoffee(view)
-            }
-        }
-
-        //bakery
-        buttonBakery.setOnClickListener(){
-            if(selectButton != 2) {
-                selectButton = 2
-                unselectCoffeeBakery();
-                selectCoffeeBakery(buttonBakery);
-                containerCategory.visibility  = View.GONE
-                selectCoffeeBakery = false;
-
-                sortingBakery(view);
-            }
-        }
-
-
-        typeClassic.setOnClickListener(){
-            if(selectCategory != 1) {
-                unselectCategoryCoffee()
-                selectCategoryCoffee(typeTextClassic);
-                selectCategory = 1
-                sortingCoffee(view)
-            }
-        }
-
-        typeAutor.setOnClickListener(){
-            if(selectCategory != 2) {
-                unselectCategoryCoffee()
-                selectCategoryCoffee(typeTextAutor);
-                selectCategory = 2
-                sortingCoffee(view)
-            }
-        }
-
-        typeRaf.setOnClickListener(){
-            if(selectCategory != 3) {
-                unselectCategoryCoffee()
-                selectCategoryCoffee(typeTextRaf);
-                selectCategory = 3
-                sortingCoffee(view)
-            }
-        }
-
-        typeCold.setOnClickListener(){
-            if(selectCategory != 4) {
-                unselectCategoryCoffee()
-                selectCategoryCoffee(typeTextCold);
-                selectCategory = 4
-                sortingCoffee(view)
-            }
-        }//*
-    }
-
-    private fun selectCoffeeBakery(btn:Button){
-
-    }
-    private fun unselectCoffeeBakery(){
 
 
     }
-    @SuppressLint("ResourceAsColor")
-    private fun selectCategoryCoffee(text:TextView){
-        text.backgroundTintList = ColorStateList.valueOf(Color.parseColor("#BE4E28"))
-    }
 
-
-    private fun unselectCategoryCoffee(){
-        val color = "#FFFFFF"
-
-        typeTextAutor.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
-
-        typeTextClassic.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
-
-        typeTextCold.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
-
-        typeTextRaf.backgroundTintList = ColorStateList.valueOf(Color.parseColor(color))
-    }
 }

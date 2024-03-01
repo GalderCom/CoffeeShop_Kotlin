@@ -1,9 +1,6 @@
 package com.example.coffeeshop_20
 
-import androidx.lifecycle.lifecycleScope
-import kotlinx.coroutines.launch
-
-class AllDataFromBase {
+class TempData {
 
     companion object{
 
@@ -12,6 +9,7 @@ class AllDataFromBase {
 
         var category:ArrayList<DataClass.Category> = ArrayList();
 
+        var selectCategory = 0;
     }
 
 

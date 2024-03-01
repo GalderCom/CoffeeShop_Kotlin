@@ -5,12 +5,14 @@
     <TextView
         android:id="@+id/title_category"
         android:paddingBottom="7dp"
-        android:gravity="center|top"
+        android:gravity="left"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:text="Американо"
         style="@style/menu_text"
+        android:layout_marginStart="0dp"
         android:textColor="@color/gray"
-        android:layout_marginEnd="8dp"/>
+        android:layout_marginEnd="18dp"
+    />
 
 </LinearLayout>

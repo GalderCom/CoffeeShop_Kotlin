@@ -17,21 +17,18 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_list"
-            android:layout_marginTop="25dp"
-            android:layout_marginEnd="25dp"
-            android:layout_marginStart="25dp"
+            android:layout_marginTop="27.5dp"
+            android:layout_marginEnd="35dp"
+            android:layout_marginStart="35dp"
             android:layout_width="match_parent"
             android:layout_height="45dp"
             android:orientation="horizontal"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
-        <LinearLayout
+    <LinearLayout
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
-
-
-
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/listMenu1"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
