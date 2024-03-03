@@ -35,6 +35,9 @@ class ActivityMain : AppCompatActivity() {
         lifecycleScope.launch {
             ConnectSupaBase().selectCategory();
             ConnectSupaBase().selectProducts();
+
+            TempData().sortProduct();
+            ConnectSupaBase().selectImage();
         }
 
     }

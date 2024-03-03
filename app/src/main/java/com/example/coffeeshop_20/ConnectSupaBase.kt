@@ -1,9 +1,11 @@
 package com.example.coffeeshop_20
 
 import android.annotation.SuppressLint
+import android.graphics.BitmapFactory
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
 import android.util.Log
 import com.example.coffeeshop_20.Fragments.FragmentMenu
-import org.json.JSONArray
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
@@ -14,6 +16,8 @@ import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.storage.Bucket
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.storage
+import org.json.JSONArray
+
 
 class ConnectSupaBase {
 
@@ -35,8 +39,8 @@ class ConnectSupaBase {
 
     suspend fun insertData(){
 
-            val city = DataClass.Products(25, "dsad", "dsad", "Dsads", "1", 1, 200);
-            client().postgrest["Coffee"].insert(city)
+          //  val city = DataClass.Products(25, "dsad", "dsad", "Dsads", "1", 1, 200);
+            //client().postgrest["Coffee"].insert(city)
 
     }
     suspend fun registor()
@@ -88,12 +92,18 @@ class ConnectSupaBase {
 
 
 
+
     @SuppressLint("NotifyDataSetChanged")
     suspend fun selectProducts(){
 
            val coffee = client().postgrest["Products"].select()
            val arrayObject = JSONArray(coffee.body.toString())
+           val bucket = client().storage["icons"]
 
+
+        val imageName ="loading_logo.png"
+        val bytes = bucket.downloadPublic(imageName)
+        val image: Drawable =  BitmapDrawable(BitmapFactory.decodeByteArray(bytes,0,bytes.size))
            for (i in  0 until  arrayObject.length() ){ //step 1
 
                val itemObj = arrayObject.getJSONObject(i)
@@ -101,9 +111,12 @@ class ConnectSupaBase {
                val title = itemObj.getString("title")
                val description = itemObj.getString("description");
                val weight = itemObj.getString("weight")
-               val image = itemObj.getString("image_name")
+
                val id_category = itemObj.getInt("id_category")
                val price = itemObj.getInt("price")
+
+
+
 
                val tempItem = DataClass.Products(
                    id,
@@ -117,6 +130,31 @@ class ConnectSupaBase {
                TempData.productArray.add(tempItem)
                FragmentMenu.customAdapterProduct.notifyDataSetChanged()
            }
+    }
+
+    suspend fun selectImage()
+    {
+        val coffee = client().postgrest["Products"].select()
+        val arrayObject = JSONArray(coffee.body.toString())
+
+        val bucket = client().storage["Coffee"]
+
+        for (i in  0 until  arrayObject.length() ){ //step 1
+
+            val itemObj = arrayObject.getJSONObject(i)
+            val imageName = itemObj.getString("image_name")+ ".png"
+
+            val bytes = bucket.downloadPublic(imageName)
+            val image: Drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes,0,bytes.size))
+
+
+            TempData.productArray[i].image = image;
+            for(i in  0 until  TempData.sortProductArray.size){
+                FragmentMenu.customAdapterProduct.notifyItemChanged(i);
+            }
+
+            FragmentMenu.customAdapterProduct.notifyItemChanged(i);
+        }
 
     }
 
@@ -132,7 +170,10 @@ class ConnectSupaBase {
             val id = itemObj.getInt("id")
             val title = itemObj.getString("title")
 
-            val tempItem = DataClass.Category(id, title)
+            val tempItem = DataClass.Category(
+                id,
+                title
+            )
             TempData.categoryArray.add(tempItem)
             FragmentMenu.customAdapterCategory.notifyDataSetChanged()
         }

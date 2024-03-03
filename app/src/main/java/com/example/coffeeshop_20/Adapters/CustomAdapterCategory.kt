@@ -45,13 +45,10 @@ class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): R
             TempData.selectCategory = position + 1;
             notifyDataSetChanged();
 
-            GlobalScope.launch{
-                ConnectSupaBase().selectProducts();
-            }
-
+            TempData().sortProduct();
         }
 
-        if (row_index==position) {
+        if (row_index == position) {
             // Устанавливаем оранжевый цвет на нажатый элементы
             holder.title.setTextColor(holder.itemView.context.getColor(R.color.main_orange));
         }
@@ -61,7 +58,7 @@ class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): R
             holder.title.setTextColor(holder.itemView.context.getColor(R.color.gray));
         }
 
-        if (position == 0 && startClick) {
+        if (TempData.selectCategory-1  == position && startClick) {
             // Устанавливаем оранжевый цвет на первый элемент
             holder.title.setTextColor(holder.itemView.context.getColor(R.color.main_orange));
             startClick = false;

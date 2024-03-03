@@ -3,10 +3,12 @@ package com.example.coffeeshop_20.Adapters
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.TempData
 
 class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): RecyclerView.Adapter<CustomAdapterProduct.ViewHolder>() {
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
@@ -14,6 +16,7 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
         var name: TextView = itemView.findViewById(R.id.name);
         var weight: TextView = itemView.findViewById(R.id.short_description);
         var price: TextView = itemView.findViewById(R.id.price)
+        var image: ImageView = itemView.findViewById(R.id.imageMenu)
 
         init {
             itemView.setOnClickListener(this)
@@ -30,14 +33,15 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
         holder.name.text = data[position].title;
         holder.price.text = data[position].price.toString();
         holder.weight.text = data[position].weight;
-
-
+        holder.image.setImageDrawable(data[position].image)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.custom_layout_menu, parent, false)
-        return ViewHolder(view, View.OnClickListener {})
+        return ViewHolder(view, View.OnClickListener {
+        })
+
     }
 
     override fun getItemCount(): Int {

@@ -40,6 +40,8 @@ class FragmentMenu : Fragment() {
         init(view)
         selectData();
 
+
+
         return view;
     }
 
@@ -49,23 +51,15 @@ class FragmentMenu : Fragment() {
     }
     private fun selectData()
     {
-        var tempArray = TempData.productArray;
-        for (i in 0 until tempArray.size)
-        {
-            if(tempArray[i].id_category == TempData.selectCategory)
-            {
-                tempArray.remove(tempArray[i]);
-            }
-        }
-
-
         customAdapterCategory = CustomAdapterCategory(TempData.categoryArray)
-        customAdapterProduct = CustomAdapterProduct(tempArray);
-
-
+        customAdapterProduct = CustomAdapterProduct(TempData.sortProductArray);
 
         //update
         mRecyclerCategory.adapter = customAdapterCategory;
         mRecyclerProduct.adapter = customAdapterProduct;
+
+
+        mRecyclerCategory.scrollToPosition(TempData.selectCategory - 1 )
+
     }
 }
