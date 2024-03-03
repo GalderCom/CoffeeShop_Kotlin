@@ -1,14 +1,19 @@
 package com.example.coffeeshop_20.Adapters
 
 import android.annotation.SuppressLint
+import android.provider.Settings.Global
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.DataClass
+import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 
 
 class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): RecyclerView.Adapter<CustomAdapterCategory.ViewHolder>() {
@@ -39,6 +44,11 @@ class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): R
             row_index = position;
             TempData.selectCategory = position + 1;
             notifyDataSetChanged();
+
+            GlobalScope.launch{
+                ConnectSupaBase().selectProducts();
+            }
+
         }
 
         if (row_index==position) {

@@ -20,6 +20,13 @@ import kotlinx.coroutines.launch
 class FragmentMenu : Fragment() {
 
 
+    lateinit var mRecyclerCategory: RecyclerView;
+    lateinit var  mRecyclerProduct: RecyclerView;
+    companion object{
+        lateinit var customAdapterProduct: CustomAdapterProduct;
+        lateinit var customAdapterCategory: CustomAdapterCategory;
+    }
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -30,36 +37,35 @@ class FragmentMenu : Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment__menu, container, false)
 
-        //click(view);
+        init(view)
+        selectData();
 
-        //select category
+        return view;
+    }
 
-        val mRecyclerCategory: RecyclerView = view.findViewById(R.id.category_list)
-        val mRecyclerProduct : RecyclerView = view.findViewById(R.id.product_list);
-
-        lifecycleScope.launch {
-
-            if(TempData.category.isEmpty() && TempData.productArray.isEmpty())
+    private fun init(view: View){
+        mRecyclerCategory = view.findViewById(R.id.category_list)
+        mRecyclerProduct = view.findViewById(R.id.product_list);
+    }
+    private fun selectData()
+    {
+        var tempArray = TempData.productArray;
+        for (i in 0 until tempArray.size)
+        {
+            if(tempArray[i].id_category == TempData.selectCategory)
             {
-                TempData.category = ConnectSupaBase().selectCategory();
-                TempData.productArray = ConnectSupaBase().selectProducts();
+                tempArray.remove(tempArray[i]);
             }
-
-
-            val customAdapterCategory = CustomAdapterCategory(TempData.category)
-            val customAdapterProduct = CustomAdapterProduct(TempData.productArray);
-
-            //update
-            mRecyclerCategory.adapter = customAdapterCategory;
-            customAdapterCategory.notifyDataSetChanged();
-
-            mRecyclerProduct.adapter = customAdapterProduct;
-            customAdapterProduct.notifyDataSetChanged();
         }
 
 
+        customAdapterCategory = CustomAdapterCategory(TempData.categoryArray)
+        customAdapterProduct = CustomAdapterProduct(tempArray);
 
 
-        return view;
+
+        //update
+        mRecyclerCategory.adapter = customAdapterCategory;
+        mRecyclerProduct.adapter = customAdapterProduct;
     }
 }

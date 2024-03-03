@@ -8,11 +8,9 @@ class TempData {
 
         var productArray:ArrayList<DataClass.Products> = ArrayList();
 
-        var category:ArrayList<DataClass.Category> = ArrayList();
+        var categoryArray:ArrayList<DataClass.Category> = ArrayList();
 
-
-
-        var selectCategory = 0;
+        var selectCategory = 1;
     }
 
 

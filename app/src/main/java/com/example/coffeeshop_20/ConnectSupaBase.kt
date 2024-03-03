@@ -1,6 +1,8 @@
 package com.example.coffeeshop_20
 
+import android.annotation.SuppressLint
 import android.util.Log
+import com.example.coffeeshop_20.Fragments.FragmentMenu
 import org.json.JSONArray
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
@@ -86,9 +88,8 @@ class ConnectSupaBase {
 
 
 
-    suspend fun selectProducts(): ArrayList<DataClass.Products>{
-
-        val arrayList:  ArrayList<DataClass.Products> = ArrayList()
+    @SuppressLint("NotifyDataSetChanged")
+    suspend fun selectProducts(){
 
            val coffee = client().postgrest["Products"].select()
            val arrayObject = JSONArray(coffee.body.toString())
@@ -113,15 +114,14 @@ class ConnectSupaBase {
                    id_category,
                    price
                )
-               arrayList.add(tempItem);
+               TempData.productArray.add(tempItem)
+               FragmentMenu.customAdapterProduct.notifyDataSetChanged()
            }
 
-        return arrayList;
     }
 
-    suspend fun selectCategory( ): ArrayList<DataClass.Category>{
-
-        val arrayList:  ArrayList<DataClass.Category> = ArrayList()
+    @SuppressLint("NotifyDataSetChanged")
+    suspend fun selectCategory( ){
 
         val coffee = client().postgrest["Category"].select()
         val arrayObject = JSONArray(coffee.body.toString())
@@ -133,10 +133,10 @@ class ConnectSupaBase {
             val title = itemObj.getString("title")
 
             val tempItem = DataClass.Category(id, title)
-            arrayList.add(tempItem);
+            TempData.categoryArray.add(tempItem)
+            FragmentMenu.customAdapterCategory.notifyDataSetChanged()
         }
 
-        return arrayList;
     }
 
 }

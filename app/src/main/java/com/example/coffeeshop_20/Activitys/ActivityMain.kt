@@ -33,18 +33,11 @@ class ActivityMain : AppCompatActivity() {
 
 
         lifecycleScope.launch {
-            if(TempData.category.isEmpty() && TempData.productArray.isEmpty())
-            {
-                TempData.category = ConnectSupaBase().selectCategory();
-                TempData.productArray = ConnectSupaBase().selectProducts();
-            }
+            ConnectSupaBase().selectCategory();
+            ConnectSupaBase().selectProducts();
         }
 
     }
-
-
-
-
 
     override fun onBackPressed() {
         val myData =  supportFragmentManager.findFragmentByTag("MY_DATA")
