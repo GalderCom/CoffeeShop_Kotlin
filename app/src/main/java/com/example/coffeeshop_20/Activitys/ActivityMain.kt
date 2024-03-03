@@ -1,4 +1,4 @@
-package com.example.coffeeshop_20
+package com.example.coffeeshop_20.Activitys
 
 import android.content.Context
 import android.os.Bundle
@@ -9,6 +9,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
+import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
+import com.example.coffeeshop_20.ConnectSupaBase
+import com.example.coffeeshop_20.Fragments.FragmentCart
+import com.example.coffeeshop_20.Fragments.FragmentFavourites
+import com.example.coffeeshop_20.Fragments.FragmentMenu
+import com.example.coffeeshop_20.Fragments.FragmentProfile
+import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.TempData
 import kotlinx.coroutines.launch
 
 class ActivityMain : AppCompatActivity() {
@@ -17,9 +25,24 @@ class ActivityMain : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
 
-        supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMenu()).commit();
+        supportFragmentManager.beginTransaction().replace(
+            R.id.mainFragmentContainer,
+            FragmentMenu()
+        ).commit();
         WorkWithMenu();
+
+
+        lifecycleScope.launch {
+            if(TempData.category.isEmpty() && TempData.productArray.isEmpty())
+            {
+                TempData.category = ConnectSupaBase().selectCategory();
+                TempData.productArray = ConnectSupaBase().selectProducts();
+            }
+        }
+
     }
+
+
 
 
 
@@ -27,7 +50,10 @@ class ActivityMain : AppCompatActivity() {
         val myData =  supportFragmentManager.findFragmentByTag("MY_DATA")
         if(myData != null && myData.isVisible)
         {
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentProfile()
+            ).commit();
         }
         else{
             finish()
@@ -55,7 +81,10 @@ class ActivityMain : AppCompatActivity() {
         val buttonMenu: LinearLayout = findViewById(R.id.menu_menuButton)
         buttonMenu.setOnClickListener {
             UnSelect(textMenuMENU)
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMenu()).commit();
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentMenu()
+            ).commit();
         }
 
 
@@ -63,14 +92,20 @@ class ActivityMain : AppCompatActivity() {
         buttonOrder.setOnClickListener {
             UnSelect(textMenuORDER)
 
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentCart()).commit();
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentCart()
+            ).commit();
         }
 
 
         val buttonHeart: LinearLayout = findViewById(R.id.menu_heartButton)
         buttonHeart.setOnClickListener {
             UnSelect(textMenuHEART)
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentFavourites()).commit();
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentFavourites()
+            ).commit();
         }
 
 
@@ -78,7 +113,10 @@ class ActivityMain : AppCompatActivity() {
         buttonAccount.setOnClickListener {
             UnSelect(textMenuACCOUNT)
 
-            supportFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentProfile()
+            ).commit();
 
 
         }

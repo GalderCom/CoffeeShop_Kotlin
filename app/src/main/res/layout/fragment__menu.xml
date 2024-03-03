@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".FragmentMenu"
+    tools:context=".Fragments.FragmentMenu"
     android:background="@color/blue"
     android:orientation="vertical">
 
@@ -21,16 +21,23 @@
             android:layout_marginEnd="35dp"
             android:layout_marginStart="35dp"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="35dp"
             android:orientation="horizontal"
             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
+
+
+
+
     <LinearLayout
-            android:layout_marginTop="30dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="30dp"
+            android:layout_marginStart="15dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
+
                     <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/listMenu1"
+                        android:id="@+id/product_list"
                         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                         android:layout_height="match_parent"
                         android:layout_width="match_parent"

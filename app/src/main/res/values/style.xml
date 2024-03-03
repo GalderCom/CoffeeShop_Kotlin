@@ -7,7 +7,6 @@
         <item name="android:layout_marginStart">12dp</item>
         <item name="android:fontFamily">@font/raleway_italic</item>
 
-
         <!-- Тень -->
         <item name="android:shadowDx">4</item>
         <item name="android:shadowDy">-3</item>
@@ -23,11 +22,12 @@
         <item name="android:textColor"> @color/white </item>
         <item name="android:paddingBottom">4dp</item>
         <item name="android:layout_height">45dp</item>
-        <item name="android:background">@drawable/buttonsrc</item>
+        <item name="android:background">@drawable/button_src</item>
     </style>
 
     <style name="style_heading" parent="TextAppearance.Compat.Notification">
         <item name="android:textSize"> 25sp </item>
+        <item name="android:layout_marginTop">10dp</item>
         <item name="android:letterSpacing">0.06</item>
         <item name="android:fontFamily">@font/raleway_italic</item>
         <item name="android:textColor"> @color/white </item>

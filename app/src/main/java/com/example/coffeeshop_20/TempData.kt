@@ -1,13 +1,16 @@
 package com.example.coffeeshop_20
 
+import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
+
 class TempData {
 
     companion object{
 
-        var coffeeArray:ArrayList<DataClass.Coffee> = ArrayList();
-        var bakeryArray:ArrayList<DataClass.Bakery> = ArrayList();
+        var productArray:ArrayList<DataClass.Products> = ArrayList();
 
         var category:ArrayList<DataClass.Category> = ArrayList();
+
+
 
         var selectCategory = 0;
     }

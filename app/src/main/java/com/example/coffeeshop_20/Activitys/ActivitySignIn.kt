@@ -1,4 +1,4 @@
-package com.example.coffeeshop_20
+package com.example.coffeeshop_20.Activitys
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -8,6 +8,7 @@ import android.text.TextWatcher
 import android.view.View
 import android.widget.EditText
 import androidx.core.view.WindowCompat
+import com.example.coffeeshop_20.R
 
 class ActivitySignIn : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +51,7 @@ class ActivitySignIn : AppCompatActivity() {
 
         if(numberPhone.text.length == 12)
         {
-            val intent = Intent(this,ActivityCodeFromSMS::class.java)
+            val intent = Intent(this, ActivityCodeFromSMS::class.java)
             startActivity(intent);
             finish();
         }

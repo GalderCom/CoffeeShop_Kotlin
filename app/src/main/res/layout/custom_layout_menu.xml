@@ -1,18 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:backgroundTint="@color/transparent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     app:cardCornerRadius="14dp"
-    android:layout_marginStart="20dp"
-
+    android:layout_marginStart="15dp"
     android:layout_marginBottom="20dp"
     >
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:src="@drawable/button_dark"/>
+        android:src="@drawable/menu_bcg"/>
 
 
     <LinearLayout
@@ -21,21 +20,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical">
-            <androidx.cardview.widget.CardView
-                android:layout_width="130dp"
-                android:backgroundTint="@color/transparent"
-                android:layout_height="130dp"
-                app:cardCornerRadius="11sp">
-                <ImageView
-                    android:id="@+id/imageMenu"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/img"
-                    android:scaleType="centerCrop"/>
-            </androidx.cardview.widget.CardView>
+        <androidx.cardview.widget.CardView
+            android:layout_width="140dp"
+            android:backgroundTint="@color/transparent"
+            android:layout_height="140dp"
+            app:cardCornerRadius="11sp">
+            <ImageView
+                android:id="@+id/imageMenu"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:src="@drawable/img"
+                android:scaleType="centerCrop" />
+        </androidx.cardview.widget.CardView>
 
         <TextView
-            android:layout_marginTop="2dp"
+            android:layout_marginTop="5dp"
             android:maxWidth="130dp"
             android:id="@+id/name"
             android:layout_width="wrap_content"
@@ -53,7 +52,8 @@
             android:textColor="@color/gray"
             android:textSize="11sp"
             android:fontFamily="@font/oswald_light"
-            android:letterSpacing="0.07"/>
+            android:letterSpacing="0.07"
+            android:layout_marginBottom="25dp"/>
     </LinearLayout>
 
     <FrameLayout
@@ -61,6 +61,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
         <ImageView
+            android:layout_margin="2dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/favor_plus"
@@ -68,7 +69,7 @@
 
         <LinearLayout
             android:layout_marginTop="-5dp"
-            android:layout_marginStart="10dp"
+            android:layout_marginStart="15dp"
             android:layout_gravity="center|start"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -93,4 +94,4 @@
     </FrameLayout>
 
 
-</androidx.cardview.widget.CardView>
+</FrameLayout>

@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/blue"
     android:orientation="vertical"
-    tools:context=".ActivityCodeFromSMS">
+    tools:context=".Activitys.ActivityCodeFromSMS">
 
 
 

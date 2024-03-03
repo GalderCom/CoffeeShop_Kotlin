@@ -1,12 +1,12 @@
-package com.example.coffeeshop_20
+package com.example.coffeeshop_20.Fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
-
+import androidx.fragment.app.Fragment
+import com.example.coffeeshop_20.R
 
 class FragmentMyData : Fragment() {
 
@@ -28,7 +28,10 @@ class FragmentMyData : Fragment() {
 
         val buttonBack: ImageButton = view.findViewById(R.id.button_back);
         buttonBack.setOnClickListener(){
-            parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentProfile()).commit();
+            parentFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentProfile()
+            ).commit();
         }
 
         // Inflate the layout for this fragment

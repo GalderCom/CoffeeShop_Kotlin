@@ -3,13 +3,12 @@
 
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <item name="android:windowNoTitle">true</item>
-        <item name="android:noHistory">true</item>
         <item name="android:windowActionBar">false</item>
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:windowIsTranslucent">true</item>
         <item name="android:statusBarColor">@color/blue</item>
         <item name="android:navigationBarColor">@color/blue</item>
-
+        <item name="android:screenOrientation">portrait</item>
     </style>
 
 

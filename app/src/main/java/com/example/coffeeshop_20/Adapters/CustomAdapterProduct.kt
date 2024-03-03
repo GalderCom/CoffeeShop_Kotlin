@@ -1,12 +1,14 @@
-package com.example.coffeeshop_20
+package com.example.coffeeshop_20.Adapters
 
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeshop_20.DataClass
+import com.example.coffeeshop_20.R
 
-class CustomAdapterBakery(private var data: ArrayList<DataClass.Bakery>): RecyclerView.Adapter<CustomAdapterBakery.ViewHolder>() {
+class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): RecyclerView.Adapter<CustomAdapterProduct.ViewHolder>() {
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
         var name: TextView = itemView.findViewById(R.id.name);
@@ -25,7 +27,7 @@ class CustomAdapterBakery(private var data: ArrayList<DataClass.Bakery>): Recycl
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
-        holder.name.text = data[position].name;
+        holder.name.text = data[position].title;
         holder.price.text = data[position].price.toString();
         holder.weight.text = data[position].weight;
 

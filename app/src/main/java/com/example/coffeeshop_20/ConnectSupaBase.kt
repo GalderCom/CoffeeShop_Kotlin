@@ -1,10 +1,7 @@
 package com.example.coffeeshop_20
 
 import android.util.Log
-import android.widget.ArrayAdapter
-import android.widget.ListView
 import org.json.JSONArray
-import androidx.lifecycle.lifecycleScope
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.GoTrue
@@ -14,12 +11,7 @@ import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.storage.Bucket
 import io.github.jan.supabase.storage.Storage
-import io.github.jan.supabase.storage.downloadAuthenticatedTo
 import io.github.jan.supabase.storage.storage
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
-import java.io.File
 
 class ConnectSupaBase {
 
@@ -41,7 +33,7 @@ class ConnectSupaBase {
 
     suspend fun insertData(){
 
-            val city = DataClass.Coffee(25,"dsad","dsad","Dsads",1,1,200);
+            val city = DataClass.Products(25, "dsad", "dsad", "Dsads", "1", 1, 200);
             client().postgrest["Coffee"].insert(city)
 
     }
@@ -94,25 +86,33 @@ class ConnectSupaBase {
 
 
 
-    suspend fun getDataCoffee( ): ArrayList<DataClass.Coffee>{
+    suspend fun selectProducts(): ArrayList<DataClass.Products>{
 
-        val arrayList:  ArrayList<DataClass.Coffee> = ArrayList()
+        val arrayList:  ArrayList<DataClass.Products> = ArrayList()
 
-           val coffee = client().postgrest["Coffee"].select()
+           val coffee = client().postgrest["Products"].select()
            val arrayObject = JSONArray(coffee.body.toString())
 
            for (i in  0 until  arrayObject.length() ){ //step 1
 
                val itemObj = arrayObject.getJSONObject(i)
                val id = itemObj.getInt("id")
-               val name = itemObj.getString("name")
+               val title = itemObj.getString("title")
                val description = itemObj.getString("description");
-               val shortDescription = itemObj.getString("short_description")
-               val image = itemObj.getInt("image")
-               val categoryID = itemObj.getInt("category_id")
+               val weight = itemObj.getString("weight")
+               val image = itemObj.getString("image_name")
+               val id_category = itemObj.getInt("id_category")
                val price = itemObj.getInt("price")
 
-               val tempItem = DataClass.Coffee(id,name,description,shortDescription,image,categoryID,price)
+               val tempItem = DataClass.Products(
+                   id,
+                   title,
+                   description,
+                   weight,
+                   image,
+                   id_category,
+                   price
+               )
                arrayList.add(tempItem);
            }
 
@@ -132,33 +132,7 @@ class ConnectSupaBase {
             val id = itemObj.getInt("id")
             val title = itemObj.getString("title")
 
-            val tempItem = DataClass.Category(id,title)
-            arrayList.add(tempItem);
-        }
-
-        return arrayList;
-    }
-
-    suspend fun getDataBakery( ): ArrayList<DataClass.Bakery>{
-
-        val arrayList:  ArrayList<DataClass.Bakery> = ArrayList()
-
-        val coffee = client().postgrest["Bakery"].select()
-        val arrayObject = JSONArray(coffee.body.toString())
-
-        for (i in  0 until  arrayObject.length() ){ //step 1
-
-            val itemObj = arrayObject.getJSONObject(i)
-
-            val id = itemObj.getInt("id")
-            val name = itemObj.getString("name")
-            val description = itemObj.getString("description");
-            val image = itemObj.getInt("image")
-            val composition = itemObj.getString("composition")
-            val price = itemObj.getInt("price")
-            val weight = itemObj.getString("weight")
-
-            val tempItem = DataClass.Bakery(id, name, description, image,composition, price, weight)
+            val tempItem = DataClass.Category(id, title)
             arrayList.add(tempItem);
         }
 

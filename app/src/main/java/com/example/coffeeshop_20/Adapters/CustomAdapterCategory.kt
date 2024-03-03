@@ -1,4 +1,4 @@
-package com.example.coffeeshop_20
+package com.example.coffeeshop_20.Adapters
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -6,6 +6,9 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeshop_20.DataClass
+import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.TempData
 
 
 class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): RecyclerView.Adapter<CustomAdapterCategory.ViewHolder>() {
@@ -34,10 +37,9 @@ class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): R
 
         holder.title.setOnClickListener {
             row_index = position;
-            TempData.selectCategory  = position + 1;
+            TempData.selectCategory = position + 1;
             notifyDataSetChanged();
         }
-
 
         if (row_index==position) {
             // Устанавливаем оранжевый цвет на нажатый элементы

@@ -1,12 +1,12 @@
-package com.example.coffeeshop_20
+package com.example.coffeeshop_20.Fragments
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import android.widget.TextView
+import androidx.fragment.app.Fragment
+import com.example.coffeeshop_20.R
 
 class FragmentProfile : Fragment() {
 
@@ -27,7 +27,9 @@ class FragmentProfile : Fragment() {
 
         val MyDataClick: FrameLayout = view.findViewById(R.id.frameLayout_my_data);
         MyDataClick.setOnClickListener(){
-           parentFragmentManager.beginTransaction().replace(R.id.mainFragmentContainer,FragmentMyData(),"MY_DATA").commit();
+           parentFragmentManager.beginTransaction().replace(
+               R.id.mainFragmentContainer,
+               FragmentMyData(),"MY_DATA").commit();
         }
 
 
