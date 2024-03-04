@@ -6,7 +6,11 @@ import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
 import androidx.core.view.WindowCompat
+import androidx.lifecycle.lifecycleScope
+import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.TempData
+import kotlinx.coroutines.launch
 
 class ActivitySplash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -14,11 +18,6 @@ class ActivitySplash : AppCompatActivity() {
         setContentView(R.layout.activity_splash)
 
         WindowCompat.setDecorFitsSystemWindows(window, false);
-
-
-
-
-
 
         Handler(Looper.getMainLooper()).postDelayed({
            // val intent  = Intent(this, ActivitySignIn::class.java)
@@ -28,5 +27,6 @@ class ActivitySplash : AppCompatActivity() {
         },1000)
 
 
+       
     }
 }

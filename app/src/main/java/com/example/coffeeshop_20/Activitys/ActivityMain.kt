@@ -1,7 +1,10 @@
 package com.example.coffeeshop_20.Activitys
 
 import android.content.Context
+import android.content.Intent
 import android.os.Bundle
+import android.os.Handler
+import android.os.Looper
 import android.util.AttributeSet
 import android.view.View
 import android.view.animation.AnimationUtils
@@ -11,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
 import com.example.coffeeshop_20.ConnectSupaBase
+import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.Fragments.FragmentCart
 import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.Fragments.FragmentMenu
@@ -24,6 +28,7 @@ class ActivityMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
+        TempData.context = this;
 
         supportFragmentManager.beginTransaction().replace(
             R.id.mainFragmentContainer,
@@ -37,8 +42,16 @@ class ActivityMain : AppCompatActivity() {
             ConnectSupaBase().selectProducts();
 
             TempData().sortProduct();
-            ConnectSupaBase().selectImage();
+
+            Handler(Looper.getMainLooper()).postDelayed({
+                // val intent  = Intent(this, ActivitySignIn::class.java)
+                lifecycleScope.launch{
+                    ConnectSupaBase().selectImage();
+                }
+            },100)
         }
+
+
 
     }
 

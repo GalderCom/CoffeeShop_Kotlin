@@ -13,7 +13,7 @@ class DataClass {
         val title: String = "",
         val description: String = "",
         val weight: String = "",
-        var image: Drawable,
+        var image: Drawable?,
         val id_category: Int = 0,
         val price: Int = 0)
     @kotlinx.serialization.Serializable

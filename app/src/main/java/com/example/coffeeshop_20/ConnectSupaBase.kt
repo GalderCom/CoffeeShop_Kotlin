@@ -16,11 +16,16 @@ import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.storage.Bucket
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.storage
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import kotlinx.coroutines.withContext
 import org.json.JSONArray
 
 
 class ConnectSupaBase {
-
 
 
     private fun client(): SupabaseClient {
@@ -37,22 +42,21 @@ class ConnectSupaBase {
         return client;
     }
 
-    suspend fun insertData(){
+    suspend fun insertData() {
 
-          //  val city = DataClass.Products(25, "dsad", "dsad", "Dsads", "1", 1, 200);
-            //client().postgrest["Coffee"].insert(city)
+        //  val city = DataClass.Products(25, "dsad", "dsad", "Dsads", "1", 1, 200);
+        //client().postgrest["Coffee"].insert(city)
 
     }
-    suspend fun registor()
-   {
-       client().gotrue.signUpWith(Email) {
-           email = "example@email.com"
-           password = "example-password"
-       }
+
+    suspend fun registor() {
+        client().gotrue.signUpWith(Email) {
+            email = "example@email.com"
+            password = "example-password"
+        }
     }
 
-    suspend fun signIn()
-    {
+    suspend fun signIn() {
         client().gotrue.loginWith(Email) {
             email = "example@email.com"
             password = "example-password"
@@ -64,6 +68,7 @@ class ConnectSupaBase {
         return client().storage.retrieveBucketById(bucketId = "Coffee");
 
     }
+
     suspend fun getBucketList(): List<Bucket>? {
 
         // return client().storage.retrieveBucketById(bucketId = "Coffee");
@@ -73,9 +78,9 @@ class ConnectSupaBase {
 
         val bucket = client().storage["Coffee"]
 
-/*        val bucket = client().storage["Coffee"]
+        /*        val bucket = client().storage["Coffee"]
         val bytes = bucket.downloadPublic("1.png")*/
-/*        client().storage.createBucket(id = "icons") {
+        /*        client().storage.createBucket(id = "icons") {
             public = true
             fileSizeLimit = 5.megabytes
         }*/
@@ -90,73 +95,73 @@ class ConnectSupaBase {
 
     }
 
+    val image: Drawable? = TempData.context.getDrawable(R.drawable.loading_logo);
+    @SuppressLint("NotifyDataSetChanged", "UseCompatLoadingForDrawables")
+    suspend fun selectProducts() {
 
-
-
-    @SuppressLint("NotifyDataSetChanged")
-    suspend fun selectProducts(){
-
-           val coffee = client().postgrest["Products"].select()
-           val arrayObject = JSONArray(coffee.body.toString())
-           val bucket = client().storage["icons"]
-
-
-        val imageName ="loading_logo.png"
-        val bytes = bucket.downloadPublic(imageName)
-        val image: Drawable =  BitmapDrawable(BitmapFactory.decodeByteArray(bytes,0,bytes.size))
-           for (i in  0 until  arrayObject.length() ){ //step 1
-
-               val itemObj = arrayObject.getJSONObject(i)
-               val id = itemObj.getInt("id")
-               val title = itemObj.getString("title")
-               val description = itemObj.getString("description");
-               val weight = itemObj.getString("weight")
-
-               val id_category = itemObj.getInt("id_category")
-               val price = itemObj.getInt("price")
-
-
-
-
-               val tempItem = DataClass.Products(
-                   id,
-                   title,
-                   description,
-                   weight,
-                   image,
-                   id_category,
-                   price
-               )
-               TempData.productArray.add(tempItem)
-               FragmentMenu.customAdapterProduct.notifyDataSetChanged()
-           }
-    }
-
-    suspend fun selectImage()
-    {
         val coffee = client().postgrest["Products"].select()
         val arrayObject = JSONArray(coffee.body.toString())
+        val bucket = client().storage["icons"]
 
-        val bucket = client().storage["Coffee"]
 
-        for (i in  0 until  arrayObject.length() ){ //step 1
+
+       // val imageName = "loading_logo.png"
+       // val bytes = bucket.downloadPublic(imageName)
+        for (i in 0 until arrayObject.length()) { //step 1
 
             val itemObj = arrayObject.getJSONObject(i)
-            val imageName = itemObj.getString("image_name")+ ".png"
+            val id = itemObj.getInt("id")
+            val title = itemObj.getString("title")
+            val description = itemObj.getString("description");
+            val weight = itemObj.getString("weight")
+            val id_category = itemObj.getInt("id_category")
+            val price = itemObj.getInt("price")
 
-            val bytes = bucket.downloadPublic(imageName)
-            val image: Drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes,0,bytes.size))
 
-
-            TempData.productArray[i].image = image;
-            for(i in  0 until  TempData.sortProductArray.size){
-                FragmentMenu.customAdapterProduct.notifyItemChanged(i);
+            val tempItem = DataClass.Products(
+                id,
+                title,
+                description,
+                weight,
+                image,
+                id_category,
+                price
+            )
+            TempData.productArray.add(tempItem)
+            //    TempData.imageProduct.add(image)`
+            if(arrayObject.length() == TempData.productArray.size)
+            {
+                //TempData.productArray = TempData.productArray.sortedBy { it.id_category } as ArrayList<DataClass.Products>
+                val sortedList = TempData.productArray.sortedBy { it.id }
+                val sortedArrayList = ArrayList<DataClass.Products>(sortedList)
+                TempData.productArray = sortedArrayList;
             }
 
-            FragmentMenu.customAdapterProduct.notifyItemChanged(i);
+
         }
 
     }
+
+    @SuppressLint("NotifyDataSetChanged")
+     fun selectImage() {
+
+        val bucket = client().storage["Coffee"]
+
+        runBlocking {
+            TempData.productArray.forEachIndexed { index, product ->
+                launch {
+                    val imageName = product.id.toString() + ".png"
+                    val bytes = bucket.downloadPublic(imageName)
+                    val drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
+
+                    TempData.productArray[index].image = drawable
+                    FragmentMenu.customAdapterProduct.notifyDataSetChanged()
+                }
+            }
+        }
+
+    }
+
 
     @SuppressLint("NotifyDataSetChanged")
     suspend fun selectCategory( ){

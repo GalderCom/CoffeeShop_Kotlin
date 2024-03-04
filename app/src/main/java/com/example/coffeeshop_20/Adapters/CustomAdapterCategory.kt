@@ -43,6 +43,7 @@ class CustomAdapterCategory (private var data: ArrayList<DataClass.Category>): R
         holder.title.setOnClickListener {
             row_index = position;
             TempData.selectCategory = position + 1;
+
             notifyDataSetChanged();
 
             TempData().sortProduct();
