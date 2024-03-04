@@ -5,6 +5,7 @@ import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.Log
+import android.widget.Toast
 import com.example.coffeeshop_20.Fragments.FragmentMenu
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
@@ -19,6 +20,7 @@ import io.github.jan.supabase.storage.storage
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
+import kotlinx.coroutines.coroutineScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
@@ -146,19 +148,38 @@ class ConnectSupaBase {
      fun selectImage() {
 
         val bucket = client().storage["Coffee"]
+        // Асинхронный поток
+        /*GlobalScope.launch {
+            coroutineScope {
+                TempData.productArray.forEachIndexed { index, product ->
+                    val imageName = product.id.toString() + ".png"
+                    val bytes = async { bucket.downloadPublic(imageName) }.await()
+                    val drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
 
+                    withContext(Dispatchers.Main) {
+                        TempData.productArray[index].image = drawable
+                        FragmentMenu.customAdapterProduct.notifyDataSetChanged()
+                    }
+                }
+            }
+        }*/
+
+        //Синхронный поток
         runBlocking {
             TempData.productArray.forEachIndexed { index, product ->
                 launch {
+
+
+                    FragmentMenu.customAdapterProduct.notifyDataSetChanged()
                     val imageName = product.id.toString() + ".png"
                     val bytes = bucket.downloadPublic(imageName)
                     val drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
-
                     TempData.productArray[index].image = drawable
-                    FragmentMenu.customAdapterProduct.notifyDataSetChanged()
+
                 }
             }
         }
+
 
     }
 

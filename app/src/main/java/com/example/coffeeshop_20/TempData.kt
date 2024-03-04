@@ -21,7 +21,7 @@ class TempData {
 
         lateinit var arrayId: ArrayList<Int>;
 
-        var allLoaded: Boolean = false;
+        var finish: Boolean = true;
     }
     @SuppressLint("NotifyDataSetChanged")
     fun sortProduct()
