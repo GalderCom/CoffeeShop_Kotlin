@@ -32,4 +32,19 @@
         <item name="android:fontFamily">@font/raleway_italic</item>
         <item name="android:textColor"> @color/white </item>
     </style>
+
+
+    <style name="BottomSheet" parent="@style/Widget.Design.BottomSheet.Modal">
+        <item
+            name="android:background">@drawable/bcg_bottom_sheet
+        </item>
+    </style>
+
+    <style name="BaseBottomSheetDialog"
+        parent="@style/Theme.Design.Light.BottomSheetDialog">
+        <item name="android:windowIsFloating">false</item>
+        <item name="bottomSheetStyle">@style/BottomSheet</item>
+    </style>
+
+    <style name="BottomSheetDialogTheme" parent="BaseBottomSheetDialog" />
 </resources>

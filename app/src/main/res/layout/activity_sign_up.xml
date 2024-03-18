@@ -1,0 +1,238 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Activitys.ActivitySignUp"
+    android:orientation="vertical"
+    android:background="@color/blue">
+    <ScrollView
+        android:layout_margin="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/style_heading"
+                    android:text="Регистрация"
+                    android:layout_gravity="center|top"/>
+
+            </FrameLayout>
+
+
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Имя"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray"
+                            android:fontFamily="@font/raleway_regular"
+                            android:letterSpacing="0.13"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" *"
+                            android:textSize="16sp"
+                            android:textColor="@color/main_orange"/>
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/nameView"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FFFFFF"
+                        android:fontFamily="@font/raleway_regular"
+                        android:text="Артём"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.04"
+                        android:inputType="text"/>
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/line_smal"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="22dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Пол"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray"
+                            android:fontFamily="@font/raleway_regular"
+                            android:letterSpacing="0.13"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" *"
+                            android:textSize="16sp"
+                            android:textColor="@color/main_orange"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/genderView"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:fontFamily="@font/raleway_regular"
+                            android:text="Мужской"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.04"
+                            android:inputType="text"/>
+
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/arrow"
+                            android:rotation="90"
+                            android:layout_gravity="end|center"
+                            android:scaleType="centerCrop"
+                            android:layout_marginEnd="5dp" />
+                    </FrameLayout>
+
+
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/line_smal"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="22dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Дата рождения"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray"
+                            android:fontFamily="@font/raleway_regular"
+                            android:letterSpacing="0.13"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" *"
+                            android:textSize="16sp"
+                            android:textColor="@color/main_orange"/>
+
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <EditText
+                            android:id="@+id/birthdayView"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:fontFamily="@font/oswald_light"
+                            android:text="26.06.2004"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.04"
+                            android:inputType="date"/>
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/arrow"
+                            android:rotation="90"
+                            android:layout_gravity="end|center"
+                            android:scaleType="centerCrop"
+                            android:layout_marginEnd="5dp" />
+                    </FrameLayout>
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/line_smal"/>
+
+                </LinearLayout>
+
+                <Button
+                    android:onClick="Click_SignUp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginRight="25dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    style="@style/style_main_button"
+                    android:text="Регистрация"/>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</LinearLayout>

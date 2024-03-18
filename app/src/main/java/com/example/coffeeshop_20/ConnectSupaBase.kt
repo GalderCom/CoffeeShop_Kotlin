@@ -9,8 +9,9 @@ import android.widget.Toast
 import com.example.coffeeshop_20.Fragments.FragmentMenu
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.gotrue.GoTrue
-import io.github.jan.supabase.gotrue.gotrue
+import io.github.jan.supabase.gotrue.Auth
+import io.github.jan.supabase.gotrue.SessionStatus
+import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.postgrest
@@ -21,79 +22,52 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
 
 
+
 class ConnectSupaBase {
 
 
-    private fun client(): SupabaseClient {
+    private val supaBase = createSupabaseClient(
+        supabaseUrl = "https://fnnlozofxzdkvjkzyjzk.supabase.co",
+        supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZubmxvem9meHpka3Zqa3p5anprIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUwNDU3MDAsImV4cCI6MjAxMDYyMTcwMH0.L799DC4l4sGGWoy2B_LR-Yv9jzJzqyjnykvx9FNF_XE"
+    ) {
 
-        val client = createSupabaseClient(
-            supabaseUrl = "https://fnnlozofxzdkvjkzyjzk.supabase.co",
-            supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZubmxvem9meHpka3Zqa3p5anprIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUwNDU3MDAsImV4cCI6MjAxMDYyMTcwMH0.L799DC4l4sGGWoy2B_LR-Yv9jzJzqyjnykvx9FNF_XE"
-        ) {
-            install(GoTrue)
-            install(Postgrest)
-            install(Storage)
-            //install other modules
-        }
-        return client;
+        install(Auth)
+        install(Postgrest)
+        install(Storage)
+        //install other modules
+    }
+    private fun client():SupabaseClient{
+        return  supaBase;
     }
 
-    suspend fun insertData() {
-
-        //  val city = DataClass.Products(25, "dsad", "dsad", "Dsads", "1", 1, 200);
-        //client().postgrest["Coffee"].insert(city)
-
+    suspend fun signUp(email_: String): Email.Result?
+    {
+       return client().auth.signUpWith(Email) {
+            email = email_
+            password = "testPassword"
+       }
     }
 
-    suspend fun registor() {
-        client().gotrue.signUpWith(Email) {
-            email = "example@email.com"
-            password = "example-password"
-        }
-    }
-
-    suspend fun signIn() {
-        client().gotrue.loginWith(Email) {
-            email = "example@email.com"
-            password = "example-password"
+    suspend fun signIn (email_: String):Unit {
+        return client().auth.signInWith(Email) {
+            email = email_
+            password = "testPassword"
         }
     }
 
-    suspend fun getBucket(): Bucket? {
+    suspend fun insertUser(email:String, name:String, birthday:String) {
 
-        return client().storage.retrieveBucketById(bucketId = "Coffee");
-
-    }
-
-    suspend fun getBucketList(): List<Bucket>? {
-
-        // return client().storage.retrieveBucketById(bucketId = "Coffee");
-
-        //https://fnnlozofxzdkvjkzyjzk.supabase.co/storage/v1/object/public/Coffee/1.png
-
-
-        val bucket = client().storage["Coffee"]
-
-        /*        val bucket = client().storage["Coffee"]
-        val bytes = bucket.downloadPublic("1.png")*/
-        /*        client().storage.createBucket(id = "icons") {
-            public = true
-            fileSizeLimit = 5.megabytes
-        }*/
-        val bucketret = client().storage.retrieveBucketById(bucketId = "Coffee")
-        val ret = client().storage.retrieveBuckets()
-        val bucketImageList = client().storage["Coffee"]
-        val files = bucketImageList.list()
-
-        Log.e("return", bucketret.toString())
-        Log.e("returnList", files.toString())
-        return ret
+        signIn(email)
+        val uuid = client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+        val user = DataClass.User(uuid,name,birthday);
+        client().postgrest["Users"].insert(user)
 
     }
 
@@ -102,10 +76,8 @@ class ConnectSupaBase {
     suspend fun selectProducts() {
 
         val coffee = client().postgrest["Products"].select()
-        val arrayObject = JSONArray(coffee.body.toString())
+        val arrayObject = JSONArray(coffee.data)
         val bucket = client().storage["icons"]
-
-
 
        // val imageName = "loading_logo.png"
        // val bytes = bucket.downloadPublic(imageName)
@@ -149,23 +121,23 @@ class ConnectSupaBase {
 
         val bucket = client().storage["Coffee"]
         // Асинхронный поток
-        /*GlobalScope.launch {
-            coroutineScope {
-                TempData.productArray.forEachIndexed { index, product ->
-                    val imageName = product.id.toString() + ".png"
-                    val bytes = async { bucket.downloadPublic(imageName) }.await()
-                    val drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
+            GlobalScope.launch {
+                coroutineScope {
+                    TempData.productArray.forEachIndexed { index, product ->
+                        val imageName = product.id.toString() + ".png"
+                        val bytes = async { bucket.downloadPublic(imageName) }.await()
+                        val drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
 
-                    withContext(Dispatchers.Main) {
-                        TempData.productArray[index].image = drawable
-                        FragmentMenu.customAdapterProduct.notifyDataSetChanged()
+                        withContext(Dispatchers.Main) {
+                            TempData.productArray[index].image = drawable
+                            FragmentMenu.customAdapterProduct.notifyDataSetChanged()
+                        }
                     }
                 }
             }
-        }*/
 
         //Синхронный поток
-        runBlocking {
+     /*   runBlocking {
             TempData.productArray.forEachIndexed { index, product ->
                 launch {
 
@@ -178,7 +150,7 @@ class ConnectSupaBase {
 
                 }
             }
-        }
+        }*/
 
 
     }
@@ -188,7 +160,7 @@ class ConnectSupaBase {
     suspend fun selectCategory( ){
 
         val coffee = client().postgrest["Category"].select()
-        val arrayObject = JSONArray(coffee.body.toString())
+        val arrayObject = JSONArray(coffee.data)
 
         for (i in  0 until  arrayObject.length() ){ //step 1
 

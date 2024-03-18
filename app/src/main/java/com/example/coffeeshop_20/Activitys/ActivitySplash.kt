@@ -19,10 +19,9 @@ class ActivitySplash : AppCompatActivity() {
         TempData.context = this
 
 
-
         Handler(Looper.getMainLooper()).postDelayed({
            // val intent  = Intent(this, ActivitySignIn::class.java)
-            val intent  = Intent(this, ActivityMain::class.java)
+            val intent  = Intent(this, ActivitySignIn::class.java)
             startActivity(intent);
             finish();
         },1000)

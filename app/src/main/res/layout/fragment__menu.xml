@@ -14,6 +14,16 @@
             style="@style/style_heading"
             android:text="Меню"
             android:layout_gravity="center|top"/>
+        <TextView
+            android:layout_marginTop="-5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Хорошего вам дня"
+            android:layout_gravity="center"
+            android:textSize="20dp"
+            android:fontFamily="@font/oswald_light"
+            android:textColor="@color/gray"
+            android:letterSpacing="0.05"/>
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/category_list"

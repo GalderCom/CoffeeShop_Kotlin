@@ -127,7 +127,6 @@ class ActivityMain : AppCompatActivity() {
             buttonAccount.setOnClickListener {
                 UnSelect(textMenuACCOUNT)
 
-                
                 supportFragmentManager.beginTransaction().replace(
                     R.id.mainFragmentContainer,
                     FragmentProfile()
