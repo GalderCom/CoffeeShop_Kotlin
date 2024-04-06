@@ -24,9 +24,6 @@
             android:name=".Activitys.ActivityCodeFromSMS"
             android:exported="false" />
         <activity
-            android:name=".Activitys.ActivitySignIn"
-            android:exported="false" />
-        <activity
             android:name=".Activitys.ActivitySplash"
             android:exported="true"
             android:theme="@style/AppSplash">

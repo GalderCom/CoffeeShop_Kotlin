@@ -4,21 +4,33 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
+import com.example.coffeeshop_20.Adapters.CustomAdapterFavorites
+import com.example.coffeeshop_20.Adapters.CustomAdapterProduct
+import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.SbObject
+import com.example.coffeeshop_20.TempData
+import io.github.jan.supabase.postgrest.postgrest
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import org.json.JSONArray
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentFavourites.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentFavourites : Fragment() {
-    // TODO: Rename and change types of parameters
-    private var param1: String? = null
-    private var param2: String? = null
 
+    lateinit var  mRecyclerFavor: RecyclerView;
+
+    companion object{
+        lateinit var customAdapterFavorites: CustomAdapterFavorites;
+    }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+
     }
 
     override fun onCreateView(
@@ -26,22 +38,32 @@ class FragmentFavourites : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment__favourites, container, false)
+
+        val view = inflater.inflate(R.layout.fragment__favourites, container, false)
+        mRecyclerFavor = view.findViewById<RecyclerView>(R.id.favor_list);
+
+
+
+        ConnectSupaBase().selectFavor(view);
+
+        if (TempData.favorArray.size != 0)
+        {
+            val label = view.findViewById<TextView>(R.id.nullArray)
+            val count = view.findViewById<TextView>(R.id.count_coffee_favourites)
+            count.text = TempData.favorArray.size.toString();
+            label.visibility = View.GONE;
+        }
+
+
+        customAdapterFavorites = CustomAdapterFavorites(TempData.favorArray)
+
+        //update
+        mRecyclerFavor.adapter = customAdapterFavorites;
+
+        return view
+
+
     }
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Fragment_Favourites.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentFavourites().apply {
-            }
-    }
+
 }

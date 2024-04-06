@@ -12,14 +12,14 @@ class TempData {
 
         var productArray:ArrayList<DataClass.Products> = ArrayList();
         var sortProductArray: ArrayList<DataClass.Products> = ArrayList();
-
         var categoryArray:ArrayList<DataClass.Category> = ArrayList();
+        var favorArray:ArrayList<DataClass.Favor> = ArrayList();
 
         var selectCategory = 1;
 
+       @SuppressLint("StaticFieldLeak")
        lateinit var context: Context;
 
-        lateinit var arrayId: ArrayList<Int>;
 
         var finish: Boolean = true;
     }

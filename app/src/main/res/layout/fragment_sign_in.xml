@@ -1,9 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activitys.ActivitySignIn"
+    tools:context=".Fragments.FragmentSignIn"
     android:background="@color/blue"
     android:orientation="vertical">
 
@@ -73,14 +73,5 @@
             android:src="@drawable/orange_line"/>
 
     </LinearLayout>
-
-    <Button
-        android:layout_marginTop="60dp"
-        android:layout_marginEnd="45dp"
-        android:layout_marginStart="45dp"
-        android:layout_width="match_parent"
-        style="@style/style_main_button"
-        android:text="Готово"
-        android:onClick="Click_SignIn"/>
 
 </LinearLayout>

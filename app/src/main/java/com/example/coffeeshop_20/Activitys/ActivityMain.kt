@@ -25,6 +25,7 @@ import com.example.coffeeshop_20.TempData
 import kotlinx.coroutines.launch
 
 class ActivityMain : AppCompatActivity() {
+    val ctx = ConnectSupaBase();
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
@@ -40,8 +41,10 @@ class ActivityMain : AppCompatActivity() {
 
 
         lifecycleScope.launch {
-            ConnectSupaBase().selectCategory();
-            ConnectSupaBase().selectProducts();
+
+
+            ctx.selectProducts();
+       //     ctx.selectFavor();
 
             TempData().sortProduct();
 
@@ -61,6 +64,7 @@ class ActivityMain : AppCompatActivity() {
     }
 
     override fun onBackPressed() {
+        super.onBackPressed()
         val myData =  supportFragmentManager.findFragmentByTag("MY_DATA")
         if(myData != null && myData.isVisible)
         {
@@ -126,6 +130,7 @@ class ActivityMain : AppCompatActivity() {
             val buttonAccount: LinearLayout = findViewById(R.id.menu_accountButton)
             buttonAccount.setOnClickListener {
                 UnSelect(textMenuACCOUNT)
+
 
                 supportFragmentManager.beginTransaction().replace(
                     R.id.mainFragmentContainer,

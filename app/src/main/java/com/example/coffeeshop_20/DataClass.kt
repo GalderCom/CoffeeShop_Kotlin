@@ -19,7 +19,6 @@ class DataClass {
         var image: Drawable?,
         val id_category: Int = 0,
         val price: Int = 0)
-    @kotlinx.serialization.Serializable
     data class Category(val id: Int = 1,
                         val title: String = "")
     @kotlinx.serialization.Serializable
@@ -28,5 +27,12 @@ class DataClass {
         val name:String ="",
         val birthday:String = "01-01-2000"
     )
+
+    data class Favor(
+        val id: Int = 1,
+        val id_product:Int = 1
+    )
+
+
 
 }

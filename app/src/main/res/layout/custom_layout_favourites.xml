@@ -1,24 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginStart="20dp"
+    android:layout_height="90dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/favor_bcg">
+    android:background="@drawable/favor_bcg"
+    android:layout_marginBottom="20dp">
 
     <LinearLayout
-        android:layout_margin="7dp"
+        android:layout_margin="10dp"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <androidx.cardview.widget.CardView
             android:layout_gravity="center_vertical"
-            android:layout_width="65dp"
-            android:layout_height="65dp"
+            android:layout_width="70dp"
+            android:layout_height="match_parent"
             android:backgroundTint="@color/transparent"
             app:cardCornerRadius="8dp">
             <ImageView
-                android:id="@+id/fav_image"
+                android:id="@+id/fvrImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
@@ -26,11 +25,13 @@
         </androidx.cardview.widget.CardView>
 
         <LinearLayout
+            android:layout_gravity="center"
             android:layout_marginStart="9dp"
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <TextView
+                android:id="@+id/fvrTitle"
                 android:layout_marginTop="-5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -39,16 +40,9 @@
                 android:fontFamily="@font/raleway_medium"
                 android:textSize="16sp"
                 android:letterSpacing="0.02"
+                android:layout_marginBottom="15dp"
                 />
-            <TextView
-                android:layout_marginTop="-4dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Итальянский кофе"
-                android:textColor="@color/gray"
-                android:fontFamily="@font/oswald_light"
-                android:textSize="14sp"
-                android:letterSpacing="0.05"/>
+
 
             <LinearLayout
                 android:layout_gravity="bottom|left"
@@ -56,6 +50,7 @@
                 android:layout_height="wrap_content">
 
                 <TextView
+                    android:id="@+id/fvrPrice"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="160"
@@ -83,8 +78,8 @@
 
     <Button
         android:layout_gravity="end|bottom"
-        android:layout_width="45dp"
-        android:layout_height="35dp"
+        android:layout_width="35dp"
+        android:layout_height="28dp"
         android:background="@drawable/favor_plus"
         android:layout_margin="2dp"/>
 
