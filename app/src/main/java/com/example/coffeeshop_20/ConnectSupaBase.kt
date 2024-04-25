@@ -21,9 +21,11 @@ import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.postgrest
 import io.github.jan.supabase.postgrest.query.Columns
+import io.github.jan.supabase.postgrest.query.Returning
 import io.github.jan.supabase.storage.Bucket
 import io.github.jan.supabase.storage.Storage
 import io.github.jan.supabase.storage.storage
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -48,12 +50,15 @@ class ConnectSupaBase {
        }
     }
 
-    suspend fun signIn (email_: String) {
-         SbObject.client().auth.signInWith(Email) {
-             email = email_
-             password = "testPassword"
-         }
-        uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+    fun signIn (email_: String) {
+        runBlocking {
+            SbObject.client().auth.signInWith(Email) {
+                email = email_
+                password = "testPassword"
+            }
+            uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+        }
+
     }
 
     suspend fun insertUser(email:String, name:String, birthday:String) {
@@ -64,6 +69,57 @@ class ConnectSupaBase {
         SbObject.client().postgrest["Users"].insert(user)
 
     }
+    @SuppressLint("NotifyDataSetChanged")
+    fun insertFavor(id_product:Int)
+    {
+        GlobalScope.launch {
+
+
+/*            if (TempData.favorArray.size != 0)
+            {
+                //TempData.favorArray.add(DataClass.Favor(TempData.favorArray[TempData.favorArray.lastIndex].id+1,uuid,id_product));
+                FragmentFavourites.valueCount = TempData.favorArray.size;
+            }
+            else
+            {
+                //TempData.favorArray.add(DataClass.Favor(1,uuid,id_product));
+                FragmentFavourites.valueCount = TempData.favorArray.size;
+            }*/
+
+
+
+
+            uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+            val productFvr = DataClass.FavorInsert(uuid,id_product);
+            SbObject.client().postgrest["FavoritesProduct"].insert(productFvr)
+            selectFavor();
+        }
+
+    }
+
+    @SuppressLint("NotifyDataSetChanged")
+    fun removeFavor(id_product: Int){
+        GlobalScope.launch {
+                for(i in 0 until TempData.favorArray.size) {
+                    if (id_product == TempData.favorArray[i].id_product) {
+                        val item = TempData.favorArray[i];
+                       // TempData.favorArray.remove(item);
+
+                        SbObject.client().from("FavoritesProduct").delete {
+                            filter {
+                                //or
+                                eq("id", item.id)
+                            }
+                        }
+                        selectFavor();
+
+                        break;
+                    }
+
+
+                }
+        }
+    }
 
     @SuppressLint("NotifyDataSetChanged", "UseCompatLoadingForDrawables")
     suspend fun selectProducts() {
@@ -71,41 +127,41 @@ class ConnectSupaBase {
 
         val products = SbObject.client().postgrest["Products"].select()
         val arrayObject = JSONArray(products.data)
+        if(arrayObject.length() != TempData.productArray.size){
+            TempData.productArray.clear();
+            for (i in 0 until arrayObject.length()) { //step 1
 
-        for (i in 0 until arrayObject.length()) { //step 1
+                val itemObj = arrayObject.getJSONObject(i)
+                val id = itemObj.getInt("id")
+                val title = itemObj.getString("title")
+                val description = itemObj.getString("description");
+                val weight = itemObj.getString("weight")
+                val id_category = itemObj.getInt("id_category")
+                val price = itemObj.getInt("price")
 
-            val itemObj = arrayObject.getJSONObject(i)
-            val id = itemObj.getInt("id")
-            val title = itemObj.getString("title")
-            val description = itemObj.getString("description");
-            val weight = itemObj.getString("weight")
-            val id_category = itemObj.getInt("id_category")
-            val price = itemObj.getInt("price")
+                val tempItem = DataClass.Products(
+                    id,
+                    title,
+                    description,
+                    weight,
+                    image,
+                    id_category,
+                    price
+                )
+                TempData.productArray.add(tempItem)
 
-            val tempItem = DataClass.Products(
-                id,
-                title,
-                description,
-                weight,
-                image,
-                id_category,
-                price
-            )
-            TempData.productArray.add(tempItem)
-
-            if(arrayObject.length() == TempData.productArray.size)
-            {
-                val sortedList = TempData.productArray.sortedBy { it.id }
-                val sortedArrayList = ArrayList<DataClass.Products>(sortedList)
-                TempData.productArray = sortedArrayList;
+                if(arrayObject.length() == TempData.productArray.size)
+                {
+                    val sortedList = TempData.productArray.sortedBy { it.id }
+                    val sortedArrayList = ArrayList<DataClass.Products>(sortedList)
+                    TempData.productArray = sortedArrayList;
+                }
             }
         }
     }
 
     @SuppressLint("NotifyDataSetChanged")
      fun selectImage() {
-
-
         // Асинхронный поток
             GlobalScope.launch {
                 coroutineScope {
@@ -117,8 +173,16 @@ class ConnectSupaBase {
 
                         withContext(Dispatchers.Main) {
                             TempData.productArray[index].image = drawable
-                            FragmentMenu.customAdapterProduct.notifyDataSetChanged()
-                            //FragmentFavourites.customAdapterFavorites.notifyDataSetChanged();
+
+
+                            try {
+                                FragmentMenu.customAdapterProduct.notifyDataSetChanged()
+                                FragmentFavourites.customAdapterFavorites.notifyDataSetChanged();
+                            }
+                            catch (ex : Exception)
+                            {
+
+                            }
                         }
                     }
                 }
@@ -142,59 +206,58 @@ class ConnectSupaBase {
 
 
     }
-    @SuppressLint("NotifyDataSetChanged")
-     fun selectFavor(view : View)
+
+    fun selectFavor()
     {
 
-        GlobalScope.launch(Dispatchers.Main) {
-            coroutineScope{
 
-                var finish = true;
+
+        GlobalScope.launch(Dispatchers.Main) {
+            coroutineScope {
                 val favor = SbObject.client().postgrest["FavoritesProduct"].select()
                 val arrayObject = JSONArray(favor.data)
+                FragmentFavourites.valueCount = arrayObject.length();
 
-                if (arrayObject.length() != TempData.favorArray.size && finish == true)
-                {
-                    finish = false;
-                    TempData.favorArray.clear();
-                    for (i in  0 until  arrayObject.length() ){
+                val favorSet = HashSet<Int>()
+                val favorToRemove = HashSet<Int>()
 
-                        val itemObj = arrayObject.getJSONObject(i)
-                        val id = itemObj.getInt("id")
-                        val id_user = itemObj.getString("id_user")
+                for (i in 0 until arrayObject.length()) {
+                    val itemObj = arrayObject.getJSONObject(i)
+                    val id = itemObj.getInt("id")
+                    val id_user = itemObj.getString("id_user")
 
-                        if (id_user == SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id)
-                        {
-                            val id_product = itemObj.getInt("id_product")
-                            val tempItem = DataClass.Favor(
-                                id,
-                                id_product
-                            )
-                            TempData.favorArray.add(tempItem);
+                    if (id_user == SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id) {
+                        val id_product = itemObj.getInt("id_product")
+                        favorSet.add(id)
 
-
+                        // Check if the item is already in TempData.favorArray
+                        val existingItem = TempData.favorArray.find { it.id == id }
+                        if (existingItem != null) {
+                            // Item already exists
+                            if (existingItem.id_product != id_product) {
+                                // Update the product ID
+                                existingItem.id_product = id_product
+                            }
+                        } else {
+                            // Item does not exist, add it to TempData.favorArray
+                            TempData.favorArray.add(DataClass.Favor(id, id_user, id_product))
                         }
+                    }
+                }
 
-                    }
+                // Remove items that are no longer in the favor list
+                TempData.favorArray.retainAll { favorSet.contains(it.id) }
 
-                    if (TempData.favorArray.size != 0)
-                    {
-                        val label = view.findViewById<TextView>(R.id.nullArray)
-                        val count = view.findViewById<TextView>(R.id.count_coffee_favourites)
-                        count.text = TempData.favorArray.size.toString();
-                        label.visibility = View.GONE;
-                    }
-                    withContext(Dispatchers.Main) {
-                        FragmentFavourites.customAdapterFavorites.notifyDataSetChanged();
-                    }
-                    finish = true
+                // Notify adapter of data set changed
+                try {
+                    FragmentFavourites.customAdapterFavorites.notifyDataSetChanged()
+                } catch (ex: Exception) {
+                    // Handle exception
                 }
             }
         }
-
-
-
     }
+
 
     @SuppressLint("NotifyDataSetChanged")
     suspend fun selectCategory( ){
@@ -214,7 +277,6 @@ class ConnectSupaBase {
             )
 
             TempData.categoryArray.add(tempItem)
-          //  FragmentMenu.customAdapterCategory.notifyDataSetChanged()
         }
 
     }

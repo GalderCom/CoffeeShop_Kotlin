@@ -30,7 +30,13 @@ class DataClass {
 
     data class Favor(
         val id: Int = 1,
-        val id_product:Int = 1
+        val id_user: String = "",
+        var id_product:Int = 1
+    )
+    @kotlinx.serialization.Serializable
+    data class FavorInsert(
+        val id_user: String = "",
+        val id_product:Int = 0
     )
 
 

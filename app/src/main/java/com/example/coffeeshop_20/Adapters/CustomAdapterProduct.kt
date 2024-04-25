@@ -1,6 +1,9 @@
 package com.example.coffeeshop_20.Adapters
 
+import android.content.Intent
 import android.graphics.Color
+import android.os.Handler
+import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,10 +13,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeshop_20.Activitys.ActivityStart
+import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.DataClass
+import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.SbObject
 import com.example.coffeeshop_20.TempData
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import io.github.jan.supabase.postgrest.postgrest
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import org.json.JSONArray
 
 class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): RecyclerView.Adapter<CustomAdapterProduct.ViewHolder>() {
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
@@ -54,11 +66,75 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             bottomSheetDialog.show()
 
 
-// Настройка прозрачного фона BottomSheet
+           // Настройка прозрачного фона BottomSheet
            val btnClose = view.findViewById<ImageView>(R.id.crossView)
             btnClose.setOnClickListener {
                 bottomSheetDialog.dismiss();
             }
+
+            val btnFvr = view.findViewById<ImageView>(R.id.favorbtn)
+
+            for (j in 0 until  TempData.favorArray.size)
+            {
+                for (i in 0 until TempData.productArray.size)
+                {
+                    if (TempData.favorArray[j].id_product == data[position].id)
+                    {
+                        btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange));
+                    }
+                }
+            }
+
+
+
+            btnFvr.setOnClickListener {
+                var searchItem = false;
+                if (FragmentFavourites.valueCount != 0)
+                {
+                    for(i in 0 until TempData.favorArray.size)
+                    {
+                        if (data[position].id == TempData.favorArray[i].id_product)
+                        {
+                           searchItem = true;
+                            break
+
+                        }
+                        else
+                        {
+                           searchItem = false;
+                        }
+                    }
+
+                    when(searchItem)
+                    {
+                        true -> {
+                            btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart));
+                            ConnectSupaBase().removeFavor(data[position].id)
+                        };
+                        false -> {
+                            btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange));
+                            ConnectSupaBase().insertFavor(data[position].id)
+                        };
+                    }
+                }
+                else
+                {
+                    btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange));
+                    ConnectSupaBase().insertFavor(data[position].id)
+                }
+
+
+            }
+
+
+
+
+
+
+
+
+
+
 
             val image = view.findViewById<ImageView>(R.id.imageVew);
             image.setImageDrawable(data[position].image)
@@ -69,31 +145,8 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             val title = view.findViewById<TextView>(R.id.titleView);
             title.text = data[position].title
 
-// Отображение BottomSheet
+            // Отображение BottomSheet
             bottomSheetDialog.show()
-
-
-          /*
-            // on below line we are creating a new bottom sheet dialog.
-            val dialog = BottomSheetDialog(holder.itemView.context)
-
-            // on below line we are inflating a layout file which we have created.
-            val view = layout.inflate(R.layout.bottom_sheet_fragment, null)
-
-            // on below line we are creating a variable for our button
-            // which we are using to dismiss our dialog.
-
-            // below line is use to set cancelable to avoid
-            // closing of dialog box when clicking on the screen.
-            dialog.setCancelable(false)
-
-            // on below line we are setting
-            // content view to our view.
-            dialog.setContentView(view)
-
-            // on below line we are calling
-            // a show method to display a dialog.
-            dialog.show()*/
 
         }
 

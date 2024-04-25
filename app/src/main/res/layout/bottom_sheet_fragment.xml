@@ -16,7 +16,7 @@
         android:backgroundTint="@color/transparent"/>
 
     <ImageView
-        android:id="@+id/favorView"
+        android:id="@+id/favorbtn"
         android:layout_gravity="end"
         android:layout_margin="20dp"
         android:layout_width="25dp"

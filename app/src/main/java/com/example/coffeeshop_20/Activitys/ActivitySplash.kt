@@ -7,7 +7,9 @@ import android.os.Handler
 import android.os.Looper
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
+import com.example.coffeeshop_20.Adapters.CustomAdapterProduct
 import com.example.coffeeshop_20.ConnectSupaBase
+import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import kotlinx.coroutines.launch
@@ -26,14 +28,14 @@ class ActivitySplash : AppCompatActivity() {
         lifecycleScope.launch()
         {
             ConnectSupaBase().selectCategory();
-        }
-        Handler(Looper.getMainLooper()).postDelayed({
-           // val intent  = Intent(this, ActivitySignIn::class.java)
-            val intent  = Intent(this, ActivityStart::class.java)
+            ConnectSupaBase().selectProducts();
+            TempData().sortProduct();
+
+
+            val intent  = Intent(TempData.context, ActivityStart::class.java)
             startActivity(intent);
             finish();
-        },1000)
-
+        }
 
     }
 }

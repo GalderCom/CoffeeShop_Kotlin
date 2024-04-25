@@ -22,13 +22,15 @@ class FragmentMenu : Fragment() {
 
     lateinit var mRecyclerCategory: RecyclerView;
     lateinit var  mRecyclerProduct: RecyclerView;
+
     companion object{
-        lateinit var customAdapterProduct: CustomAdapterProduct;
         lateinit var customAdapterCategory: CustomAdapterCategory;
+        var customAdapterProduct  = CustomAdapterProduct(TempData.sortProductArray)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
     }
     @SuppressLint("NotifyDataSetChanged")
     override fun onCreateView(
@@ -36,9 +38,9 @@ class FragmentMenu : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         val view = inflater.inflate(R.layout.fragment__menu, container, false)
-
         init(view)
         selectData();
+
 
 
 
@@ -52,8 +54,7 @@ class FragmentMenu : Fragment() {
     private fun selectData()
     {
         customAdapterCategory = CustomAdapterCategory(TempData.categoryArray)
-        customAdapterProduct = CustomAdapterProduct(TempData.sortProductArray);
-
+     //   customAdapterProduct = CustomAdapterProduct(TempData.sortProductArray)
         //update
         mRecyclerCategory.adapter = customAdapterCategory;
         mRecyclerProduct.adapter = customAdapterProduct;

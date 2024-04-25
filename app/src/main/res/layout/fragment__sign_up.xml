@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_gravity="center"
-    tools:context=".Fragments.FragmentMyData"
-    android:layout_marginLeft="25dp"
-    android:layout_marginRight="25dp"
-    android:background="@color/blue">
+    tools:context=".Fragments.FragmentSignUp"
+    android:background="@color/blue"
+    android:layout_margin="20dp">
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dp"
             android:orientation="vertical">
             <FrameLayout
                 android:layout_marginTop="25dp"
@@ -29,14 +26,6 @@
                     style="@style/style_heading"
                     android:text="Регистрация"
                     android:layout_gravity="center|top"/>
-
-                <ImageButton
-                    android:id="@+id/button_back"
-                    android:layout_width="42dp"
-                    android:layout_height="42dp"
-                    android:background="@drawable/button_back"
-                    android:scaleType="center"
-                    android:layout_gravity="start" />
 
             </FrameLayout>
 
@@ -126,33 +115,38 @@
 
                     </LinearLayout>
 
-                    <FrameLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-                        <EditText
-                            android:id="@+id/genderView"
-                            android:layout_marginTop="4dp"
+                        <RelativeLayout
+                            android:layout_marginTop="5dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:backgroundTint="#00FFFFFF"
-                            android:fontFamily="@font/raleway_regular"
-                            android:text="Мужской"
-                            android:paddingTop="0dp"
-                            android:paddingBottom="3dp"
-                            android:textColor="@color/white"
-                            android:textSize="16sp"
-                            android:letterSpacing="0.04"
-                            android:inputType="text"/>
+                            android:layout_weight=".28"
+                            android:orientation="horizontal">
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/arrow"
-                            android:rotation="90"
-                            android:layout_gravity="end|center"
-                            android:scaleType="centerCrop"
-                            android:layout_marginEnd="5dp" />
-                    </FrameLayout>
+                            <Spinner
+                                android:id="@+id/spinner2"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_centerVertical="true"
+                                android:layout_gravity="center"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:spinnerMode="dropdown" />
+
+                            <FrameLayout
+                                android:paddingEnd="15dp"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                                <ImageView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="end"
+                                    android:scaleType="center"
+                                    android:src="@drawable/arrow"
+                                    android:rotation="90"/>
+                            </FrameLayout>
+
+
+                        </RelativeLayout>
 
 
 
@@ -228,25 +222,18 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_myData"
+                    android:id="@+id/btn_signUp"
                     android:layout_marginTop="35dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"
                     android:layout_width="match_parent"
                     style="@style/style_main_button"
-                    android:text="Сохранить"/>
-
+                    android:text="Регистрация"/>
 
             </LinearLayout>
 
         </LinearLayout>
     </ScrollView>
-
-
-
-
-
-
 
 
 </LinearLayout>

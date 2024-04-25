@@ -1,7 +1,6 @@
 package com.example.coffeeshop_20.Activitys
 
 import android.content.Context
-import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -14,7 +13,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
-import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Fragments.FragmentCart
 import com.example.coffeeshop_20.Fragments.FragmentFavourites
@@ -26,10 +24,12 @@ import kotlinx.coroutines.launch
 
 class ActivityMain : AppCompatActivity() {
     val ctx = ConnectSupaBase();
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-
+        ConnectSupaBase().selectFavor();
 
         supportFragmentManager.beginTransaction().replace(
             R.id.mainFragmentContainer,
@@ -37,17 +37,7 @@ class ActivityMain : AppCompatActivity() {
         ).commit();
         WorkWithMenu();
 
-
-
-
         lifecycleScope.launch {
-
-
-            ctx.selectProducts();
-       //     ctx.selectFavor();
-
-            TempData().sortProduct();
-
 
            var toast = Toast.makeText(TempData.context, "Получаем меню...",Toast.LENGTH_LONG)
             toast.setGravity(Gravity.CENTER, 0,0);
@@ -61,6 +51,10 @@ class ActivityMain : AppCompatActivity() {
 
         }
 
+    }
+
+    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
+        return super.onCreateView(name, context, attrs)
     }
 
     override fun onBackPressed() {
@@ -78,6 +72,7 @@ class ActivityMain : AppCompatActivity() {
         }
     }
 
+
     private lateinit var textMenuMENU: TextView;
     private lateinit var textMenuORDER: TextView;
 
@@ -92,7 +87,7 @@ class ActivityMain : AppCompatActivity() {
         textMenuHEART = findViewById(R.id.menu_heart)
         textMenuACCOUNT  = findViewById(R.id.menu_account)
 
-        val glassLayout: LinearLayout = findViewById(R.id.bottomNavigationLayout);
+        //val glassLayout: LinearLayout = findViewById(R.id.bottomNavigationLayout);
 
 
 
