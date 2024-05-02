@@ -38,7 +38,7 @@ class ActivitySignUp : AppCompatActivity() {
 
         lifecycleScope.launch {
             ConnectSupaBase().signUp(email);
-            ConnectSupaBase().insertUser(email,nameView.text.toString(),birthdayView.text.toString());
+            ConnectSupaBase().insertUser(email,nameView.text.toString(),birthdayView.text.toString(),1);
         }
     }
 }

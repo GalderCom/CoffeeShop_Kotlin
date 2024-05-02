@@ -29,7 +29,6 @@ class FragmentSignUp : Fragment() {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment__sign_up, container, false)
 
-
         //val spinner: Spinner = view.findViewById(R.id.spinner);
 
         val btn  = view.findViewById<Button>(R.id.btn_signUp)

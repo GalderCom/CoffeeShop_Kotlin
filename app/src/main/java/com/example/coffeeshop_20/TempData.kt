@@ -15,8 +15,12 @@ class TempData {
         var sortProductArray: ArrayList<DataClass.Products> = ArrayList();
         var categoryArray:ArrayList<DataClass.Category> = ArrayList();
         var favorArray:ArrayList<DataClass.Favor> = ArrayList();
-
+        val genderArray:ArrayList<DataClass.Gender> = arrayListOf(DataClass.Gender(1,"Мужской"),
+                                                                  DataClass.Gender(2,"Женский"))
+        var selectedGender = 0;
         var selectCategory = 1;
+
+       lateinit var user : DataClass.User;
 
        @SuppressLint("StaticFieldLeak")
        lateinit var context: Context;

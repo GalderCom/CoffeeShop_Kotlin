@@ -44,7 +44,7 @@ class ConnectSupaBase {
 
     suspend fun signUp(email_: String): Email.Result?
     {
-       return SbObject.client().auth.signUpWith(Email) {
+       return SbObject.supaBase.auth.signUpWith(Email) {
             email = email_
             password = "testPassword"
        }
@@ -52,49 +52,82 @@ class ConnectSupaBase {
 
     fun signIn (email_: String) {
         runBlocking {
-            SbObject.client().auth.signInWith(Email) {
+            SbObject.supaBase.auth.signInWith(Email) {
                 email = email_
                 password = "testPassword"
             }
             uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
-        }
 
+            selectUser();
+        }
     }
 
-    suspend fun insertUser(email:String, name:String, birthday:String) {
-
+    suspend fun insertUser(email:String, name:String, birthday:String,gender:Int) {
         signIn(email)
         uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
-        val user = DataClass.User(uuid,name,birthday);
+        val user = DataClass.User(uuid,name,birthday,gender);
         SbObject.client().postgrest["Users"].insert(user)
 
     }
     @SuppressLint("NotifyDataSetChanged")
     fun insertFavor(id_product:Int)
     {
+        if(TempData.favorArray.size != 0)
+        {
+            TempData.favorArray.add(DataClass.Favor(TempData.favorArray[TempData.favorArray.lastIndex].id+1,uuid,id_product))
+        }
+
         GlobalScope.launch {
-
-
-/*            if (TempData.favorArray.size != 0)
-            {
-                //TempData.favorArray.add(DataClass.Favor(TempData.favorArray[TempData.favorArray.lastIndex].id+1,uuid,id_product));
-                FragmentFavourites.valueCount = TempData.favorArray.size;
-            }
-            else
-            {
-                //TempData.favorArray.add(DataClass.Favor(1,uuid,id_product));
-                FragmentFavourites.valueCount = TempData.favorArray.size;
-            }*/
-
-
-
-
             uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
             val productFvr = DataClass.FavorInsert(uuid,id_product);
             SbObject.client().postgrest["FavoritesProduct"].insert(productFvr)
             selectFavor();
         }
+    }
 
+    fun updateUser()
+    {
+        runBlocking {
+            SbObject.client().from("Users").update(
+                {
+                    DataClass.User::name setTo TempData.user.name
+                    DataClass.User::birthday setTo TempData.user.birthday
+                    DataClass.User::gender setTo TempData.user.gender
+                }
+            ) {
+                filter {
+                    DataClass.User::id eq TempData.user.id
+                }
+            }
+        }
+
+    }
+    fun selectUser()
+    {
+        GlobalScope.launch {
+            val user = SbObject.client().postgrest["Users"].select()
+            val arrayObject = JSONArray(user.data)
+            for (i in 0 until arrayObject.length()) { //step 1
+
+                val itemObj = arrayObject.getJSONObject(i)
+
+                val id = itemObj.getString("id")
+                if(id == uuid)
+                {
+                    val name = itemObj.getString("name")
+                    val birthday = itemObj.getString("birthday");
+                    val gender = itemObj.getInt("gender")
+
+                    val tempItem = DataClass.User(
+                        id,
+                        name,
+                        birthday,
+                        gender
+                    )
+                    TempData.user = tempItem;
+                }
+            }
+        }
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -165,31 +198,28 @@ class ConnectSupaBase {
         // Асинхронный поток
             GlobalScope.launch {
                 coroutineScope {
-                    val bucket = SbObject.client().storage["Coffee"]
-                    TempData.productArray.forEachIndexed { index, product ->
-                        val imageName = product.id.toString() + ".png"
-                        val bytes = async { bucket.downloadPublic(imageName) }.await()
-                        val drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
+                    try {
+                        val bucket = SbObject.client().storage["Coffee"]
+                        TempData.productArray.forEachIndexed { index, product ->
+                            val imageName = product.id.toString() + ".png"
+                            val bytes = async { bucket.downloadPublic(imageName) }.await()
+                            val drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
 
-                        withContext(Dispatchers.Main) {
-                            TempData.productArray[index].image = drawable
-
-
-                            try {
-                                FragmentMenu.customAdapterProduct.notifyDataSetChanged()
-                                FragmentFavourites.customAdapterFavorites.notifyDataSetChanged();
-                            }
-                            catch (ex : Exception)
-                            {
-
+                            withContext(Dispatchers.Main) {
+                                TempData.productArray[index].image = drawable
+                                try {
+                                    FragmentMenu.customAdapterProduct.notifyDataSetChanged()
+                                    FragmentFavourites.customAdapterFavorites.notifyDataSetChanged();
+                                } catch (ex : Exception){}
                             }
                         }
                     }
-                }
-            }
+                    catch (ex : Exception) {
+                    }
 
+            }
         //Синхронный поток
-/*        runBlocking {
+           /* runBlocking {
             TempData.productArray.forEachIndexed { index, product ->
                 launch {
                     val bucket = SbObject.client().storage["Coffee"]
@@ -201,25 +231,18 @@ class ConnectSupaBase {
                     TempData.productArray[index].image = drawable
 
                 }
-            }
-        }*/
-
-
+            }*/
+        }
     }
 
     fun selectFavor()
     {
-
-
-
         GlobalScope.launch(Dispatchers.Main) {
             coroutineScope {
                 val favor = SbObject.client().postgrest["FavoritesProduct"].select()
                 val arrayObject = JSONArray(favor.data)
-                FragmentFavourites.valueCount = arrayObject.length();
 
                 val favorSet = HashSet<Int>()
-                val favorToRemove = HashSet<Int>()
 
                 for (i in 0 until arrayObject.length()) {
                     val itemObj = arrayObject.getJSONObject(i)

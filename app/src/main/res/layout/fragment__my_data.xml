@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -27,7 +28,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     style="@style/style_heading"
-                    android:text="Регистрация"
+                    android:text="Мои данные"
                     android:layout_gravity="center|top"/>
 
                 <ImageButton
@@ -129,14 +130,13 @@
                     <FrameLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content">
-                        <EditText
-                            android:id="@+id/genderView"
+                        <TextView
+                            android:id="@+id/genderText"
                             android:layout_marginTop="4dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"
                             android:fontFamily="@font/raleway_regular"
-                            android:text="Мужской"
                             android:paddingTop="0dp"
                             android:paddingBottom="3dp"
                             android:textColor="@color/white"
@@ -144,14 +144,23 @@
                             android:letterSpacing="0.04"
                             android:inputType="text"/>
 
-                        <ImageView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/arrow"
-                            android:rotation="90"
+                        <FrameLayout
+                            android:id="@+id/btnGender"
                             android:layout_gravity="end|center"
-                            android:scaleType="centerCrop"
-                            android:layout_marginEnd="5dp" />
+                            android:layout_width="50dp"
+                            android:layout_height="30dp">
+                            <ImageView
+                                android:layout_gravity="end|center"
+                                android:id="@+id/arrowGedner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/arrow"
+                                android:rotation="90"
+                                android:scaleType="centerCrop"
+                                android:layout_marginEnd="5dp" />
+                        </FrameLayout>
+
+
                     </FrameLayout>
 
 
@@ -161,6 +170,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:src="@drawable/line_smal"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:visibility="gone"
+                        android:id="@+id/gender_list"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent" />
 
                 </LinearLayout>
 
@@ -202,20 +218,20 @@
                             android:layout_height="wrap_content"
                             android:backgroundTint="#00FFFFFF"
                             android:fontFamily="@font/oswald_light"
-                            android:text="26.06.2004"
                             android:paddingTop="0dp"
                             android:paddingBottom="3dp"
                             android:textColor="@color/white"
                             android:textSize="16sp"
                             android:letterSpacing="0.04"
-                            android:inputType="date"/>
+                            android:inputType="date"
+                            android:maxLength="10"/>
+
                         <ImageView
+                            android:layout_gravity="end|center"
+                            android:id="@+id/crossBirthday"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:src="@drawable/arrow"
-                            android:rotation="90"
-                            android:layout_gravity="end|center"
-                            android:scaleType="centerCrop"
+                            android:background="@drawable/crossik_white"
                             android:layout_marginEnd="5dp" />
                     </FrameLayout>
 
@@ -228,7 +244,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/btn_myData"
+                    android:id="@+id/btn_save"
                     android:layout_marginTop="35dp"
                     android:layout_marginLeft="25dp"
                     android:layout_marginRight="25dp"

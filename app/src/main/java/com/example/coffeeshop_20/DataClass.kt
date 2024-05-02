@@ -24,8 +24,9 @@ class DataClass {
     @kotlinx.serialization.Serializable
     data class User(
         val id:String = "",
-        val name:String ="",
-        val birthday:String = "01-01-2000"
+        var name:String ="",
+        var birthday:String = "01-01-2000",
+        var gender:Int = 1
     )
 
     data class Favor(
@@ -37,6 +38,11 @@ class DataClass {
     data class FavorInsert(
         val id_user: String = "",
         val id_product:Int = 0
+    )
+
+    data class Gender(
+        val id: Int = 0,
+        val name:String = ""
     )
 
 
