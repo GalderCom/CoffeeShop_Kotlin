@@ -17,13 +17,13 @@ import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Fragments.FragmentCart
 import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.Fragments.FragmentMenu
+import com.example.coffeeshop_20.Fragments.FragmentMyData
 import com.example.coffeeshop_20.Fragments.FragmentProfile
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import kotlinx.coroutines.launch
 
 class ActivityMain : AppCompatActivity() {
-    val ctx = ConnectSupaBase();
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,11 +35,11 @@ class ActivityMain : AppCompatActivity() {
             R.id.mainFragmentContainer,
             FragmentMenu()
         ).commit();
-        WorkWithMenu();
+        WorkWithMenuBtn();
 
         lifecycleScope.launch {
 
-           var toast = Toast.makeText(TempData.context, "Получаем меню...",Toast.LENGTH_LONG)
+           val toast = Toast.makeText(TempData.context, "Получаем меню...",Toast.LENGTH_LONG)
             toast.setGravity(Gravity.CENTER, 0,0);
             toast.show();
 
@@ -50,26 +50,33 @@ class ActivityMain : AppCompatActivity() {
             },100)
 
         }
-
     }
 
-    override fun onCreateView(name: String, context: Context, attrs: AttributeSet): View? {
-        return super.onCreateView(name, context, attrs)
-    }
-
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        super.onBackPressed()
-        val myData =  supportFragmentManager.findFragmentByTag("MY_DATA")
-        if(myData != null && myData.isVisible)
-        {
+        val fragmentManager = supportFragmentManager
+        val fragment =  fragmentManager.findFragmentById(R.id.mainFragmentContainer)
+
+        if(fragment is FragmentMyData) {
             supportFragmentManager.beginTransaction().replace(
                 R.id.mainFragmentContainer,
                 FragmentProfile()
-            ).commit();
+            ).commit()
         }
-        else{
-            finish()
+        else if (fragment !is FragmentMenu) {
+
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentMenu()
+            ).commit()
+            UnSelect(textMenuMENU)
+
         }
+        else
+        {
+            super.onBackPressed()
+        }
+
     }
 
 
@@ -78,62 +85,56 @@ class ActivityMain : AppCompatActivity() {
 
     private lateinit var textMenuHEART: TextView;
     private lateinit var textMenuACCOUNT: TextView;
-    private fun WorkWithMenu()
+    
+    private fun WorkWithMenuBtn()
     {
-
-
         textMenuMENU = findViewById(R.id.menu_home)
         textMenuORDER = findViewById(R.id.menu_order)
         textMenuHEART = findViewById(R.id.menu_heart)
         textMenuACCOUNT  = findViewById(R.id.menu_account)
 
-        //val glassLayout: LinearLayout = findViewById(R.id.bottomNavigationLayout);
-
-
-
-            val buttonMenu: LinearLayout = findViewById(R.id.menu_menuButton)
-            buttonMenu.setOnClickListener {
-                UnSelect(textMenuMENU)
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.mainFragmentContainer,
-                    FragmentMenu()
-                ).commit();
-            }
-
-
-            val buttonOrder: LinearLayout = findViewById(R.id.menu_orderButton)
-            buttonOrder.setOnClickListener {
-                UnSelect(textMenuORDER)
-
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.mainFragmentContainer,
-                    FragmentCart()
-                ).commit();
-            }
-
-
-            val buttonHeart: LinearLayout = findViewById(R.id.menu_heartButton)
-            buttonHeart.setOnClickListener {
-                UnSelect(textMenuHEART)
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.mainFragmentContainer,
-                    FragmentFavourites()
-                ).commit();
-            }
-
-
-            val buttonAccount: LinearLayout = findViewById(R.id.menu_accountButton)
-            buttonAccount.setOnClickListener {
-                UnSelect(textMenuACCOUNT)
-
-
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.mainFragmentContainer,
-                    FragmentProfile()
-                ).commit();
-            }
+        
+        val buttonMenu: LinearLayout = findViewById(R.id.menu_menuButton)
+        buttonMenu.setOnClickListener {
+            UnSelect(textMenuMENU)
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentMenu()
+            ).commit();
         }
 
+
+        val buttonOrder: LinearLayout = findViewById(R.id.menu_orderButton)
+        buttonOrder.setOnClickListener {
+            UnSelect(textMenuORDER)
+
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentCart()
+            ).commit();
+        }
+
+
+        val buttonHeart: LinearLayout = findViewById(R.id.menu_heartButton)
+        buttonHeart.setOnClickListener {
+            UnSelect(textMenuHEART)
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentFavourites()
+            ).commit();
+        }
+
+
+        val buttonAccount: LinearLayout = findViewById(R.id.menu_accountButton)
+        buttonAccount.setOnClickListener {
+            UnSelect(textMenuACCOUNT)
+
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentProfile()
+            ).commit();
+        }
+    }
 
 
     private fun UnSelect(view: View) {
@@ -155,6 +156,5 @@ class ActivityMain : AppCompatActivity() {
             view.visibility = View.VISIBLE
             view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.ani_splash_menu));
         }
-
     }
 }

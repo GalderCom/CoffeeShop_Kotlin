@@ -17,25 +17,25 @@
         <activity
             android:name=".Activitys.ActivityStart"
             android:exported="false" />
-        <activity
-            android:name=".Activitys.ActivitySignUp"
-            android:exported="false" />
+
         <activity
             android:name=".Activitys.ActivityCodeFromSMS"
             android:exported="false" />
+
         <activity
             android:name=".Activitys.ActivitySplash"
             android:exported="true"
             android:theme="@style/AppSplash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".Activitys.ActivityMain"
             android:exported="true" />
+
     </application>
 
 </manifest>

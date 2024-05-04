@@ -52,13 +52,11 @@ class CustomAdapterFavorites(private var data: ArrayList<DataClass.Favor>): Recy
         var lastClickTime: Long = 0
         holder.btnRemove.setOnClickListener(){
 
-
             val currentTime = System.currentTimeMillis()
             if (currentTime - lastClickTime > 5000) { // Проверяем, прошло ли уже 1 секунда с последнего клика
                 ConnectSupaBase().removeFavor(data[position].id_product)
                 lastClickTime = currentTime // Обновляем время последнего клика
             }
-
 
         }
     }
