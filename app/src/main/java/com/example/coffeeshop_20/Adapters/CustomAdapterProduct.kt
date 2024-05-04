@@ -85,56 +85,28 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
                 }
             }
 
-
-
             btnFvr.setOnClickListener {
                 var searchItem = false;
-                if (FragmentFavourites.valueCount != 0)
-                {
-                    for(i in 0 until TempData.favorArray.size)
-                    {
-                        if (data[position].id == TempData.favorArray[i].id_product)
-                        {
-                           searchItem = true;
-                            break
-
-                        }
-                        else
-                        {
-                           searchItem = false;
-                        }
-                    }
-
-                    when(searchItem)
-                    {
-                        true -> {
+                if (TempData.favorArray.size != 0) {
+                    for(i in 0 until TempData.favorArray.size) {
+                        if (data[position].id == TempData.favorArray[i].id_product) {
+                            searchItem = true;
                             btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart));
-                            ConnectSupaBase().removeFavor(data[position].id)
-                        };
-                        false -> {
-                            btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange));
-                            ConnectSupaBase().insertFavor(data[position].id)
-                        };
+                            ConnectSupaBase().removeFavor(data[position].id);
+                            break;
+                        }
                     }
-                }
-                else
-                {
+
+                    if (!searchItem) {
+                        btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange));
+                        ConnectSupaBase().insertFavor(data[position].id);
+                    }
+
+                } else {
                     btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange));
-                    ConnectSupaBase().insertFavor(data[position].id)
+                    ConnectSupaBase().insertFavor(data[position].id);
                 }
-
-
             }
-
-
-
-
-
-
-
-
-
-
 
             val image = view.findViewById<ImageView>(R.id.imageVew);
             image.setImageDrawable(data[position].image)

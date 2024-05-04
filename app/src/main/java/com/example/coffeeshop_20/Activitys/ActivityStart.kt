@@ -11,6 +11,7 @@ import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Fragments.FragmentSignIn
 import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.TempData
 
 class ActivityStart : AppCompatActivity() {
 
@@ -33,12 +34,13 @@ class ActivityStart : AppCompatActivity() {
 
         btnStart.setOnClickListener(){
             val emailView = findViewById<EditText>(R.id.editText_Email);
-            val email = emailView?.text.toString();
+            TempData.email = emailView?.text.toString();
+
 
             if(emailView?.text?.length!! > 5)
             {
                 try {
-                    ConnectSupaBase().signIn(email);
+                    ConnectSupaBase().signIn();
                     val intent1 = Intent(context, ActivityMain::class.java)
                     startActivity(intent1)
                     finish()

@@ -9,6 +9,7 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.Fragments.FragmentMyData
+import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 
@@ -34,10 +35,20 @@ class CustomAdapterGender (private var data: ArrayList<DataClass.Gender>): Recyc
 
 
         holder.title.setOnClickListener {
-           FragmentMyData.textViewGender.text = data[position].name;
-            FragmentMyData.mRecyclerGender.visibility = View.GONE;
-            FragmentMyData.arrowGender.rotation = holder.itemView.rotation.plus(90)
-            TempData.selectedGender = data[position].id
+            try {
+                FragmentMyData.textViewGender.text = data[position].name;
+                FragmentMyData.mRecyclerGender.visibility = View.GONE;
+                FragmentMyData.arrowGender.rotation = holder.itemView.rotation.plus(90)
+                TempData.selectedGender = data[position].id
+            }
+            catch (ex: Exception)
+            {
+                FragmentSignUp.textViewGender.text = data[position].name;
+                FragmentSignUp.mRecyclerGender.visibility = View.GONE;
+                FragmentSignUp.arrowGender.rotation = holder.itemView.rotation.plus(90)
+                TempData.selectedGender = data[position].id
+            }
+
         }
     }
 

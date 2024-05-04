@@ -42,31 +42,38 @@ class ConnectSupaBase {
 
     var uuid = ""
 
-    suspend fun signUp(email_: String): Email.Result?
+     fun signUp()
     {
-       return SbObject.supaBase.auth.signUpWith(Email) {
-            email = email_
-            password = "testPassword"
-       }
+         runBlocking {
+             SbObject.supaBase.auth.signUpWith(Email) {
+                 email = TempData.email
+                 password = "testPassword"
+             }
+         }
+
+
     }
 
-    fun signIn (email_: String) {
+    fun signIn () {
         runBlocking {
             SbObject.supaBase.auth.signInWith(Email) {
-                email = email_
+                email = TempData.email
                 password = "testPassword"
             }
             uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
-
             selectUser();
         }
     }
 
-    suspend fun insertUser(email:String, name:String, birthday:String,gender:Int) {
-        signIn(email)
-        uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
-        val user = DataClass.User(uuid,name,birthday,gender);
-        SbObject.client().postgrest["Users"].insert(user)
+     fun insertUser(name:String, birthday:String) {
+
+        runBlocking {
+            signIn()
+            uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+            val user = DataClass.User(uuid,name,birthday,TempData.selectedGender);
+            SbObject.client().postgrest["Users"].insert(user)
+        }
+
 
     }
     @SuppressLint("NotifyDataSetChanged")

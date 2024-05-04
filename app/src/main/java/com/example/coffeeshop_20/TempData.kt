@@ -17,8 +17,9 @@ class TempData {
         var favorArray:ArrayList<DataClass.Favor> = ArrayList();
         val genderArray:ArrayList<DataClass.Gender> = arrayListOf(DataClass.Gender(1,"Мужской"),
                                                                   DataClass.Gender(2,"Женский"))
-        var selectedGender = 0;
+        var selectedGender = 1;
         var selectCategory = 1;
+        var email = "";
 
        lateinit var user : DataClass.User;
 

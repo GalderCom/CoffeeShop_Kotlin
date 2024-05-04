@@ -36,9 +36,5 @@ class ActivitySignUp : AppCompatActivity() {
         val imm = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         imm.hideSoftInputFromWindow(view.windowToken, 0)
 
-        lifecycleScope.launch {
-            ConnectSupaBase().signUp(email);
-            ConnectSupaBase().insertUser(email,nameView.text.toString(),birthdayView.text.toString(),1);
-        }
     }
 }
