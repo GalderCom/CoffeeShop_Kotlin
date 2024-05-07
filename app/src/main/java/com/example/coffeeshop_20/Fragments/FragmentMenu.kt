@@ -5,17 +5,15 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.LinearLayout
-import androidx.core.view.size
+import android.widget.EditText
+import android.widget.TextView
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
 import com.example.coffeeshop_20.Adapters.CustomAdapterProduct
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
-import kotlinx.coroutines.launch
+import java.time.LocalTime
 
 class FragmentMenu : Fragment() {
 
@@ -37,9 +35,15 @@ class FragmentMenu : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment__menu, container, false)
+        val view = inflater.inflate(R.layout.fragment_menu, container, false)
         init(view)
         selectData();
+
+        val currentHour = LocalTime.now().hour
+
+
+        val timeText = view.findViewById<TextView>(R.id.timeText)
+        timeText.text = checkTimeOfDay(currentHour)
 
 
 
@@ -54,13 +58,18 @@ class FragmentMenu : Fragment() {
     private fun selectData()
     {
         customAdapterCategory = CustomAdapterCategory(TempData.categoryArray)
-     //   customAdapterProduct = CustomAdapterProduct(TempData.sortProductArray)
-        //update
         mRecyclerCategory.adapter = customAdapterCategory;
         mRecyclerProduct.adapter = customAdapterProduct;
-
-
         mRecyclerCategory.scrollToPosition(TempData.selectCategory - 1 )
+    }
 
+    fun checkTimeOfDay(hour: Int): String {
+        return when (hour) {
+            in 6..10->"Доброе утро"
+            in 11..17 -> "Хорошего вам дня"
+            in 18..23 -> "Хорошего вам вечера"
+            in 0..5 -> "Доброй ночи"
+            else -> "Ой"
+        }
     }
 }

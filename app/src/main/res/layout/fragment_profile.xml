@@ -35,22 +35,25 @@
                             android:layout_height="wrap_content">
 
                             <TextView
+                                android:id="@+id/nameText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="Привет, Артём!"
+                                android:text="Привет"
                                 android:letterSpacing="0.05"
                                 android:textSize="20sp"
                                 android:textColor="@color/white"
                                 android:fontFamily="@font/raleway_italic"/>
 
                             <TextView
+                                android:id="@+id/emailText"
                                 android:layout_marginTop="2dp"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="+7 (941)  432-20-13"
+                                android:text="Gmail"
+                                android:letterSpacing="0.04"
                                 android:textSize="16sp"
                                 android:textColor="@color/gray"
-                                android:fontFamily="@font/oswal_regular"/>
+                                android:fontFamily="@font/raleway_italic"/>
 
                             <TextView
                                 android:letterSpacing="0.04"
@@ -181,6 +184,7 @@
                             android:rotation="0" />
 
                         <FrameLayout
+                            android:id="@+id/frameLayout_save_address"
                             android:paddingTop="15dp"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">

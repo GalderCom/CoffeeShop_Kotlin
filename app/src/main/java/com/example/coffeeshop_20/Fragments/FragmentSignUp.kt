@@ -11,9 +11,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.FrameLayout
-import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.Spinner
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -23,7 +21,7 @@ import com.example.coffeeshop_20.Adapters.CustomAdapterGender
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
-import com.example.coffeeshop_20.TempData.Companion.finish
+import kotlinx.coroutines.GlobalScope
 
 class FragmentSignUp : Fragment() {
 
@@ -40,7 +38,7 @@ class FragmentSignUp : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val  view = inflater.inflate(R.layout.fragment__sign_up, container, false)
+        val  view = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
         init(view)
         crossBtn.setOnClickListener(){
@@ -56,7 +54,7 @@ class FragmentSignUp : Fragment() {
         btnSave.setOnClickListener(){
             var errorDate = false
 
-            if (birthDayText.text.length == 10 || nameText.text.length <= 2 || textViewGender.text != "Не выбран") {
+            if (birthDayText.text.length == 10 && nameText.text.length >= 2 ) {
 
                 try {
 
@@ -83,6 +81,7 @@ class FragmentSignUp : Fragment() {
 
                     else
                     {
+
                         ConnectSupaBase().signUp();
                         ConnectSupaBase().insertUser(nameText.text.toString(),birthDayText.text.toString())
                         ConnectSupaBase().signIn()

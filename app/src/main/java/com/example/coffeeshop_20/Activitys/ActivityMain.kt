@@ -1,9 +1,11 @@
 package com.example.coffeeshop_20.Activitys
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.telecom.Call
 import android.util.AttributeSet
 import android.view.Gravity
 import android.view.View
@@ -19,17 +21,32 @@ import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.Fragments.FragmentMyData
 import com.example.coffeeshop_20.Fragments.FragmentProfile
+import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import kotlinx.coroutines.launch
+import java.time.LocalTime
+import kotlin.system.exitProcess
 
 class ActivityMain : AppCompatActivity() {
+
+   lateinit var ctx :ActivityMain;
+    companion object{
+        @SuppressLint("StaticFieldLeak")
+        lateinit var bottomNavigationLayout: LinearLayout;
+    }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ConnectSupaBase().selectFavor();
+        ConnectSupaBase().selectUserAddress()
+
+        ctx = this;
+
+        bottomNavigationLayout = findViewById(R.id.bottomNavigationLayout);
+
 
         supportFragmentManager.beginTransaction().replace(
             R.id.mainFragmentContainer,
@@ -38,10 +55,6 @@ class ActivityMain : AppCompatActivity() {
         WorkWithMenuBtn();
 
         lifecycleScope.launch {
-
-           val toast = Toast.makeText(TempData.context, "Получаем меню...",Toast.LENGTH_LONG)
-            toast.setGravity(Gravity.CENTER, 0,0);
-            toast.show();
 
             Handler(Looper.getMainLooper()).postDelayed({
                 TempData.finish = false;
@@ -54,31 +67,39 @@ class ActivityMain : AppCompatActivity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        val fragmentManager = supportFragmentManager
-        val fragment =  fragmentManager.findFragmentById(R.id.mainFragmentContainer)
 
-        if(fragment is FragmentMyData) {
-            supportFragmentManager.beginTransaction().replace(
-                R.id.mainFragmentContainer,
-                FragmentProfile()
-            ).commit()
-        }
-        else if (fragment !is FragmentMenu) {
+        val fragment =  supportFragmentManager.findFragmentById(R.id.mainFragmentContainer)
 
-            supportFragmentManager.beginTransaction().replace(
-                R.id.mainFragmentContainer,
-                FragmentMenu()
-            ).commit()
-            UnSelect(textMenuMENU)
-
-        }
-        else
+        when(fragment?.tag)
         {
-            super.onBackPressed()
+            "My_Data" , "Save_Address", "My_Order"-> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.mainFragmentContainer,
+                    FragmentProfile()
+                ).commit()
+            }
+            "Add_Address"-> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.mainFragmentContainer, FragmentSaveAddress(),"Save_Address").commit()
+            }
+            else ->{
+                if (fragment !is FragmentMenu) {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.mainFragmentContainer,
+                        FragmentMenu()
+                    ).commit()
+                    UnSelect(textMenuMENU)
+                }
+                else
+                {
+                    super.onBackPressed()
+                    moveTaskToBack(true);
+                    exitProcess(-1)
+                }
+            }
         }
 
     }
-
 
     private lateinit var textMenuMENU: TextView;
     private lateinit var textMenuORDER: TextView;
@@ -157,4 +178,7 @@ class ActivityMain : AppCompatActivity() {
             view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.ani_splash_menu));
         }
     }
+
+
+
 }

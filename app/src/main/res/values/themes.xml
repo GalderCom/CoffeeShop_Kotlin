@@ -11,6 +11,12 @@
         <item name="android:statusBarColor">@color/blue</item>
         <item name="android:navigationBarColor">@color/blue</item>
         <item name="android:screenOrientation">userPortrait</item>
+
+        <item name="android:activityOpenEnterAnimation">@anim/enter_animation</item>
+        <item name="android:activityOpenExitAnimation">@anim/exit_animation</item>
+
+        <item name="android:activityCloseEnterAnimation">@anim/enter_animation</item>
+        <item name="android:activityCloseExitAnimation">@anim/exit_animation</item>
     </style>
 
     <style name="AppSplash" parent="Theme.AppCompat.Light.NoActionBar" >
@@ -22,5 +28,19 @@
         <item name="android:navigationBarColor">@color/blue</item>
 
         <item name="android:windowActivityTransitions">true</item>
+
+
+        <item name="android:activityOpenEnterAnimation">@anim/enter_animation</item>
+        <item name="android:activityOpenExitAnimation">@anim/exit_animation</item>
+
+        <item name="android:activityCloseEnterAnimation">@anim/enter_animation</item>
+        <item name="android:activityCloseExitAnimation">@anim/exit_animation</item>
     </style>
+
+    <style name="CustomAnimation">
+        <item name="android:windowEnterAnimation">@anim/enter_animation</item>
+        <item name="android:windowExitAnimation">@anim/exit_animation</item>
+    </style>
+
 </resources>
+

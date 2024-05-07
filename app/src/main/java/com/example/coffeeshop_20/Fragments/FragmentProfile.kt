@@ -1,21 +1,20 @@
 package com.example.coffeeshop_20.Fragments
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
+import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.coffeeshop_20.Activitys.ActivityMain
 import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.TempData
 
 class FragmentProfile : Fragment() {
 
-
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
+    @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -23,29 +22,44 @@ class FragmentProfile : Fragment() {
     ): View? {
 
         var view: View? = null
-        view = inflater.inflate(R.layout.fragment__profile, container, false)
+        view = inflater.inflate(R.layout.fragment_profile, container, false)
 
-        val MyDataClick: FrameLayout = view.findViewById(R.id.frameLayout_my_data);
-        MyDataClick.setOnClickListener(){
-           parentFragmentManager.beginTransaction().replace(
-               R.id.mainFragmentContainer,
-               FragmentMyData(),"MY_DATA").commit();
+        ActivityMain.bottomNavigationLayout.visibility = View.VISIBLE;
+
+
+        val name = view.findViewById<TextView>(R.id.nameText);
+        name.text = "Привет, ${TempData.user.name}!"
+
+
+        val result = TempData.email.substringBefore("@")
+        val email = view.findViewById<TextView>(R.id.emailText);
+        email.text = result;
+
+
+        val myDataClick: FrameLayout = view.findViewById(R.id.frameLayout_my_data);
+        myDataClick.setOnClickListener() {
+            parentFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentMyData(), "My_Data"
+            ).commit();
+
+            ActivityMain.bottomNavigationLayout.visibility = View.GONE;
+
         }
 
+        val saveAddressClick: FrameLayout = view.findViewById(R.id.frameLayout_save_address)
+        saveAddressClick.setOnClickListener()
+        {
+            parentFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentSaveAddress(), "Save_Address"
+            ).commit();
+
+            ActivityMain.bottomNavigationLayout.visibility = View.GONE;
+
+        }
 
         // Inflate the layout for this fragment
         return view
     }
-
-
-    companion object {
-
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentProfile().apply {
-
-            }
-
-    }
-
 }

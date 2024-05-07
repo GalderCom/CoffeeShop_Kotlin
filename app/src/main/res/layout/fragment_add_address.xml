@@ -1,0 +1,423 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Fragments.FragmentAddAddress"
+    android:background="@color/blue"
+    android:layout_marginEnd="20dp"
+    android:layout_marginStart="20dp">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            <FrameLayout
+                android:layout_marginTop="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_marginTop="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/style_heading"
+                    android:text="Добавить адрес"
+                    android:layout_gravity="center|top"/>
+
+                <ImageButton
+                    android:id="@+id/btn_back"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:background="@drawable/button_back"
+                    android:scaleType="center"
+                    android:layout_gravity="start" />
+
+                <ImageView
+                    android:visibility="gone"
+                    android:padding="6dp"
+                    android:id="@+id/btn_dell"
+                    android:layout_width="42dp"
+                    android:layout_height="42dp"
+                    android:src="@drawable/trash"
+                    android:layout_gravity="end" />
+
+            </FrameLayout>
+
+
+
+            <LinearLayout
+                android:layout_marginTop="40dp"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Название"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray"
+                            android:fontFamily="@font/raleway_regular"
+                            android:letterSpacing="0.13"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" *"
+                            android:textSize="16sp"
+                            android:textColor="@color/main_orange"/>
+
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/nameText"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FFFFFF"
+                        android:fontFamily="@font/raleway_regular"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.04"
+                        android:inputType="text"
+                        android:maxLength="20"/>
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/line_smal"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_marginTop="22dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Улица"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray"
+                            android:fontFamily="@font/raleway_regular"
+                            android:letterSpacing="0.13"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text=" *"
+                            android:textSize="16sp"
+                            android:textColor="@color/main_orange"/>
+
+                    </LinearLayout>
+
+
+                    <AutoCompleteTextView
+                        android:id="@+id/streetText"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FFFFFF"
+                        android:fontFamily="@font/raleway_regular"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.04"
+                        android:inputType="text"
+                        android:maxLength="20"/>
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/line_smal"/>
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="22dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Дом"
+                                android:textSize="16sp"
+                                android:textColor="@color/gray"
+                                android:fontFamily="@font/raleway_regular"
+                                android:letterSpacing="0.13"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text=" *"
+                                android:textSize="16sp"
+                                android:textColor="@color/main_orange"/>
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/houseText"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:fontFamily="@font/oswald_light"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.04"
+                            android:inputType="text"
+                            android:maxLength="10"/>
+
+                        <ImageView
+                            android:scaleType="centerCrop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/line_smal"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="22dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Кв/Офис"
+                                android:textSize="16sp"
+                                android:textColor="@color/gray"
+                                android:fontFamily="@font/raleway_regular"
+                                android:letterSpacing="0.13"/>
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/flatText"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:fontFamily="@font/oswald_light"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.04"
+                            android:inputType="text"
+                            android:maxLength="10"/>
+
+                        <ImageView
+                            android:scaleType="centerCrop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/line_smal"/>
+
+                    </LinearLayout>
+
+
+
+                </LinearLayout>
+
+
+
+
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_marginEnd="20dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="22dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Подъезд"
+                                android:textSize="16sp"
+                                android:textColor="@color/gray"
+                                android:fontFamily="@font/raleway_regular"
+                                android:letterSpacing="0.13"/>
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/entranceText"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:fontFamily="@font/oswald_light"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.04"
+                            android:inputType="text"
+                            android:maxLength="10"/>
+
+                        <ImageView
+                            android:scaleType="centerCrop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/line_smal"/>
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:layout_marginStart="20dp"
+                        android:layout_weight="1"
+                        android:layout_marginTop="22dp"
+                        android:orientation="vertical"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content">
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Этаж"
+                                android:textSize="16sp"
+                                android:textColor="@color/gray"
+                                android:fontFamily="@font/raleway_regular"
+                                android:letterSpacing="0.13"/>
+
+                        </LinearLayout>
+
+                        <EditText
+                            android:id="@+id/floorText"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:fontFamily="@font/oswald_light"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.04"
+                            android:inputType="text"
+                            android:maxLength="10"/>
+
+                        <ImageView
+                            android:scaleType="centerCrop"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/line_smal"/>
+
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_marginTop="22dp"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Коментарий"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray"
+                            android:fontFamily="@font/raleway_regular"
+                            android:letterSpacing="0.13"/>
+                    </LinearLayout>
+
+                    <EditText
+                        android:id="@+id/commText"
+                        android:layout_marginTop="4dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:backgroundTint="#00FFFFFF"
+                        android:fontFamily="@font/raleway_regular"
+                        android:paddingTop="0dp"
+                        android:paddingBottom="3dp"
+                        android:textColor="@color/white"
+                        android:textSize="16sp"
+                        android:letterSpacing="0.04"
+                        android:inputType="textMultiLine"
+                        android:maxLength="200"
+                        android:maxLines="10"/>
+
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/line_smal"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+            <Button
+                android:layout_weight="1"
+                android:id="@+id/btn_save_address"
+                android:layout_marginTop="35dp"
+                android:layout_marginLeft="25dp"
+                android:layout_marginRight="25dp"
+                android:layout_width="match_parent"
+                style="@style/style_main_button"
+                android:text="Сохранить"/>
+
+
+        </LinearLayout>
+    </ScrollView>
+
+
+</FrameLayout>

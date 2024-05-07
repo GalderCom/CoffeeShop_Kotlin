@@ -9,6 +9,8 @@
         <item name="android:statusBarColor">@color/blue</item>
         <item name="android:navigationBarColor">@color/blue</item>
         <item name="android:screenOrientation">portrait</item>
+
+        <item name="android:windowAnimationStyle">@style/CustomAnimation</item>
     </style>
 
 
@@ -21,5 +23,7 @@
         <item name="android:navigationBarColor">@color/blue</item>
 
         <item name="android:windowActivityTransitions">true</item>
+
+        <item name="android:windowAnimationStyle">@style/CustomAnimation</item>
     </style>
 </resources>

@@ -8,19 +8,21 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
+        android:enableOnBackInvokedCallback = "false"
         android:icon="@mipmap/icon_app"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/icon_app_round"
         android:supportsRtl="true"
-        android:theme="@style/AppTheme"
-        tools:targetApi="31">
+        android:theme="@style/AppSplash"
+        tools:targetApi="tiramisu">
         <activity
             android:name=".Activitys.ActivityStart"
-            android:exported="false" />
+            android:exported="true"
+            android:theme="@style/AppSplash"/>
 
         <activity
             android:name=".Activitys.ActivityCodeFromSMS"
-            android:exported="false" />
+            android:exported="true" />
 
         <activity
             android:name=".Activitys.ActivitySplash"
@@ -34,7 +36,8 @@
 
         <activity
             android:name=".Activitys.ActivityMain"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/AppSplash"/>
 
     </application>
 

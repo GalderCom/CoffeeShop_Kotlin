@@ -5,61 +5,46 @@ import android.os.Bundle
 import android.view.View
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import com.example.coffeeshop_20.ConnectSupaBase
+import com.example.coffeeshop_20.Fragments.FragmentMenu
+import com.example.coffeeshop_20.Fragments.FragmentProfile
+import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import com.example.coffeeshop_20.Fragments.FragmentSignIn
 import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import kotlin.system.exitProcess
 
 class ActivityStart : AppCompatActivity() {
 
-    var selectedFragment = "SignIn"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        enableEdgeToEdge()
         setContentView(R.layout.activity_start)
-
 
         supportFragmentManager.beginTransaction().replace(
             R.id.mainFragmentContainer,
-            FragmentSignIn()
+            FragmentSignIn(),"SignIn"
         ).commit();
-
-        val context = this;
-
-
-        val btnStart:Button = findViewById(R.id.btn_start);
-
-        btnStart.setOnClickListener(){
-            val emailView = findViewById<EditText>(R.id.editText_Email);
-            TempData.email = emailView?.text.toString();
-
-
-            if(emailView?.text?.length!! > 5)
-            {
-                try {
-                    ConnectSupaBase().signIn();
-                    val intent1 = Intent(context, ActivityMain::class.java)
-                    startActivity(intent1)
-                    finish()
-
-                }
-                catch (ex:Exception) {
-                    supportFragmentManager.beginTransaction().replace(
-                        R.id.mainFragmentContainer,
-                        FragmentSignUp()
-                    ).commit();
-                    btnStart.visibility = View.GONE;
-
-                }
-
-            }
-
-        }
-
     }
 
+    @Deprecated("Deprecated in Java")
+    override fun onBackPressed() {
+        val fragment =  supportFragmentManager.findFragmentById(R.id.mainFragmentContainer)
 
+        when(fragment?.tag)
+        {
+            "signUp"-> {
+                supportFragmentManager.beginTransaction().replace(
+                    R.id.mainFragmentContainer,
+                    FragmentSignIn(), "SignIn"
+                ).commit()
+            }
+            "SignIn" ->{
+                super.onBackPressed()
+            }
+        }
+    }
 }

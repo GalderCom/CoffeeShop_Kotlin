@@ -12,7 +12,6 @@ import android.widget.EditText
 import android.widget.FrameLayout
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
@@ -20,9 +19,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Adapters.CustomAdapterGender
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
-import com.example.coffeeshop_20.SbObject
 import com.example.coffeeshop_20.TempData
-import io.github.jan.supabase.postgrest.postgrest
 
 class FragmentMyData : Fragment() {
 
@@ -47,7 +44,7 @@ class FragmentMyData : Fragment() {
 
 
     ): View? {
-       val  view = inflater.inflate(R.layout.fragment__my_data, container, false)
+       val  view = inflater.inflate(R.layout.fragment_my_data, container, false)
 
         val buttonBack: ImageButton = view.findViewById(R.id.button_back);
         buttonBack.setOnClickListener(){

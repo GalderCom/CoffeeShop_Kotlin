@@ -65,8 +65,6 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             bottomSheetDialog.setContentView(view)
             bottomSheetDialog.show()
 
-
-           // Настройка прозрачного фона BottomSheet
            val btnClose = view.findViewById<ImageView>(R.id.crossView)
             btnClose.setOnClickListener {
                 bottomSheetDialog.dismiss();
@@ -123,8 +121,6 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
         }
 
         holder.itemView.findViewById<ImageView>(R.id.add_cartView).setOnClickListener(){
-
-
 
         }
     }
