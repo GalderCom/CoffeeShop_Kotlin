@@ -25,6 +25,7 @@
             android:src="@drawable/label_splash" />
 
         <ImageView
+            android:id="@+id/test"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="center"

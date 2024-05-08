@@ -1,8 +1,6 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <!-- Base application theme. -->
 
-
-
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar" >
         <item name="android:windowNoTitle">true</item>
         <item name="android:windowIsTranslucent">true</item>
@@ -11,12 +9,12 @@
         <item name="android:statusBarColor">@color/blue</item>
         <item name="android:navigationBarColor">@color/blue</item>
         <item name="android:screenOrientation">userPortrait</item>
-
         <item name="android:activityOpenEnterAnimation">@anim/enter_animation</item>
         <item name="android:activityOpenExitAnimation">@anim/exit_animation</item>
-
         <item name="android:activityCloseEnterAnimation">@anim/enter_animation</item>
         <item name="android:activityCloseExitAnimation">@anim/exit_animation</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="AppSplash" parent="Theme.AppCompat.Light.NoActionBar" >
@@ -26,21 +24,32 @@
         <item name="android:windowContentOverlay">@null</item>
         <item name="android:statusBarColor">@color/blue</item>
         <item name="android:navigationBarColor">@color/blue</item>
-
         <item name="android:windowActivityTransitions">true</item>
-
-
         <item name="android:activityOpenEnterAnimation">@anim/enter_animation</item>
         <item name="android:activityOpenExitAnimation">@anim/exit_animation</item>
-
         <item name="android:activityCloseEnterAnimation">@anim/enter_animation</item>
         <item name="android:activityCloseExitAnimation">@anim/exit_animation</item>
+
+
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 
     <style name="CustomAnimation">
         <item name="android:windowEnterAnimation">@anim/enter_animation</item>
         <item name="android:windowExitAnimation">@anim/exit_animation</item>
     </style>
+
+    <style name="AppBottomSheetDialogTheme"
+        parent="Theme.Design.Light.BottomSheetDialog">
+        <item name="bottomSheetStyle">@style/AppModalStyle</item>
+    </style>
+
+    <style name="AppModalStyle"
+        parent="Widget.Design.BottomSheet.Modal">
+        <item name="android:background">@drawable/bcg_bottom_sheet</item>
+    </style>
+
+    
 
 </resources>
 

@@ -3,7 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:background="@drawable/bcg_bottom_sheet">
+   >
 
     <ImageView
         android:id="@+id/crossView"
@@ -63,13 +63,34 @@
             android:layout_marginEnd="20dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <TextView
-                android:id="@+id/titleView"
-                android:layout_width="wrap_content"
+            <FrameLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/style_heading"
-                android:textSize="20dp"
-                android:text="Капучино"/>
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp">
+
+                <TextView
+                    android:id="@+id/titleView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    style="@style/style_heading"
+                    android:textSize="25sp"
+                    android:text="Капучино"
+                    android:layout_marginTop="0dp"
+                    android:layout_gravity="start|center"/>
+
+                <TextView
+                    android:id="@+id/weightView"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/oswald_light"
+                    android:letterSpacing="0.05"
+                    android:textColor="@color/gray"
+                    android:textSize="16dp"
+                    android:text="Капучино"
+                    android:layout_gravity="end|center"/>
+
+            </FrameLayout>
 
 
                 <TextView

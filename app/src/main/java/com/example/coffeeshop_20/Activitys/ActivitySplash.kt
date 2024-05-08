@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
@@ -13,6 +14,7 @@ import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import io.ktor.http.Url
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -27,6 +29,9 @@ class ActivitySplash : AppCompatActivity() {
         TempData.context = this
 
        val ctx = this;
+
+
+
 
         Handler().postDelayed({
             lifecycleScope.launch {

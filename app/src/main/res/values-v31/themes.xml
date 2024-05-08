@@ -10,6 +10,7 @@
         <item name="android:navigationBarColor">@color/blue</item>
         <item name="android:screenOrientation">portrait</item>
 
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
         <item name="android:windowAnimationStyle">@style/CustomAnimation</item>
     </style>
 
@@ -25,5 +26,7 @@
         <item name="android:windowActivityTransitions">true</item>
 
         <item name="android:windowAnimationStyle">@style/CustomAnimation</item>
+
+        <item name="bottomSheetDialogTheme">@style/AppBottomSheetDialogTheme</item>
     </style>
 </resources>

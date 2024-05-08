@@ -70,6 +70,9 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
                 bottomSheetDialog.dismiss();
             }
 
+            val weight = view.findViewById<TextView>(R.id.weightView)
+            weight.text = data[position].weight;
+
             val btnFvr = view.findViewById<ImageView>(R.id.favorbtn)
 
             for (j in 0 until  TempData.favorArray.size)

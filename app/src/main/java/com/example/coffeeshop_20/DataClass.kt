@@ -18,7 +18,8 @@ class DataClass {
         val weight: String = "",
         var image: Drawable?,
         val id_category: Int = 0,
-        val price: Int = 0)
+        val price: Int = 0,
+        val imageUri: String)
     data class Category(val id: Int = 1,
                         val title: String = "")
     @kotlinx.serialization.Serializable
