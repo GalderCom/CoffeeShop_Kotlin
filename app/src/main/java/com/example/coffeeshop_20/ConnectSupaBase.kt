@@ -1,6 +1,7 @@
 package com.example.coffeeshop_20
 
 import android.annotation.SuppressLint
+import android.content.Context
 import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
@@ -16,9 +17,11 @@ import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
+import io.github.jan.supabase.gotrue.OtpType
 import io.github.jan.supabase.gotrue.SessionStatus
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
+import io.github.jan.supabase.gotrue.providers.builtin.OTP
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.postgrest
@@ -47,23 +50,32 @@ class ConnectSupaBase {
 
     fun signUp() {
         runBlocking {
-            SbObject.supaBase.auth.signUpWith(Email) {
+            SbObject.supaBase.auth.signUpWith(OTP) {
                 email = TempData.email
-                password = "testPassword"
             }
         }
     }
 
     fun signIn() {
         runBlocking {
-            SbObject.supaBase.auth.signInWith(Email) {
+            SbObject.supaBase.auth.signInWith(OTP) {
                 email = TempData.email
-                password = "testPassword"
             }
             uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
             selectUser();
         }
     }
+
+    suspend fun verifyConfCode(code: String): Boolean {
+        return try {
+            SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.email, token = code)
+             true
+        } catch (e: Exception) {
+            val ex = e
+            false
+        }
+    }
+
 
     fun insertUser(name: String, birthday: String) {
         runBlocking {
@@ -207,6 +219,46 @@ class ConnectSupaBase {
                 break;
             }
         }
+    }
+
+    fun updateUserAddress(id:Int, street: String, name: String, house: String, enter: String, floor: String, flat: String, comm: String) {
+        runBlocking {
+            SbObject.client().from("AdressUsers").update(
+                {
+                    DataClass.SaveAddress::street setTo street
+                    DataClass.SaveAddress::name setTo name
+                    DataClass.SaveAddress::house setTo house
+                    DataClass.SaveAddress::entrance setTo enter
+                    DataClass.SaveAddress::floor setTo floor
+                    DataClass.SaveAddress::flat setTo flat
+                    DataClass.SaveAddress::comm setTo comm
+                }
+            ) {
+                filter {
+                    DataClass.SaveAddress::id eq id
+                }
+            }
+
+            for (i in 0 until TempData.saveAddressArray.size)
+            {
+                if(id ==   TempData.saveAddressArray[i].id)
+                {
+                    TempData.saveAddressArray[i].name = name
+                    TempData.saveAddressArray[i].comm = comm
+                    TempData.saveAddressArray[i].house = house
+                    TempData.saveAddressArray[i].entrance = enter
+                    TempData.saveAddressArray[i].floor = floor
+                    TempData.saveAddressArray[i].flat = flat
+                    TempData.saveAddressArray[i].comm = comm
+                }
+
+            }
+
+        }
+
+
+
+
     }
 
     fun selectFavor() {

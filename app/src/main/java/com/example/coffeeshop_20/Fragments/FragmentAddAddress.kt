@@ -47,80 +47,109 @@ class FragmentAddAddress : Fragment() {
         val comm = view.findViewById<EditText>(R.id.commText)
         val streetText: AutoCompleteTextView = view.findViewById(R.id.streetText)
 
+        val idAddress = arguments?.getInt("intValue", 0)
 
-        if(!TempData.saveAddressArray.isEmpty())
-        {
+        var  tempItem: DataClass.SaveAddress = DataClass.SaveAddress()
+        if(idAddress != null){
 
-            val idAddress = arguments?.getInt("intValue", 0)
+            val btnDell = view.findViewById<ImageView>(R.id.btn_dell)
+            btnDell.visibility = View.VISIBLE;
 
-            var  tempItem: DataClass.SaveAddress = DataClass.SaveAddress()
-            if(idAddress != null){
-
-                val btnDell = view.findViewById<ImageView>(R.id.btn_dell)
-                btnDell.visibility = View.VISIBLE;
-
-                btnDell.setOnClickListener(){
-                    GlobalScope.launch {
-                        ConnectSupaBase().removeUserAddress(idAddress)
-
-                        parentFragmentManager.beginTransaction().replace(
-                            R.id.mainFragmentContainer,
-                            FragmentProfile()).commit();
-                    }
-                    Toast.makeText(view.context,"Адрес удален",Toast.LENGTH_SHORT).show()
-                }
-
-                for (i in 0 until TempData.saveAddressArray.size)
-                {
-                    if(TempData.saveAddressArray[i].id == idAddress)
-                    {
-                        tempItem = TempData.saveAddressArray[i]
-                        break;
-                    }
-                }
-
-                name.setText(tempItem.name)
-                streetText.setText(tempItem.street)
-                house.setText(tempItem.house)
-                floor.setText(tempItem.floor)
-                entrance.setText(tempItem.entrance)
-                flat.setText(tempItem.flat)
-                comm.setText(tempItem.comm)
-            }
-        }
-
-        val adapter = ArrayAdapter(view.context,android.R.layout.simple_dropdown_item_1line,TempData.addressArray);
-        streetText.setAdapter(adapter)
-
-        streetText.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
-            selectedItem = parent.getItemAtPosition(position).toString()
-        }
-
-        val btnSaveAddress = view.findViewById<Button>(R.id.btn_save_address);
-        btnSaveAddress.setOnClickListener(){
-
-            if(name.text.isEmpty() || house.text.isEmpty() || streetText.text.isEmpty())
-            {
-                Toast.makeText(view.context, "Заполните обязательные поля",Toast.LENGTH_SHORT).show()
-            }
-            else if(streetText.text.toString() != selectedItem) {
-                streetText.error = "Не доставляем на данный адресс";
-            }
-            else
-            {
-                runBlocking {
-                    ConnectSupaBase().insertUserAddress(streetText.text.toString(),name.text.toString(),house.text.toString(),entrance.text.toString(),floor.text.toString(),flat.text.toString(),comm.text.toString());
+            btnDell.setOnClickListener(){
+                GlobalScope.launch {
+                    ConnectSupaBase().removeUserAddress(idAddress)
 
                     parentFragmentManager.beginTransaction().replace(
                         R.id.mainFragmentContainer,
                         FragmentProfile()).commit();
+                }
+                Toast.makeText(view.context,"Адрес удален",Toast.LENGTH_SHORT).show()
+            }
 
-                    Toast.makeText(view.context,"Адрес сохранен",Toast.LENGTH_SHORT).show()
+            for (i in 0 until TempData.saveAddressArray.size)
+            {
+                if(TempData.saveAddressArray[i].id == idAddress)
+                {
+                    tempItem = TempData.saveAddressArray[i]
+                    break;
+                }
+            }
+
+            name.setText(tempItem.name)
+            streetText.setText(tempItem.street)
+            house.setText(tempItem.house)
+            floor.setText(tempItem.floor)
+            entrance.setText(tempItem.entrance)
+            flat.setText(tempItem.flat)
+            comm.setText(tempItem.comm)
+
+
+            val btnSaveAddress = view.findViewById<Button>(R.id.btn_save_address);
+            btnSaveAddress.setOnClickListener(){
+
+                if(name.text.isEmpty() || house.text.isEmpty() || streetText.text.isEmpty())
+                {
+                    Toast.makeText(view.context, "Заполните обязательные поля",Toast.LENGTH_SHORT).show()
+                }
+                else if(streetText.text.toString() != selectedItem && streetText.text.toString() != tempItem.street) {
+
+                    streetText.error = "Не доставляем на данный адресс";
+
+                }
+                else
+                {
+                    runBlocking {
+                        ConnectSupaBase().updateUserAddress(idAddress,streetText.text.toString(),name.text.toString(),house.text.toString(),entrance.text.toString(),floor.text.toString(),flat.text.toString(),comm.text.toString());
+
+                        parentFragmentManager.beginTransaction().replace(
+                            R.id.mainFragmentContainer,
+                            FragmentProfile()).commit();
+
+                        Toast.makeText(view.context,"Адрес изменен",Toast.LENGTH_SHORT).show()
+                    }
+
                 }
 
             }
-
         }
+        else
+        {
+            val adapter = ArrayAdapter(view.context,android.R.layout.simple_dropdown_item_1line,TempData.addressArray);
+            streetText.setAdapter(adapter)
+
+            streetText.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
+                selectedItem = parent.getItemAtPosition(position).toString()
+            }
+
+            val btnSaveAddress = view.findViewById<Button>(R.id.btn_save_address);
+            btnSaveAddress.setOnClickListener(){
+
+                if(name.text.isEmpty() || house.text.isEmpty() || streetText.text.isEmpty())
+                {
+                    Toast.makeText(view.context, "Заполните обязательные поля",Toast.LENGTH_SHORT).show()
+                }
+                else if(streetText.text.toString() != selectedItem) {
+                    streetText.error = "Не доставляем на данный адресс";
+                }
+                else
+                {
+                    runBlocking {
+                        ConnectSupaBase().insertUserAddress(streetText.text.toString(),name.text.toString(),house.text.toString(),entrance.text.toString(),floor.text.toString(),flat.text.toString(),comm.text.toString());
+
+                        parentFragmentManager.beginTransaction().replace(
+                            R.id.mainFragmentContainer,
+                            FragmentProfile()).commit();
+
+                        Toast.makeText(view.context,"Адрес сохранен",Toast.LENGTH_SHORT).show()
+                    }
+
+                }
+
+            }
+        }
+
+
+
 
         val btnBack: ImageButton = view.findViewById(R.id.btn_back)
         btnBack.setOnClickListener(){

@@ -47,14 +47,14 @@ class DataClass {
     )
     @kotlinx.serialization.Serializable
     data class SaveAddress(
-        val id: Int = 0,
-        val street:String = "",
-        val name:String = "",
-        val house:String = "",
-        val entrance:String = "",
-        val floor:String = "",
-        val flat: String = "",
-        val comm: String = ""
+        var id: Int = 0,
+        var street:String = "",
+        var name:String = "",
+        var house:String = "",
+        var entrance:String = "",
+        var floor:String = "",
+        var flat: String = "",
+        var comm: String = ""
     )
     @kotlinx.serialization.Serializable
     data class SaveAddressInsert(

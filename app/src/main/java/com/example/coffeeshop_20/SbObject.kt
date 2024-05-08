@@ -8,7 +8,6 @@ import io.github.jan.supabase.storage.Storage
 
 object SbObject {
 
-
     val supaBase = createSupabaseClient(
         supabaseUrl = "https://fnnlozofxzdkvjkzyjzk.supabase.co",
         supabaseKey = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZubmxvem9meHpka3Zqa3p5anprIiwicm9sZSI6ImFub24iLCJpYXQiOjE2OTUwNDU3MDAsImV4cCI6MjAxMDYyMTcwMH0.L799DC4l4sGGWoy2B_LR-Yv9jzJzqyjnykvx9FNF_XE"

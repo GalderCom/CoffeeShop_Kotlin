@@ -14,13 +14,13 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
         <TextView
-            android:layout_marginBottom="83dp"
+            android:layout_marginBottom="70dp"
             android:layout_gravity="center"
             android:gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Введите ваш\nEmail"
-            android:textSize="25dp"
+            android:textSize="28dp"
             android:textColor="@color/white"
             android:fontFamily="@font/raleway_italic"
             android:letterSpacing="0.06"/>

@@ -160,7 +160,7 @@ class ActivityMain : AppCompatActivity() {
 
     private fun UnSelect(view: View) {
 
-        if(  view.visibility != View.VISIBLE)
+        if(view.visibility != View.VISIBLE)
         {
             val tempTextView1 : TextView = findViewById(R.id.menu_home)
             tempTextView1.visibility = View.GONE;

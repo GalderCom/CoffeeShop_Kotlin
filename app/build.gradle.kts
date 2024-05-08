@@ -48,16 +48,6 @@ dependencies {
     implementation("io.github.jan-tennert.supabase:storage-kt")
     implementation("io.github.jan-tennert.supabase:gotrue-kt")
 
-   // implementation("io.github.jan-tennert.supabase:compose-auth-kt")
-    //implementation("io.github.jan-tennert.supabase:compose-auth-ui-kt")
-
-   /* implementation("androidx.credentials:credentials:<latest version>")
-    implementation ("com.google.android.libraries.identity.googleid:googleid:<latest version>")*/
-
-// optional - needed for credentials support from play services, for devices running
-// Android 13 and below.
-    //implementation("androidx.credentials:credentials-play-services-auth:<latest version>")
-
 
 
     implementation("com.google.android.material:material:1.3.0Э")

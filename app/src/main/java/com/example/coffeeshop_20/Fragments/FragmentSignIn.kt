@@ -39,9 +39,15 @@ class FragmentSignIn : Fragment() {
                     runBlocking {
                         ConnectSupaBase().signIn();
                     }
+                   /* val  intent = Intent(context, ActivityMain::class.java)
+                    startActivity(intent)*/
 
-                    startActivity(Intent(context, ActivityMain::class.java))
-                    ActivityStart().finish()
+                    parentFragmentManager.beginTransaction().replace(
+                        R.id.mainFragmentContainer,
+                        FragmentConfirmCode()
+                    ).commit();
+
+                 //   startActivity(Intent(context, ActivityMain::class.java))
                 }
                 catch (ex:Exception) {
 
@@ -56,6 +62,12 @@ class FragmentSignIn : Fragment() {
                             FragmentSignUp(),"signUp"
                         ).commit();
                         btnStart.visibility = View.GONE;
+                    }
+                    else if(valueInBrackets.length > 100)
+                    {
+                        if(valueInBrackets.contains("60 second")) {
+                            Toast.makeText(view.context, "Дождитесь повторной отправки кода", Toast.LENGTH_SHORT).show()
+                        }
                     }
                     else{
                         Toast.makeText(view.context, "Нет сети", Toast.LENGTH_SHORT).show()
