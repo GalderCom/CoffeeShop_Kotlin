@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="160dp"
+    android:background="@drawable/bcg_dialog"
+    android:layout_marginEnd="10dp"
+    android:layout_marginStart="10dp">
+        <TextView
+            android:id="@+id/textDialog"
+            android:layout_marginBottom="15dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+
+            android:layout_gravity="center"
+            android:textColor="@color/white"
+            android:textSize="20dp"
+            android:fontFamily="@font/oswal_regular"
+            android:letterSpacing="0.06"/>
+
+        <LinearLayout
+            android:layout_marginEnd="30dp"
+            android:layout_marginBottom="20dp"
+            android:layout_gravity="bottom|end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <TextView
+                android:id="@+id/btnCancel"
+                android:layout_marginEnd="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Нет"
+                android:textColor="@color/white"
+                android:textSize="20dp"
+                android:fontFamily="@font/pacifico_regular"
+                android:letterSpacing="0.06"/>
+            <TextView
+                android:id="@+id/btnOK"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Да"
+                android:textColor="@color/main_orange"
+                android:textSize="20dp"
+                android:fontFamily="@font/pacifico_regular"
+                android:letterSpacing="0.06"/>
+        </LinearLayout>
+
+</FrameLayout>
