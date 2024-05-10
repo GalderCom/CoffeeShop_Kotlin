@@ -14,6 +14,7 @@ import android.widget.Toast
 import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
+import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
@@ -52,6 +53,7 @@ class ConnectSupaBase {
         runBlocking {
             SbObject.supaBase.auth.signUpWith(OTP) {
                 email = TempData.email
+                createUser = true
             }
         }
     }
@@ -61,31 +63,41 @@ class ConnectSupaBase {
             SbObject.supaBase.auth.signInWith(OTP) {
                 email = TempData.email
             }
-            uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
-            selectUser();
         }
     }
 
-    suspend fun verifyConfCode(code: String): Boolean {
+
+
+
+    fun insertUser() {
+        runBlocking {
+            //signIn()
+            uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+            val user = DataClass.User(uuid, TempData.nameSignUp, TempData.birthdaySignUp, TempData.selectedGender);
+            SbObject.client().postgrest["Users"].insert(user)
+        }
+    }
+    suspend fun verifyConfCode(code: String, value: String): Boolean {
         return try {
-            SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.email, token = code)
-             true
+            when(value)
+            {
+                "null" ->{
+                    SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.email, token = code)
+                    uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+                    selectUser();
+                }
+                "singUp"->{
+                    SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.email, token = code)
+                    insertUser();
+                    selectUser()
+                }
+            }
+            true
         } catch (e: Exception) {
             val ex = e
             false
         }
     }
-
-
-    fun insertUser(name: String, birthday: String) {
-        runBlocking {
-            signIn()
-            uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
-            val user = DataClass.User(uuid, name, birthday, TempData.selectedGender);
-            SbObject.client().postgrest["Users"].insert(user)
-        }
-    }
-
     fun updateUser() {
         runBlocking {
             SbObject.client().from("Users").update(

@@ -39,38 +39,35 @@ class FragmentSignIn : Fragment() {
                     runBlocking {
                         ConnectSupaBase().signIn();
                     }
-                   /* val  intent = Intent(context, ActivityMain::class.java)
-                    startActivity(intent)*/
-
                     parentFragmentManager.beginTransaction().replace(
                         R.id.mainFragmentContainer,
                         FragmentConfirmCode()
                     ).commit();
-
-                 //   startActivity(Intent(context, ActivityMain::class.java))
                 }
                 catch (ex:Exception) {
 
-                    val text = ex.message.toString();
+                    val valueInBrackets = ex.message.toString();
 
-                    val valueInBrackets = text.substringAfter("(").substringBefore(")")
 
-                    if(valueInBrackets == "Invalid login credentials"){
+                    if(valueInBrackets.contains("Signups not allowed for otp"))
+                    {
 
                         parentFragmentManager.beginTransaction().replace(
                             R.id.mainFragmentContainer,
                             FragmentSignUp(),"signUp"
                         ).commit();
                         btnStart.visibility = View.GONE;
+
                     }
-                    else if(valueInBrackets.length > 100)
-                    {
-                        if(valueInBrackets.contains("60 second")) {
-                            Toast.makeText(view.context, "Дождитесь повторной отправки кода", Toast.LENGTH_SHORT).show()
-                        }
+                    else if(valueInBrackets.contains("60 second")) {
+                        parentFragmentManager.beginTransaction().replace(
+                            R.id.mainFragmentContainer,
+                            FragmentConfirmCode()
+                        ).commit();
                     }
+
                     else{
-                        Toast.makeText(view.context, "Нет сети", Toast.LENGTH_SHORT).show()
+                        Toast.makeText(view.context, ex.toString(), Toast.LENGTH_SHORT).show()
                     }
                 }
             }

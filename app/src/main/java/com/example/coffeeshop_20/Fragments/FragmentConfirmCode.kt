@@ -71,16 +71,21 @@ class FragmentConfirmCode : Fragment() {
 
 
 
+        val value = arguments?.getString("value", "null")
+
+        val c = value
+
+
         val btn = view.findViewById<Button>(R.id.button_Continue_code);
         btn.setOnClickListener(){
 
             var code = "";
             for (i in 0 until editTexts.size -1) {
-               code +=  editTexts[i].text.toString()
+                code +=  editTexts[i].text.toString()
             }
 
             runBlocking {
-                when(  ConnectSupaBase().verifyConfCode(code)){
+                when( ConnectSupaBase().verifyConfCode(code, value.toString())){
                     true -> {
                         val  intent = Intent(context, ActivityMain::class.java)
                         startActivity(intent)
@@ -93,11 +98,7 @@ class FragmentConfirmCode : Fragment() {
 
             }
 
-
         }
-
-
-
 
         return view
     }

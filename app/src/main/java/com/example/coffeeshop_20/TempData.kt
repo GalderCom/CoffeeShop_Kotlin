@@ -22,9 +22,12 @@ class TempData {
         var addressArray: ArrayList<String> = ArrayList()
 
         var selectedGender = 1;
+        var nameSignUp = ""
+        var birthdaySignUp = ""
+
+
         var selectCategory = 1;
         var email = "";
-        var selectedAddress = 0;
 
        lateinit var user : DataClass.User;
 
@@ -37,7 +40,6 @@ class TempData {
     @SuppressLint("NotifyDataSetChanged")
     fun sortProduct()
     {
-
         sortProductArray.clear();
         for( i in 0 until      productArray.size)
         {
@@ -48,13 +50,9 @@ class TempData {
                 try {
                     FragmentMenu.customAdapterProduct.notifyDataSetChanged();
                 }
-                catch (ex: Exception)
+                catch (_: Exception)
                 {
-
                 }
-
-
-
             }
         }
     }

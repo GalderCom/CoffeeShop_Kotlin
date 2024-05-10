@@ -83,13 +83,23 @@ class FragmentSignUp : Fragment() {
                     {
 
                         ConnectSupaBase().signUp();
-                        ConnectSupaBase().insertUser(nameText.text.toString(),birthDayText.text.toString())
-                        ConnectSupaBase().signIn()
 
-                        Toast.makeText(view.context,"Вы зарегестрированны", Toast.LENGTH_LONG).show()
 
-                        val intent1 = Intent(context, ActivityMain::class.java)
-                        startActivity(intent1)
+                        val args = Bundle()
+                        args.putString("value", "signUp")
+                        val fragment = FragmentConfirmCode()
+                        fragment.arguments = args
+
+                        TempData.nameSignUp = nameText.text.toString()
+                        TempData.birthdaySignUp = birthDayText.text.toString()
+
+
+                        parentFragmentManager.beginTransaction().replace(
+                            R.id.mainFragmentContainer,
+                            fragment
+                        ).commit();
+
+
                     }
                 } catch (ex: Exception)
                 {

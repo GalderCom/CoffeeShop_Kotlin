@@ -21,10 +21,6 @@
             android:theme="@style/AppSplash"/>
 
         <activity
-            android:name=".Activitys.ActivityCodeFromSMS"
-            android:exported="true" />
-
-        <activity
             android:name=".Activitys.ActivitySplash"
             android:exported="true"
             android:theme="@style/AppSplash">
