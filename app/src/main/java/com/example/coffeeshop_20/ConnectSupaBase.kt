@@ -19,10 +19,13 @@ import io.github.jan.supabase.SupabaseClient
 import io.github.jan.supabase.createSupabaseClient
 import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.OtpType
+import io.github.jan.supabase.gotrue.SessionManager
 import io.github.jan.supabase.gotrue.SessionStatus
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.gotrue.providers.builtin.OTP
+import io.github.jan.supabase.gotrue.user.UserInfo
+import io.github.jan.supabase.gotrue.user.UserSession
 import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.postgrest
@@ -46,8 +49,7 @@ import java.net.URL
 
 class ConnectSupaBase {
 
-    var uuid = ""
-
+    var uuid = "";
 
     fun signUp() {
         runBlocking {
@@ -66,13 +68,8 @@ class ConnectSupaBase {
         }
     }
 
-
-
-
     fun insertUser() {
         runBlocking {
-            //signIn()
-            uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
             val user = DataClass.User(uuid, TempData.nameSignUp, TempData.birthdaySignUp, TempData.selectedGender);
             SbObject.client().postgrest["Users"].insert(user)
         }
@@ -83,15 +80,20 @@ class ConnectSupaBase {
             {
                 "null" ->{
                     SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.email, token = code)
-                    uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+                    uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
                     selectUser();
                 }
                 "singUp"->{
                     SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.email, token = code)
+                    uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
                     insertUser();
                     selectUser()
                 }
             }
+
+
+            saveSessionClient();
+
             true
         } catch (e: Exception) {
             val ex = e
@@ -114,86 +116,81 @@ class ConnectSupaBase {
         }
     }
 
-    fun selectUser() {
-        runBlocking {
-            val user = SbObject.client().postgrest["Users"].select()
-            val arrayObject = JSONArray(user.data)
-            for (i in 0 until arrayObject.length()) { //step 1
+    suspend fun selectUser() {
+        uuid =  SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
+        TempData.email = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).email.toString()
+        val user = SbObject.client().postgrest["Users"].select()
+        val arrayObject = JSONArray(user.data)
+        for (i in 0 until arrayObject.length()) { //step 1
 
-                val itemObj = arrayObject.getJSONObject(i)
+            val itemObj = arrayObject.getJSONObject(i)
 
-                val id = itemObj.getString("id")
-                if (id == uuid) {
-                    val name = itemObj.getString("name")
-                    val birthday = itemObj.getString("birthday");
-                    val gender = itemObj.getInt("gender")
+            val id = itemObj.getString("id")
+            if (id == uuid) {
+                val name = itemObj.getString("name")
+                val birthday = itemObj.getString("birthday");
+                val gender = itemObj.getInt("gender")
 
-                    val tempItem = DataClass.User(
-                        id,
-                        name,
-                        birthday,
-                        gender
-                    )
-                    TempData.user = tempItem;
-                }
+                val tempItem = DataClass.User(
+                    id,
+                    name,
+                    birthday,
+                    gender
+                )
+                TempData.user = tempItem;
             }
         }
     }
 
-    fun selectUserAddress() {
-        GlobalScope.launch {
-            coroutineScope {
-                val address = SbObject.client().postgrest["AdressUsers"].select()
-                val arrayObject = JSONArray(address.data)
+   suspend fun selectUserAddress() {
+        coroutineScope {
+            val address = SbObject.client().postgrest["AdressUsers"].select()
+            val arrayObject = JSONArray(address.data)
 
-                val tempSaveAddressArray = mutableListOf<DataClass.SaveAddress>()
+            val tempSaveAddressArray = mutableListOf<DataClass.SaveAddress>()
 
-                for (i in 0 until arrayObject.length()) {
+            for (i in 0 until arrayObject.length()) {
 
-                    val itemObj = arrayObject.getJSONObject(i)
-                    val id = itemObj.getInt("id")
-                    val name = itemObj.getString("name")
-                    val street = itemObj.getString("street")
-                    val house = itemObj.getString("house")
+                val itemObj = arrayObject.getJSONObject(i)
+                val id = itemObj.getInt("id")
+                val name = itemObj.getString("name")
+                val street = itemObj.getString("street")
+                val house = itemObj.getString("house")
 
-                    var entrance = itemObj.optString("entrance", "")
-                    if (entrance == "null") {
-                        entrance = ""
-                    }
-                    var floor = itemObj.getString("floor")
-                    if (floor == "null") {
-                        floor = ""
-                    }
-                    var flat = itemObj.getString("flat")
-                    if (flat == "null") {
-                        flat = ""
-                    }
-                    var comm = itemObj.getString("comm")
-                    if (comm == "null") {
-                        comm = ""
-                    }
-
-                    val saveAddress =
-                        DataClass.SaveAddress(id, street, name, house, entrance, floor, flat, comm)
-
-                    if (!TempData.saveAddressArray.contains(saveAddress)) {
-                        TempData.saveAddressArray.add(saveAddress)
-                    }
-                    tempSaveAddressArray.add(saveAddress)
+                var entrance = itemObj.optString("entrance", "")
+                if (entrance == "null") {
+                    entrance = ""
+                }
+                var floor = itemObj.getString("floor")
+                if (floor == "null") {
+                    floor = ""
+                }
+                var flat = itemObj.getString("flat")
+                if (flat == "null") {
+                    flat = ""
+                }
+                var comm = itemObj.getString("comm")
+                if (comm == "null") {
+                    comm = ""
                 }
 
-                TempData.saveAddressArray.retainAll(tempSaveAddressArray)
+                val saveAddress =
+                    DataClass.SaveAddress(id, street, name, house, entrance, floor, flat, comm)
 
-                try {
-                    FragmentSaveAddress.customAdapterAddress.notifyDataSetChanged()
-                } catch (ex: Exception) {
-                    // Handle exception
+                if (!TempData.saveAddressArray.contains(saveAddress)) {
+                    TempData.saveAddressArray.add(saveAddress)
                 }
+                tempSaveAddressArray.add(saveAddress)
             }
 
+            TempData.saveAddressArray.retainAll(tempSaveAddressArray)
 
+            try {
+                FragmentSaveAddress.customAdapterAddress.notifyDataSetChanged()
+            } catch (ex: Exception) {
+                // Handle exception
+            }
         }
-
     }
 
     @SuppressLint("NotifyDataSetChanged")
@@ -219,8 +216,6 @@ class ConnectSupaBase {
         for (i in 0 until TempData.saveAddressArray.size) {
             if (id == TempData.saveAddressArray[i].id) {
                 val item = TempData.saveAddressArray[i];
-                // TempData.favorArray.remove(item);
-
                 SbObject.client().from("AdressUsers").delete {
                     filter {
                         //or
@@ -263,14 +258,8 @@ class ConnectSupaBase {
                     TempData.saveAddressArray[i].flat = flat
                     TempData.saveAddressArray[i].comm = comm
                 }
-
             }
-
         }
-
-
-
-
     }
 
     fun selectFavor() {
@@ -318,19 +307,18 @@ class ConnectSupaBase {
 
     @SuppressLint("NotifyDataSetChanged")
     fun insertFavor(id_product: Int) {
-        if (TempData.favorArray.size != 0) {
-            TempData.favorArray.add(
-                DataClass.Favor(
-                    TempData.favorArray[TempData.favorArray.lastIndex].id + 1,
-                    uuid,
-                    id_product
-                )
-            )
-        }
-
         GlobalScope.launch {
-            uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
-            val productFvr = DataClass.FavorInsert(uuid, id_product);
+            if (TempData.favorArray.size != 0) {
+                TempData.favorArray.add(
+                    DataClass.Favor(
+                        TempData.favorArray[TempData.favorArray.lastIndex].id + 1,
+                        SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id,
+                        id_product
+                    )
+                )
+            }
+
+            val productFvr = DataClass.FavorInsert(SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id, id_product);
             SbObject.client().postgrest["FavoritesProduct"].insert(productFvr)
             selectFavor();
         }
@@ -359,88 +347,51 @@ class ConnectSupaBase {
     }
 
     @SuppressLint("NotifyDataSetChanged", "UseCompatLoadingForDrawables")
-    suspend fun selectProducts() {
-        val image: Drawable? = TempData.context.getDrawable(R.drawable.loading_logo);
+    suspend fun selectProducts(ctx: Context) {
+        if(TempData.productArray.isEmpty())
+        {
+            val image: Drawable? = ctx.getDrawable(R.drawable.loading_logo);
 
-        val products = SbObject.client().postgrest["Products"].select()
-        val arrayObject = JSONArray(products.data)
-        if (arrayObject.length() != TempData.productArray.size) {
-            TempData.productArray.clear();
-            for (i in 0 until arrayObject.length()) { //step 1
+            val products = SbObject.client().postgrest["Products"].select()
+            val arrayObject = JSONArray(products.data)
+            if (arrayObject.length() != TempData.productArray.size) {
+                TempData.productArray.clear();
+                for (i in 0 until arrayObject.length()) { //step 1
 
-                val itemObj = arrayObject.getJSONObject(i)
-                val id = itemObj.getInt("id")
-                val title = itemObj.getString("title")
-                val description = itemObj.getString("description");
-                val weight = itemObj.getString("weight")
-                val id_category = itemObj.getInt("id_category")
-                val price = itemObj.getInt("price")
-                val imageUri = itemObj.getString("image")
+                    val itemObj = arrayObject.getJSONObject(i)
+                    val id = itemObj.getInt("id")
+                    val title = itemObj.getString("title")
+                    val description = itemObj.getString("description");
+                    val weight = itemObj.getString("weight")
+                    val id_category = itemObj.getInt("id_category")
+                    val price = itemObj.getInt("price")
+                    val imageUri = itemObj.getString("image")
 
-                val tempItem = DataClass.Products(
-                    id,
-                    title,
-                    description,
-                    weight,
-                    image,
-                    id_category,
-                    price,
-                    imageUri
-                )
-                TempData.productArray.add(tempItem)
+                    val tempItem = DataClass.Products(
+                        id,
+                        title,
+                        description,
+                        weight,
+                        image,
+                        id_category,
+                        price,
+                        imageUri
+                    )
+                    TempData.productArray.add(tempItem)
 
-                if (arrayObject.length() == TempData.productArray.size) {
-                    val sortedList = TempData.productArray.sortedBy { it.id }
-                    val sortedArrayList = ArrayList<DataClass.Products>(sortedList)
-                    TempData.productArray = sortedArrayList;
+                    if (arrayObject.length() == TempData.productArray.size) {
+                        val sortedList = TempData.productArray.sortedBy { it.id }
+                        val sortedArrayList = ArrayList<DataClass.Products>(sortedList)
+                        TempData.productArray = sortedArrayList;
+                    }
                 }
             }
         }
+
     }
 
     @SuppressLint("NotifyDataSetChanged")
     fun selectImage() {
-
-       /* GlobalScope.launch {
-            coroutineScope {
-                try {
-                    val bucket = SbObject.client().storage["Coffee"]
-                    TempData.productArray.forEachIndexed { index, product ->
-                        val imageName = product.id.toString() + ".png"
-                        val bytes = async { bucket.downloadPublic(imageName) }.await()
-                        val drawable =
-                            BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
-
-                        withContext(Dispatchers.Main) {
-                            TempData.productArray[index].image = drawable
-                            try {
-                                FragmentMenu.customAdapterProduct.notifyDataSetChanged()
-                                FragmentFavourites.customAdapterFavorites.notifyDataSetChanged();
-                            } catch (ex: Exception) {
-                            }
-                        }
-                    }
-                } catch (ex: Exception) {
-                }
-
-            }
-        }*/
-        //Синхронный поток
-        /* runBlocking {
-            TempData.productArray.forEachIndexed { index, product ->
-                launch {
-                    val bucket = SbObject.client().storage["Coffee"]
-
-                    FragmentMenu.customAdapterProduct.notifyDataSetChanged()
-                    val imageName = product.id.toString() + ".png"
-                    val bytes = bucket.downloadPublic(imageName)
-                    val drawable = BitmapDrawable(BitmapFactory.decodeByteArray(bytes, 0, bytes.size))
-                    TempData.productArray[index].image = drawable
-
-                }
-            }*/
-
-
         GlobalScope.launch {
             coroutineScope {
                 try {
@@ -481,27 +432,29 @@ class ConnectSupaBase {
     @SuppressLint("NotifyDataSetChanged")
     suspend fun selectCategory() {
 
-        val category = SbObject.client().postgrest["Category"].select()
-        val arrayObject = JSONArray(category.data)
+        if(TempData.categoryArray.isEmpty())
+        {
+            val category = SbObject.client().postgrest["Category"].select()
+            val arrayObject = JSONArray(category.data)
 
-        for (i in 0 until arrayObject.length()) { //step 1
+            for (i in 0 until arrayObject.length()) { //step 1
 
-            val itemObj = arrayObject.getJSONObject(i)
-            val id = itemObj.getInt("id")
-            val title = itemObj.getString("title")
+                val itemObj = arrayObject.getJSONObject(i)
+                val id = itemObj.getInt("id")
+                val title = itemObj.getString("title")
 
-            val tempItem = DataClass.Category(
-                id,
-                title
-            )
+                val tempItem = DataClass.Category(
+                    id,
+                    title
+                )
 
-            TempData.categoryArray.add(tempItem)
+                TempData.categoryArray.add(tempItem)
+            }
         }
-
     }
 
-    fun selectAddress() {
-        GlobalScope.launch {
+    suspend fun selectAddress() {
+        if(TempData.addressArray.isEmpty()) {
             val address = SbObject.client().postgrest["AccessibleStreet"].select()
             val arrayObject = JSONArray(address.data)
 
@@ -509,11 +462,25 @@ class ConnectSupaBase {
 
                 val itemObj = arrayObject.getJSONObject(i)
                 val title = itemObj.getString("title")
-
-
                 TempData.addressArray.add(title)
             }
         }
+    }
 
+   suspend fun saveSessionClient(){
+        val session: UserSession? = SbObject.client().auth.currentSessionOrNull();
+        if (session != null) {
+        SbObject.supaBase.auth.sessionManager.saveSession(session)
+        }
+   }
+
+    suspend fun loadSessionClient(): UserInfo? {
+        SbObject.client().auth.sessionManager.loadSession()
+        return SbObject.client().auth.sessionManager.loadSession()?.user;
+    }
+
+    suspend fun deleteSessionClient()
+    {
+        SbObject.client().auth.sessionManager.deleteSession()
     }
 }

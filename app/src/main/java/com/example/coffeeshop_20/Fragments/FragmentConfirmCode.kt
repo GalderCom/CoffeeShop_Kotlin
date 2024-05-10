@@ -89,7 +89,7 @@ class FragmentConfirmCode : Fragment() {
                     true -> {
                         val  intent = Intent(context, ActivityMain::class.java)
                         startActivity(intent)
-                        ActivityMain().finish();
+                        activity?.finish()
                     }
                     false -> {
                         Toast.makeText(view.context, "Не верный код", Toast.LENGTH_SHORT).show()

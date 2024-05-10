@@ -1,31 +1,25 @@
 package com.example.coffeeshop_20.Activitys
 
 import android.annotation.SuppressLint
-import android.content.Context
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import android.telecom.Call
-import android.util.AttributeSet
-import android.view.Gravity
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.lifecycleScope
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Fragments.FragmentCart
 import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.Fragments.FragmentMenu
-import com.example.coffeeshop_20.Fragments.FragmentMyData
 import com.example.coffeeshop_20.Fragments.FragmentProfile
 import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import java.time.LocalTime
 import kotlin.system.exitProcess
 
 class ActivityMain : AppCompatActivity() {
@@ -41,7 +35,11 @@ class ActivityMain : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         ConnectSupaBase().selectFavor();
-        ConnectSupaBase().selectUserAddress()
+
+        GlobalScope.launch {
+            ConnectSupaBase().selectUserAddress()
+        }
+
 
         ctx = this;
 
@@ -175,7 +173,7 @@ class ActivityMain : AppCompatActivity() {
             tempTextView4.visibility = View.GONE;
 
             view.visibility = View.VISIBLE
-            view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.ani_splash_menu));
+            view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_splash_menu));
         }
     }
 

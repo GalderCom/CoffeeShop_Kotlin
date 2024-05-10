@@ -5,6 +5,7 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
+import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.WindowCompat
@@ -14,6 +15,7 @@ import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import io.github.jan.supabase.gotrue.user.UserSession
 import io.ktor.http.Url
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
@@ -26,25 +28,39 @@ class ActivitySplash : AppCompatActivity() {
 
         WindowCompat.setDecorFitsSystemWindows(window, false);
 
-        TempData.context = this
+        val loading = findViewById<ImageView>(R.id.loading)
+        val rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.loading_anim)
+        loading.startAnimation(rotateAnimation)
 
-       val ctx = this;
-
-
-
+        val ctx = this;
 
         Handler().postDelayed({
             lifecycleScope.launch {
                 while (true) {
                     try {
                         ConnectSupaBase().selectCategory();
-                        ConnectSupaBase().selectProducts();
+                        ConnectSupaBase().selectProducts(ctx);
                         ConnectSupaBase().selectAddress();
                         TempData().sortProduct();
 
-                        val intent = Intent(TempData.context, ActivityStart::class.java)
-                        startActivity(intent);
-                        finish();
+
+                        if(ConnectSupaBase().loadSessionClient() == null){
+                            val intent = Intent(ctx, ActivityStart::class.java)
+                            startActivity(intent);
+                            finish();
+                        }
+                        else
+                        {
+                            ConnectSupaBase().selectUser()
+                            ConnectSupaBase().selectFavor()
+                            ConnectSupaBase().selectUserAddress()
+
+                            val intent = Intent(ctx, ActivityMain::class.java)
+                            startActivity(intent);
+                            finish();
+                        }
+
+
                         break;
                     } catch (ex: Exception){
                         Toast.makeText(ctx, "Нет сети", Toast.LENGTH_SHORT).show()

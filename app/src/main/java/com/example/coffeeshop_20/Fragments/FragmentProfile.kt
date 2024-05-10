@@ -1,6 +1,7 @@
 package com.example.coffeeshop_20.Fragments
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,9 +9,13 @@ import android.view.ViewGroup
 import android.widget.FrameLayout
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import com.example.coffeeshop_20.Activitys.ActivityMain
+import com.example.coffeeshop_20.Activitys.ActivitySplash
+import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import kotlinx.coroutines.launch
 
 class FragmentProfile : Fragment() {
 
@@ -57,6 +62,16 @@ class FragmentProfile : Fragment() {
 
             ActivityMain.bottomNavigationLayout.visibility = View.GONE;
 
+        }
+
+        val btnExit = view.findViewById<FrameLayout>(R.id.btnExit)
+        btnExit.setOnClickListener(){
+            lifecycleScope.launch {
+                ConnectSupaBase().deleteSessionClient();
+                val intent = Intent(view.context,ActivitySplash()::class.java)
+                startActivity(intent)
+                activity?.finish()
+            }
         }
 
         // Inflate the layout for this fragment

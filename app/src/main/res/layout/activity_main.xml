@@ -34,7 +34,6 @@
             android:gravity="center">
 
             <ImageView
-
                 android:layout_width="28dp"
                 android:layout_height="28dp"
                 android:src="@drawable/menu_home" />
@@ -45,7 +44,9 @@
                 android:layout_height="wrap_content"
                 android:text="Меню"
                 style="@style/menu_text"
+                
                 android:paddingEnd="4dp"
+                
                 />
 
         </LinearLayout>
@@ -77,7 +78,9 @@
                 android:visibility="gone"
                 android:text="Заказ"
                 style="@style/menu_text"
+                
                 android:paddingEnd="4dp"
+                
                 />
 
         </LinearLayout>
@@ -101,7 +104,9 @@
                 style="@style/menu_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                
                 android:paddingEnd="4dp"
+                
                 android:text="Избр."
                 android:visibility="gone" />
 
@@ -128,7 +133,9 @@
                 android:visibility="gone"
                 android:text="Профиль"
                 style="@style/menu_text"
-                android:paddingEnd="4dp"/>
+                
+                android:paddingEnd="4dp"
+                />
 
         </LinearLayout>
 

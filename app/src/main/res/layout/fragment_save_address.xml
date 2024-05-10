@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -10,36 +10,31 @@
     android:background="@color/blue"
     android:orientation="vertical">
 
-
-    <ScrollView
-        android:scrollbarSize="0dp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
+
             <FrameLayout
-                android:layout_marginTop="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_marginTop="2.5dp"
+                    style="@style/style_heading"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/style_heading"
+                    android:layout_gravity="center|top"
+                    android:layout_marginTop="2.5dp"
                     android:text="Сохраненные \n адреса"
-                    android:textAlignment="center"
-                    android:layout_gravity="center|top"/>
+                    android:textAlignment="center" />
 
                 <ImageButton
                     android:id="@+id/btn_back"
                     android:layout_width="42dp"
                     android:layout_height="42dp"
+                    android:layout_gravity="start|center"
                     android:background="@drawable/button_back"
-                    android:scaleType="center"
-                    android:layout_gravity="start|center" />
+                    android:scaleType="center" />
 
             </FrameLayout>
 
@@ -49,41 +44,37 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_marginTop="35dp"
                     android:id="@+id/nullArray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Пусто"
                     android:layout_gravity="center"
-                    android:textSize="20dp"
-                    android:fontFamily="@font/oswal_regular"
+                    android:layout_marginTop="35dp"
                     android:layout_marginBottom="5dp"
-                    android:textColor="@color/gray"/>
+                    android:fontFamily="@font/oswal_regular"
+                    android:text="Пусто"
+                    android:textColor="@color/gray"
+                    android:textSize="20dp" />
 
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/saveAddressList"
-                    android:layout_marginTop="30dp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
                 <Button
                     android:id="@+id/btn_addAddress"
-                    android:layout_marginTop="35dp"
-                    android:layout_marginLeft="25dp"
-                    android:layout_marginRight="25dp"
-                    android:layout_width="match_parent"
                     style="@style/style_main_button"
-                    android:text="Добавить адрес"/>
+                    android:layout_width="match_parent"
+                    android:layout_marginLeft="25dp"
+                    android:layout_marginTop="35dp"
+                    android:layout_marginRight="25dp"
+                    android:text="Добавить адрес" />
 
             </LinearLayout>
 
         </LinearLayout>
 
-    </ScrollView>
-
-
-
-</LinearLayout>
+</RelativeLayout>

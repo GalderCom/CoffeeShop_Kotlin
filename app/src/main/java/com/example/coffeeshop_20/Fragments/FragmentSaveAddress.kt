@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Activitys.ActivityMain
@@ -48,9 +49,17 @@ class FragmentSaveAddress : Fragment() {
 
         val addBtn: Button = view.findViewById(R.id.btn_addAddress)
         addBtn.setOnClickListener(){
-            parentFragmentManager.beginTransaction().replace(
-                R.id.mainFragmentContainer,
-                FragmentAddAddress(),"Add_Address").commit();
+
+            if(TempData.saveAddressArray.size != 4){
+                parentFragmentManager.beginTransaction().replace(
+                    R.id.mainFragmentContainer,
+                    FragmentAddAddress(),"Add_Address").commit();
+            }
+            else
+            {
+                Toast.makeText(view.context,"Удалите один адрес",Toast.LENGTH_LONG).show()
+            }
+
         }
 
         val btnBack: ImageButton = view.findViewById(R.id.btn_back)

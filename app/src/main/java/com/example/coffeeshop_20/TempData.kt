@@ -31,8 +31,7 @@ class TempData {
 
        lateinit var user : DataClass.User;
 
-       @SuppressLint("StaticFieldLeak")
-       lateinit var context: Context;
+
 
 
         var finish: Boolean = true;
