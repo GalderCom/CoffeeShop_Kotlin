@@ -88,6 +88,9 @@ class ConnectSupaBase {
                     uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
                     insertUser();
                     selectUser()
+
+                    TempData.nameSignUp = ""
+                    TempData.birthdaySignUp = "";
                 }
             }
 

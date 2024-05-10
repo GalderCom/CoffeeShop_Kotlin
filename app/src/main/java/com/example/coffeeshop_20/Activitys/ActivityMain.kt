@@ -1,6 +1,7 @@
 package com.example.coffeeshop_20.Activitys
 
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
@@ -9,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Fragments.FragmentCart
@@ -18,6 +20,7 @@ import com.example.coffeeshop_20.Fragments.FragmentProfile
 import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.newDialogView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlin.system.exitProcess
@@ -63,6 +66,7 @@ class ActivityMain : AppCompatActivity() {
         }
     }
 
+    @SuppressLint("VisibleForTests")
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
 
@@ -70,15 +74,26 @@ class ActivityMain : AppCompatActivity() {
 
         when(fragment?.tag)
         {
-            "My_Data" , "Save_Address", "My_Order"-> {
+            "Save_Address", "My_Order"-> {
                 supportFragmentManager.beginTransaction().replace(
                     R.id.mainFragmentContainer,
                     FragmentProfile()
                 ).commit()
             }
-            "Add_Address"-> {
-                supportFragmentManager.beginTransaction().replace(
-                    R.id.mainFragmentContainer, FragmentSaveAddress(),"Save_Address").commit()
+            "Add_Address","My_Data"-> {
+                val dialog = newDialogView(ctx)
+                dialog.text.setText("Вернутся без сохранения?")
+                dialog.setPositiveButtonClickListener(){
+                    dialog.dismiss()
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.mainFragmentContainer, FragmentSaveAddress(),"Save_Address").commit()
+
+
+                }
+                dialog.setNegativeButtonClickListener(){
+                    dialog.dismiss()
+                }
+                dialog.show()
             }
             else ->{
                 if (fragment !is FragmentMenu) {
@@ -90,14 +105,14 @@ class ActivityMain : AppCompatActivity() {
                 }
                 else
                 {
-                    super.onBackPressed()
-                    moveTaskToBack(true);
-                    exitProcess(-1)
+                   super.onBackPressed();
                 }
             }
         }
 
     }
+
+
 
     private lateinit var textMenuMENU: TextView;
     private lateinit var textMenuORDER: TextView;

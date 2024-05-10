@@ -14,6 +14,7 @@ import com.example.coffeeshop_20.Activitys.ActivityStart
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.newDialogView
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
@@ -28,9 +29,13 @@ class FragmentSignIn : Fragment() {
         val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
 
         val btnStart: Button = view.findViewById(R.id.btn_start);
+        val emailView = view.findViewById<EditText>(R.id.editText_Email);
+
+        emailView.setText(TempData.email)
+
 
         btnStart.setOnClickListener(){
-            val emailView = view.findViewById<EditText>(R.id.editText_Email);
+
             TempData.email = emailView?.text.toString();
 
             if(isEmailValid(emailView.text.toString()))
@@ -41,7 +46,7 @@ class FragmentSignIn : Fragment() {
                     }
                     parentFragmentManager.beginTransaction().replace(
                         R.id.mainFragmentContainer,
-                        FragmentConfirmCode()
+                        FragmentConfirmCode(),"OTP"
                     ).commit();
                 }
                 catch (ex:Exception) {
@@ -62,7 +67,7 @@ class FragmentSignIn : Fragment() {
                     else if(valueInBrackets.contains("60 second")) {
                         parentFragmentManager.beginTransaction().replace(
                             R.id.mainFragmentContainer,
-                            FragmentConfirmCode()
+                            FragmentConfirmCode(),"OTP"
                         ).commit();
                     }
 

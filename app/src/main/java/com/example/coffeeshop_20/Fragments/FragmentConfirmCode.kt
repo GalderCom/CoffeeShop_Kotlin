@@ -73,8 +73,6 @@ class FragmentConfirmCode : Fragment() {
 
         val value = arguments?.getString("value", "null")
 
-        val c = value
-
 
         val btn = view.findViewById<Button>(R.id.button_Continue_code);
         btn.setOnClickListener(){

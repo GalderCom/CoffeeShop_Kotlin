@@ -23,6 +23,7 @@ import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.newDialogView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -52,18 +53,47 @@ class FragmentAddAddress : Fragment() {
         var  tempItem: DataClass.SaveAddress = DataClass.SaveAddress()
         if(idAddress != null){
 
+            val btnBack: ImageButton = view.findViewById(R.id.btn_back)
+            btnBack.setOnClickListener(){
+
+                val dialog = newDialogView(view.context)
+                dialog.text.setText("Вернутся без сохранения?")
+                dialog.setPositiveButtonClickListener(){
+                    dialog.dismiss()
+                    parentFragmentManager.beginTransaction().replace(
+                        R.id.mainFragmentContainer,
+                        FragmentSaveAddress(),"Save_Address").commit();
+                }
+                dialog.setNegativeButtonClickListener(){
+                    dialog.dismiss()
+                }
+                dialog.show()
+
+            }
+
             val btnDell = view.findViewById<ImageView>(R.id.btn_dell)
             btnDell.visibility = View.VISIBLE;
 
             btnDell.setOnClickListener(){
-                GlobalScope.launch {
-                    ConnectSupaBase().removeUserAddress(idAddress)
+                val dialog = newDialogView(view.context)
+                dialog.text.setText("Удалить адрес?")
+                dialog.setPositiveButtonClickListener(){
+                    dialog.dismiss()
+                        runBlocking {
+                            ConnectSupaBase().removeUserAddress(idAddress)
+                            Toast.makeText(view.context,"Адрес удален",Toast.LENGTH_SHORT).show()
 
-                    parentFragmentManager.beginTransaction().replace(
-                        R.id.mainFragmentContainer,
-                        FragmentProfile()).commit();
+                            parentFragmentManager.beginTransaction().replace(
+                                R.id.mainFragmentContainer,
+                                FragmentSaveAddress(),"Save_Address").commit();
+
+                        }
+
                 }
-                Toast.makeText(view.context,"Адрес удален",Toast.LENGTH_SHORT).show()
+                dialog.setNegativeButtonClickListener(){
+                    dialog.dismiss()
+                }
+                dialog.show()
             }
 
             for (i in 0 until TempData.saveAddressArray.size)
@@ -103,7 +133,7 @@ class FragmentAddAddress : Fragment() {
 
                         parentFragmentManager.beginTransaction().replace(
                             R.id.mainFragmentContainer,
-                            FragmentProfile()).commit();
+                            FragmentSaveAddress(),"Save_Address").commit();
 
                         Toast.makeText(view.context,"Адрес изменен",Toast.LENGTH_SHORT).show()
                     }
@@ -114,6 +144,24 @@ class FragmentAddAddress : Fragment() {
         }
         else
         {
+            val btnBack: ImageButton = view.findViewById(R.id.btn_back)
+            btnBack.setOnClickListener(){
+
+                val dialog = newDialogView(view.context)
+                dialog.text.setText("Вернутся без сохранения?")
+                dialog.setPositiveButtonClickListener(){
+                    dialog.dismiss()
+                    parentFragmentManager.beginTransaction().replace(
+                        R.id.mainFragmentContainer,
+                        FragmentSaveAddress(),"Save_Address").commit();
+                }
+                dialog.setNegativeButtonClickListener(){
+                    dialog.dismiss()
+                }
+                dialog.show()
+
+            }
+
             val adapter = ArrayAdapter(view.context,android.R.layout.simple_dropdown_item_1line,TempData.addressArray);
             streetText.setAdapter(adapter)
 
@@ -138,7 +186,7 @@ class FragmentAddAddress : Fragment() {
 
                         parentFragmentManager.beginTransaction().replace(
                             R.id.mainFragmentContainer,
-                            FragmentProfile()).commit();
+                            FragmentSaveAddress(),"Save_Address").commit();
 
                         Toast.makeText(view.context,"Адрес сохранен",Toast.LENGTH_SHORT).show()
                     }
@@ -151,12 +199,7 @@ class FragmentAddAddress : Fragment() {
 
 
 
-        val btnBack: ImageButton = view.findViewById(R.id.btn_back)
-        btnBack.setOnClickListener(){
-            parentFragmentManager.beginTransaction().replace(
-                R.id.mainFragmentContainer,
-                FragmentSaveAddress(),"Save_Address").commit();
-        }
+
 
         // Inflate the layout for this fragment
         return view;

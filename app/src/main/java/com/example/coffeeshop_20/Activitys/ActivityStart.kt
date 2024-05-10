@@ -1,5 +1,6 @@
 package com.example.coffeeshop_20.Activitys
 
+import android.content.Context
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
@@ -16,13 +17,17 @@ import com.example.coffeeshop_20.Fragments.FragmentSignIn
 import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.newDialogView
 import kotlin.system.exitProcess
 
 class ActivityStart : AppCompatActivity() {
 
+    lateinit var context:Context
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_start)
+
+        context = this;
 
         supportFragmentManager.beginTransaction().replace(
             R.id.mainFragmentContainer,
@@ -43,7 +48,30 @@ class ActivityStart : AppCompatActivity() {
                 ).commit()
             }
             "SignIn" ->{
-                super.onBackPressed()
+                val dialog = newDialogView(context = context)
+                dialog.text.setText("Выйти?")
+                dialog.setPositiveButtonClickListener(){
+                    dialog.dismiss()
+                    super.onBackPressed()
+                }
+                dialog.setNegativeButtonClickListener(){
+                    dialog.dismiss()
+                }
+                dialog.show()
+            }
+            "OTP" ->{
+                val dialog = newDialogView(context = context)
+                dialog.text.setText("Вернутся назад?")
+                dialog.setPositiveButtonClickListener(){
+                    dialog.dismiss()
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.mainFragmentContainer,
+                        FragmentSignIn()).commit();
+                }
+                dialog.setNegativeButtonClickListener(){
+                    dialog.dismiss()
+                }
+                dialog.show()
             }
         }
     }

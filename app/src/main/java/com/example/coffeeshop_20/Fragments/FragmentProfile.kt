@@ -15,6 +15,7 @@ import com.example.coffeeshop_20.Activitys.ActivitySplash
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.newDialogView
 import kotlinx.coroutines.launch
 
 class FragmentProfile : Fragment() {
@@ -66,12 +67,28 @@ class FragmentProfile : Fragment() {
 
         val btnExit = view.findViewById<FrameLayout>(R.id.btnExit)
         btnExit.setOnClickListener(){
-            lifecycleScope.launch {
-                ConnectSupaBase().deleteSessionClient();
-                val intent = Intent(view.context,ActivitySplash()::class.java)
-                startActivity(intent)
-                activity?.finish()
+
+            val dialog = newDialogView(requireContext())
+            dialog.text.setText("Выйти из акаунта?")
+            dialog.setPositiveButtonClickListener(){
+                lifecycleScope.launch {
+                    TempData.email = "";
+                    TempData.user.name = ""
+                    TempData.email = ""
+                    TempData.addressArray.clear()
+                    TempData.favorArray.clear()
+                    TempData.genderArray.clear()
+                    TempData.saveAddressArray.clear()
+                    TempData.addressArray.clear()
+
+                    ConnectSupaBase().deleteSessionClient()
+
+                    val intent = Intent(view.context, ActivitySplash()::class.java)
+                    startActivity(intent)
+                    activity?.finish()
+                }
             }
+            dialog.show()
         }
 
         // Inflate the layout for this fragment
