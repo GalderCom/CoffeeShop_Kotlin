@@ -44,7 +44,7 @@ class FragmentSignUp : Fragment() {
         crossBtn.setOnClickListener(){
             birthDayText.text.clear();
         }
-        when(TempData.selectedGender)
+        when(TempData.user.gender)
         {
             1 -> {textViewGender.text = "Мужской"};
             2 -> {textViewGender.text = "Женский"};
@@ -90,8 +90,8 @@ class FragmentSignUp : Fragment() {
                         val fragment = FragmentConfirmCode()
                         fragment.arguments = args
 
-                        TempData.nameSignUp = nameText.text.toString()
-                        TempData.birthdaySignUp = birthDayText.text.toString()
+                        TempData.user.name = nameText.text.toString()
+                        TempData.user.birthday = birthDayText.text.toString()
 
 
                         parentFragmentManager.beginTransaction().replace(

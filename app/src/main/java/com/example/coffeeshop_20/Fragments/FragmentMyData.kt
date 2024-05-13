@@ -15,12 +15,15 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Adapters.CustomAdapterGender
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import com.example.coffeeshop_20.newDialogView
+import io.ktor.http.cio.parseRequest
+import kotlinx.coroutines.launch
 
 class FragmentMyData : Fragment() {
 
@@ -50,19 +53,27 @@ class FragmentMyData : Fragment() {
         val buttonBack: ImageButton = view.findViewById(R.id.button_back);
         buttonBack.setOnClickListener(){
 
-            val dialog = newDialogView(view.context)
-            dialog.text.setText("Вернутся без изменения?")
-            dialog.setPositiveButtonClickListener(){
-                dialog.dismiss()
+            if(TempData.user.name != FragmentMyData.nameText.text.toString() || TempData.user.gender != TempData.selectGender || TempData.user.birthday != FragmentMyData.birthDayText.text.toString())
+            {
+                val dialog = newDialogView(view.context)
+                dialog.text.setText("Вернутся без сохранения?")
+                dialog.setPositiveButtonClickListener(){
+                    dialog.dismiss()
+                    parentFragmentManager.beginTransaction().replace(
+                        R.id.mainFragmentContainer, FragmentProfile()).commit()
+
+
+                }
+                dialog.setNegativeButtonClickListener(){
+                    dialog.dismiss()
+                }
+                dialog.show()
+            }
+            else
+            {
                 parentFragmentManager.beginTransaction().replace(
-                    R.id.mainFragmentContainer,
-                    FragmentProfile()
-                ).commit();
+                    R.id.mainFragmentContainer, FragmentProfile()).commit()
             }
-            dialog.setNegativeButtonClickListener(){
-                dialog.dismiss()
-            }
-            dialog.show()
         }
 
 
@@ -73,7 +84,7 @@ class FragmentMyData : Fragment() {
         }
 
 
-        TempData.selectedGender = TempData.user.gender;
+        TempData.user.gender = TempData.user.gender;
 
         when(TempData.user.gender)
         {
@@ -112,13 +123,11 @@ class FragmentMyData : Fragment() {
 
                     else
                     {
-                        if(TempData.user.name != nameText.text.toString() || TempData.selectedGender != TempData.user.gender || TempData.user.birthday != birthDayText.text.toString())
+                        if(TempData.user.name != nameText.text.toString() || TempData.user.gender != TempData.selectGender || TempData.user.birthday != birthDayText.text.toString())
                         {
                             TempData.user.name = nameText.text.toString()
                             TempData.user.birthday = birthDayText.text.toString()
-
-
-                            TempData.user.gender = TempData.selectedGender;
+                            TempData.user.gender = TempData.selectGender
 
                             ConnectSupaBase().updateUser();
                             Toast.makeText(view.context,"Изменения сохранены",Toast.LENGTH_LONG).show()
@@ -135,6 +144,7 @@ class FragmentMyData : Fragment() {
                     }
                 } catch (ex: Exception)
                 {
+
                     Toast.makeText(view.context,ex.toString(),Toast.LENGTH_LONG).show()
                 }
             }
@@ -210,6 +220,4 @@ class FragmentMyData : Fragment() {
             arrowGender.rotation = view.rotation.plus(90);
         }
     }
-
-
 }

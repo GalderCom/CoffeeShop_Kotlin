@@ -17,8 +17,7 @@
                 android:layout_height="wrap_content"
                 style="@style/style_heading"
                 android:text="Заказ"
-                android:layout_gravity="center|top"
-                android:layout_marginBottom="21dp"/>
+                android:layout_gravity="center|top" />
 
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginStart="20dp"
@@ -26,7 +25,7 @@
                 android:id="@+id/saveAddressList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
             <TextView

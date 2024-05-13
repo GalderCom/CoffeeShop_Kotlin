@@ -39,14 +39,14 @@ class CustomAdapterGender (private var data: ArrayList<DataClass.Gender>): Recyc
                 FragmentMyData.textViewGender.text = data[position].name;
                 FragmentMyData.mRecyclerGender.visibility = View.GONE;
                 FragmentMyData.arrowGender.rotation = holder.itemView.rotation.plus(90)
-                TempData.selectedGender = data[position].id
+                TempData.selectGender = data[position].id
             }
             catch (ex: Exception)
             {
                 FragmentSignUp.textViewGender.text = data[position].name;
                 FragmentSignUp.mRecyclerGender.visibility = View.GONE;
                 FragmentSignUp.arrowGender.rotation = holder.itemView.rotation.plus(90)
-                TempData.selectedGender = data[position].id
+                TempData.selectGender = data[position].id
             }
 
         }

@@ -7,6 +7,7 @@
     android:orientation="vertical"
     android:background="@color/blue">
     <TextView
+        android:id="@+id/label"
         android:layout_marginTop="25dp"
         android:layout_gravity="center"
         android:layout_width="wrap_content"
@@ -179,6 +180,7 @@
             android:fontFamily="@font/oswal_regular"
             android:textColor="@color/gray"/>
         <LinearLayout
+            android:id="@+id/layoutTimer"
             android:layout_gravity="center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -192,6 +194,7 @@
                 android:fontFamily="@font/oswal_regular"
                 android:textColor="@color/gray"/>
             <TextView
+                android:id="@+id/timerLabel"
                 android:layout_gravity="center"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -200,8 +203,20 @@
                 android:textSize="18sp"
                 android:fontFamily="@font/oswal_regular"
                 android:textColor="@color/main_orange"/>
-        </LinearLayout>
 
+        </LinearLayout>
+        <TextView
+            android:visibility="gone"
+            android:id="@+id/btn_sendCode"
+            android:layout_gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAlignment="center"
+            android:text="Отправить"
+            android:textSize="18sp"
+            android:paddingTop="5dp"
+            android:fontFamily="@font/oswal_regular"
+            android:textColor="@color/main_orange"/>
     </LinearLayout>
 
     <Button

@@ -37,7 +37,7 @@ class FragmentProfile : Fragment() {
         name.text = "Привет, ${TempData.user.name}!"
 
 
-        val result = TempData.email.substringBefore("@")
+        val result = TempData.user.email.substringBefore("@")
         val email = view.findViewById<TextView>(R.id.emailText);
         email.text = result;
 
@@ -72,12 +72,11 @@ class FragmentProfile : Fragment() {
             dialog.text.setText("Выйти из акаунта?")
             dialog.setPositiveButtonClickListener(){
                 lifecycleScope.launch {
-                    TempData.email = "";
                     TempData.user.name = ""
-                    TempData.email = ""
+                    TempData.user.email = ""
+                    TempData.user.gender = 1
                     TempData.addressArray.clear()
                     TempData.favorArray.clear()
-                    TempData.genderArray.clear()
                     TempData.saveAddressArray.clear()
                     TempData.addressArray.clear()
 
@@ -88,8 +87,13 @@ class FragmentProfile : Fragment() {
                     activity?.finish()
                 }
             }
+            dialog.setNegativeButtonClickListener(){
+                dialog.dismiss()
+            }
             dialog.show()
+
         }
+
 
         // Inflate the layout for this fragment
         return view

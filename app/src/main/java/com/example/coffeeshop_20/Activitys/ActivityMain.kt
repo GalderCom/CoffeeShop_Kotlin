@@ -13,9 +13,11 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContentProviderCompat.requireContext
 import androidx.lifecycle.lifecycleScope
 import com.example.coffeeshop_20.ConnectSupaBase
+import com.example.coffeeshop_20.Fragments.FragmentAddAddress
 import com.example.coffeeshop_20.Fragments.FragmentCart
 import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.Fragments.FragmentMenu
+import com.example.coffeeshop_20.Fragments.FragmentMyData
 import com.example.coffeeshop_20.Fragments.FragmentProfile
 import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import com.example.coffeeshop_20.R
@@ -80,20 +82,53 @@ class ActivityMain : AppCompatActivity() {
                     FragmentProfile()
                 ).commit()
             }
-            "Add_Address","My_Data"-> {
-                val dialog = newDialogView(ctx)
-                dialog.text.setText("Вернутся без сохранения?")
-                dialog.setPositiveButtonClickListener(){
-                    dialog.dismiss()
+            "My_Data"->{
+                if(TempData.user.name != FragmentMyData.nameText.text.toString() || TempData.user.gender != TempData.selectGender || TempData.user.birthday != FragmentMyData.birthDayText.text.toString())
+                {
+                    val dialog = newDialogView(ctx)
+                    dialog.text.setText("Вернутся без сохранения?")
+                    dialog.setPositiveButtonClickListener(){
+                        dialog.dismiss()
+                        supportFragmentManager.beginTransaction().replace(
+                            R.id.mainFragmentContainer, FragmentProfile()).commit()
+
+
+                    }
+                    dialog.setNegativeButtonClickListener(){
+                        dialog.dismiss()
+                    }
+                    dialog.show()
+                }
+                else
+                {
+                    supportFragmentManager.beginTransaction().replace(
+                        R.id.mainFragmentContainer, FragmentProfile()).commit()
+                }
+            }
+            "Add_Address" -> {
+                if(FragmentAddAddress.name.text.isNotEmpty() || FragmentAddAddress.comm.text.isNotEmpty() || FragmentAddAddress.house.text.isNotEmpty() || FragmentAddAddress.floor.text.isNotEmpty() || FragmentAddAddress.entrance.text.isNotEmpty() || FragmentAddAddress.flat.text.isNotEmpty() || FragmentAddAddress.streetText.text.isNotEmpty())
+                {
+                    val dialog = newDialogView(ctx)
+                    dialog.text.setText("Вернутся без сохранения?")
+                    dialog.setPositiveButtonClickListener(){
+                        dialog.dismiss()
+                        supportFragmentManager.beginTransaction().replace(
+                            R.id.mainFragmentContainer, FragmentSaveAddress(),"Save_Address").commit()
+
+
+                    }
+                    dialog.setNegativeButtonClickListener(){
+                        dialog.dismiss()
+                    }
+                    dialog.show()
+                }
+                else
+                {
+
                     supportFragmentManager.beginTransaction().replace(
                         R.id.mainFragmentContainer, FragmentSaveAddress(),"Save_Address").commit()
-
-
                 }
-                dialog.setNegativeButtonClickListener(){
-                    dialog.dismiss()
-                }
-                dialog.show()
+
             }
             else ->{
                 if (fragment !is FragmentMenu) {

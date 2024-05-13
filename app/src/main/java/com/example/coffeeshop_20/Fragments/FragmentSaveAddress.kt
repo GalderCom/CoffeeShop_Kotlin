@@ -33,7 +33,7 @@ class FragmentSaveAddress : Fragment() {
 
 
         val label = view.findViewById<TextView>(R.id.nullArray)
-         mRecyclerAdr = view.findViewById<RecyclerView>(R.id.saveAddressList);
+        mRecyclerAdr = view.findViewById<RecyclerView>(R.id.saveAddressList);
         customAdapterAddress = CustomAdapterSaveAddress(TempData.saveAddressArray)
 
         if(!TempData.saveAddressArray.isEmpty())

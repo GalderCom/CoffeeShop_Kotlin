@@ -21,20 +21,13 @@ class TempData {
 
         var addressArray: ArrayList<String> = ArrayList()
 
-        var selectedGender = 1;
-        var nameSignUp = ""
-        var birthdaySignUp = ""
-
-
         var selectCategory = 1;
-        var email = "";
+        var selectGender = 1
 
-       lateinit var user : DataClass.User;
-
-
-
-
+        var user : DataClass.User = DataClass.User();
         var finish: Boolean = true;
+
+        var timer = 60;
     }
     @SuppressLint("NotifyDataSetChanged")
     fun sortProduct()

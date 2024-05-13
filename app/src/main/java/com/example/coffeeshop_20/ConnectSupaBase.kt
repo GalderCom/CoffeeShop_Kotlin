@@ -21,6 +21,7 @@ import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.OtpType
 import io.github.jan.supabase.gotrue.SessionManager
 import io.github.jan.supabase.gotrue.SessionStatus
+import io.github.jan.supabase.gotrue.admin.AdminUserBuilder
 import io.github.jan.supabase.gotrue.auth
 import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.gotrue.providers.builtin.OTP
@@ -44,17 +45,17 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
+import org.json.JSONObject
 import java.net.URL
 
 
 class ConnectSupaBase {
 
-    var uuid = "";
 
     fun signUp() {
         runBlocking {
             SbObject.supaBase.auth.signUpWith(OTP) {
-                email = TempData.email
+                email = TempData.user.email
                 createUser = true
             }
         }
@@ -63,43 +64,51 @@ class ConnectSupaBase {
     fun signIn() {
         runBlocking {
             SbObject.supaBase.auth.signInWith(OTP) {
-                email = TempData.email
+                email = TempData.user.email
+                createUser = false
             }
         }
     }
 
     fun insertUser() {
         runBlocking {
-            val user = DataClass.User(uuid, TempData.nameSignUp, TempData.birthdaySignUp, TempData.selectedGender);
+            val uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
+            val user = DataClass.User(uuid, TempData.user.name, TempData.user.birthday, TempData.user.gender);
             SbObject.client().postgrest["Users"].insert(user)
         }
     }
-    suspend fun verifyConfCode(code: String, value: String): Boolean {
+    suspend fun verifyConfCode(code: String, value: String,view: View): Boolean {
         return try {
             when(value)
             {
                 "null" ->{
-                    SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.email, token = code)
-                    uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
+                    SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.user.email, token = code)
                     selectUser();
                 }
-                "singUp"->{
-                    SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.email, token = code)
-                    uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
+                "signUp"->{
+                    SbObject.client().auth.verifyEmailOtp(type = OtpType.Email.MAGIC_LINK, email = TempData.user.email, token = code)
                     insertUser();
                     selectUser()
-
-                    TempData.nameSignUp = ""
-                    TempData.birthdaySignUp = "";
                 }
             }
-
-
             saveSessionClient();
 
             true
-        } catch (e: Exception) {
-            val ex = e
+        } catch (ex: Exception) {
+
+            val valueInBrackets = ex.message.toString();
+
+            if (valueInBrackets.contains("Token has expired or is invalid")){
+                Toast.makeText(view.context,"Не верный код",Toast.LENGTH_LONG).show();
+            }
+            else
+            {
+                Toast.makeText(view.context,ex.message,Toast.LENGTH_LONG).show();
+            }
+
+
+
+
             false
         }
     }
@@ -118,31 +127,28 @@ class ConnectSupaBase {
             }
         }
     }
-
     suspend fun selectUser() {
-        uuid =  SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
-        TempData.email = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).email.toString()
+
         val user = SbObject.client().postgrest["Users"].select()
-        val arrayObject = JSONArray(user.data)
-        for (i in 0 until arrayObject.length()) { //step 1
 
-            val itemObj = arrayObject.getJSONObject(i)
+        val itemObj = JSONArray(user.data).getJSONObject(0)
 
-            val id = itemObj.getString("id")
-            if (id == uuid) {
-                val name = itemObj.getString("name")
-                val birthday = itemObj.getString("birthday");
-                val gender = itemObj.getInt("gender")
+        val id = itemObj.getString("id")
+        val name = itemObj.getString("name")
+        val birthday = itemObj.getString("birthday");
+        val gender = itemObj.getInt("gender")
+        val email = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).email.toString()
 
-                val tempItem = DataClass.User(
-                    id,
-                    name,
-                    birthday,
-                    gender
-                )
-                TempData.user = tempItem;
-            }
-        }
+        val tempItem = DataClass.User(
+            id,
+            name,
+            birthday,
+            gender,
+            email
+        )
+        TempData.user = tempItem;
+
+
     }
 
    suspend fun selectUserAddress() {
@@ -207,7 +213,7 @@ class ConnectSupaBase {
         comm: String
     ) {
 
-        uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+       val uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
         val address =
             DataClass.SaveAddressInsert(uuid, street, name, house, enter, floor, flat, comm);
         SbObject.client().postgrest["AdressUsers"].insert(address)
@@ -430,6 +436,7 @@ class ConnectSupaBase {
         }
         return null
     }
+    
 
 
     @SuppressLint("NotifyDataSetChanged")

@@ -63,7 +63,6 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
 
             val view = layout.inflate(R.layout.bottom_sheet_fragment, null)
             bottomSheetDialog.setContentView(view)
-            bottomSheetDialog.show()
 
            val btnClose = view.findViewById<ImageView>(R.id.crossView)
             btnClose.setOnClickListener {
@@ -87,25 +86,27 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             }
 
             btnFvr.setOnClickListener {
-                var searchItem = false;
+                btnFvr.isEnabled = false // Disable the button click
+
+                var searchItem = false
                 if (TempData.favorArray.size != 0) {
                     for(i in 0 until TempData.favorArray.size) {
                         if (data[position].id == TempData.favorArray[i].id_product) {
-                            searchItem = true;
-                            btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart));
-                            ConnectSupaBase().removeFavor(data[position].id);
-                            break;
+                            searchItem = true
+                            btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart))
+                            ConnectSupaBase().removeFavor(data[position].id)
+                            break
                         }
                     }
 
                     if (!searchItem) {
-                        btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange));
-                        ConnectSupaBase().insertFavor(data[position].id);
+                        btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange))
+                        ConnectSupaBase().insertFavor(data[position].id)
                     }
 
                 } else {
-                    btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange));
-                    ConnectSupaBase().insertFavor(data[position].id);
+                    btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart_orange))
+                    ConnectSupaBase().insertFavor(data[position].id)
                 }
             }
 

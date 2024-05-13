@@ -31,16 +31,15 @@ class FragmentSignIn : Fragment() {
         val btnStart: Button = view.findViewById(R.id.btn_start);
         val emailView = view.findViewById<EditText>(R.id.editText_Email);
 
-        emailView.setText(TempData.email)
+        emailView.setText(TempData.user.email)
 
 
         btnStart.setOnClickListener(){
 
-            TempData.email = emailView?.text.toString();
-
             if(isEmailValid(emailView.text.toString()))
             {
                 try {
+                    TempData.user.email = emailView.text.toString()
                     runBlocking {
                         ConnectSupaBase().signIn();
                     }

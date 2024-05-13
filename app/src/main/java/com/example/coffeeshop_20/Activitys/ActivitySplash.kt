@@ -52,6 +52,7 @@ class ActivitySplash : AppCompatActivity() {
                         else
                         {
                             ConnectSupaBase().selectUser()
+                            TempData.selectGender = TempData.user.gender
                             ConnectSupaBase().selectFavor()
                             ConnectSupaBase().selectUserAddress()
 
@@ -63,6 +64,7 @@ class ActivitySplash : AppCompatActivity() {
 
                         break;
                     } catch (ex: Exception){
+                        val c = ex;
                         Toast.makeText(ctx, "Нет сети", Toast.LENGTH_SHORT).show()
                     }
                     delay(3000)
