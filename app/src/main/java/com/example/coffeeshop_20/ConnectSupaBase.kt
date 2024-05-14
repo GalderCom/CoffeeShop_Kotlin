@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.Fragments.FragmentMenu
+import com.example.coffeeshop_20.Fragments.FragmentMyOrder
 import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import io.github.jan.supabase.SupabaseClient
@@ -220,6 +221,87 @@ class ConnectSupaBase {
         selectUserAddress();
 
     }
+
+    fun selectOrder()
+    {
+        GlobalScope.launch {
+            val orders = SbObject.client().postgrest["Orders"].select()
+            val arrayObject = JSONArray(orders.data)
+
+
+            for (i in 0 until arrayObject.length()) {
+
+                val itemObj = arrayObject.getJSONObject(i)
+                val id = itemObj.getInt("id")
+                val date = itemObj.getString("date")
+                val price = itemObj.getInt("price")
+                val id_address = itemObj.getInt("id_address")
+                val id_status = itemObj.getInt("id_status")
+
+                var tempAddressName = ""
+                for (i in 0 until TempData.saveAddressArray.size){
+                    if(id_address == TempData.saveAddressArray[i].id){
+                        tempAddressName = TempData.saveAddressArray[i].name + "(" + TempData.saveAddressArray[i].street + "," + TempData.saveAddressArray[i].house +")"
+                    }
+                }
+
+                var tempStatusName = ""
+                for (i in 0 until TempData.statusArray.size){
+                    if(id_status == TempData.statusArray[i].id){
+                        tempStatusName = TempData.statusArray[i].name
+                    }
+                }
+
+
+                val saveAddress = DataClass.Orders(id,date,tempAddressName,price,tempStatusName)
+
+                TempData.ordersArray.add(saveAddress)
+            }
+
+            try {
+                FragmentMyOrder().customAdapterOrder.notifyDataSetChanged()
+            } catch (ex: Exception) {
+                // Handle exception
+            }
+        }
+    }
+
+
+    suspend fun selectStatus(){
+        val orders = SbObject.client().postgrest["StatusOrders"].select()
+        val arrayObject = JSONArray(orders.data)
+
+        for (i in 0 until arrayObject.length()) {
+
+            val itemObj = arrayObject.getJSONObject(i)
+            val id = itemObj.getInt("id")
+            val name = itemObj.getString("name")
+
+            val status = DataClass.Status(id,name)
+
+            TempData.statusArray.add(status)
+        }
+    }
+
+    suspend fun selectCart(){
+        val Obj = SbObject.client().postgrest["Cart"].select()
+        val arrayObject = JSONArray(Obj.data)
+
+        for (i in 0 until arrayObject.length()) {
+
+            val itemObj = arrayObject.getJSONObject(i)
+            val id = itemObj.getInt("id")
+            val id_product = itemObj.getInt("id_product")
+            val count = itemObj.getInt("count_")
+            val id_order = itemObj.getInt("id_order")
+
+
+            val cart = DataClass.Cart(id,id_product,count,id_order)
+
+            TempData.cartArray.add(cart)
+        }
+    }
+
 
     suspend fun removeUserAddress(id: Int) {
         for (i in 0 until TempData.saveAddressArray.size) {

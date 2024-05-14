@@ -53,6 +53,18 @@ class FragmentProfile : Fragment() {
 
         }
 
+        val myOrder: FrameLayout = view.findViewById(R.id.textView_my_order)
+        myOrder.setOnClickListener(){
+
+            parentFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentMyOrder(), "My_Order"
+            ).commit();
+
+            ActivityMain.bottomNavigationLayout.visibility = View.GONE;
+
+        }
+
         val saveAddressClick: FrameLayout = view.findViewById(R.id.frameLayout_save_address)
         saveAddressClick.setOnClickListener()
         {

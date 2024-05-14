@@ -15,11 +15,13 @@ class TempData {
         var sortProductArray: ArrayList<DataClass.Products> = ArrayList();
         var categoryArray:ArrayList<DataClass.Category> = ArrayList();
         var favorArray:ArrayList<DataClass.Favor> = ArrayList();
-        val genderArray:ArrayList<DataClass.Gender> = arrayListOf(DataClass.Gender(1,"Мужской"),
-                                                                  DataClass.Gender(2,"Женский"))
+        val genderArray:ArrayList<DataClass.Gender> = arrayListOf(DataClass.Gender(1,"Мужской"), DataClass.Gender(2,"Женский"))
         var saveAddressArray:ArrayList<DataClass.SaveAddress> = ArrayList();
-
+        var ordersArray:ArrayList<DataClass.Orders> = ArrayList();
         var addressArray: ArrayList<String> = ArrayList()
+        var statusArray:ArrayList<DataClass.Status> = ArrayList()
+        var cartArray:ArrayList<DataClass.Cart> = ArrayList()
+
 
         var selectCategory = 1;
         var selectGender = 1
@@ -42,9 +44,7 @@ class TempData {
                 try {
                     FragmentMenu.customAdapterProduct.notifyDataSetChanged();
                 }
-                catch (_: Exception)
-                {
-                }
+                catch (_: Exception) { }
             }
         }
     }

@@ -41,6 +41,7 @@ class ActivitySplash : AppCompatActivity() {
                         ConnectSupaBase().selectCategory();
                         ConnectSupaBase().selectProducts(ctx);
                         ConnectSupaBase().selectAddress();
+                        ConnectSupaBase().selectStatus()
                         TempData().sortProduct();
 
 

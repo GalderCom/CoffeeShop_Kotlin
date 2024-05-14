@@ -43,6 +43,8 @@ class ActivityMain : AppCompatActivity() {
 
         GlobalScope.launch {
             ConnectSupaBase().selectUserAddress()
+            ConnectSupaBase().selectOrder()
+            ConnectSupaBase().selectCart()
         }
 
 
@@ -76,7 +78,7 @@ class ActivityMain : AppCompatActivity() {
 
         when(fragment?.tag)
         {
-            "Save_Address", "My_Order"-> {
+            "Save_Address", "My_Order", "My_Order"-> {
                 supportFragmentManager.beginTransaction().replace(
                     R.id.mainFragmentContainer,
                     FragmentProfile()

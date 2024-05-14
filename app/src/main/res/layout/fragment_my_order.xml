@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.FragmentMyOrder"
+    android:orientation="vertical"
+    android:background="@color/blue">
+
+    <FrameLayout
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_marginTop="0dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            style="@style/style_heading"
+            android:text="Мои Заказы"
+            android:layout_gravity="center|top"/>
+
+        <ImageButton
+            android:id="@+id/button_back"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:background="@drawable/button_back"
+            android:scaleType="center"
+            android:layout_gravity="start" />
+
+    </FrameLayout>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/order_list"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+
+    <TextView
+        android:id="@+id/nullArray"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Пусто"
+        android:layout_gravity="center"
+        android:textSize="20dp"
+        android:fontFamily="@font/oswal_regular"
+        android:layout_marginBottom="5dp"
+        android:textColor="@color/gray"/>
+
+
+
+
+
+</LinearLayout>

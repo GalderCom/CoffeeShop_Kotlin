@@ -70,6 +70,33 @@ class DataClass {
         val comm: String = ""
     )
 
+    data class Orders(
+        val id: Int = 0,
+        val date: String = "" ,
+        val address: String = "",
+        val price: Int = 0,
+        val status: String
+    )
 
+    @kotlinx.serialization.Serializable
+    data class OrderInsert(
+        val id: Int = 0,
+        val id_user: String = "",
+        val date: String = "" ,
+        val id_address: Int = 0,
+        val price: Int = 0,
+        val status: Int = 0
+    )
+    @kotlinx.serialization.Serializable
+    data class Cart(
+        val id: Int = 0,
+        val id_product: Int = 0,
+        val count: Int = 0,
+        val id_order:Int = 0
+    )
+    data class Status(
+        val id: Int = 0,
+        val name: String = ""
+    )
 
 }
