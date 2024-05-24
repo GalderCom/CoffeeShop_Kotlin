@@ -22,6 +22,9 @@ class TempData {
         var statusArray:ArrayList<DataClass.Status> = ArrayList()
         var cartArray:ArrayList<DataClass.Cart> = ArrayList()
 
+        var newOrder : DataClass.Orders = DataClass.Orders()
+        var newCart: ArrayList<DataClass.Cart> = ArrayList();
+
 
         var selectCategory = 1;
         var selectGender = 1

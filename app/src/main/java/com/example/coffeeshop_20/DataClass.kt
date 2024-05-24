@@ -69,18 +69,17 @@ class DataClass {
         val flat: String = "",
         val comm: String = ""
     )
-
+    @kotlinx.serialization.Serializable
     data class Orders(
         val id: Int = 0,
         val date: String = "" ,
         val address: String = "",
         val price: Int = 0,
-        val status: String
+        val status: String = ""
     )
 
     @kotlinx.serialization.Serializable
     data class OrderInsert(
-        val id: Int = 0,
         val id_user: String = "",
         val date: String = "" ,
         val id_address: Int = 0,

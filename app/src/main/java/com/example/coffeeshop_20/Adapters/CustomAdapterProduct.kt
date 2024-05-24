@@ -1,31 +1,22 @@
 package com.example.coffeeshop_20.Adapters
 
-import android.content.Intent
-import android.graphics.Color
-import android.os.Handler
-import android.os.Looper
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.lifecycle.viewmodel.viewModelFactory
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coffeeshop_20.Activitys.ActivityStart
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.DataClass
-import com.example.coffeeshop_20.Fragments.FragmentFavourites
+import com.example.coffeeshop_20.Fragments.FragmentCart
 import com.example.coffeeshop_20.R
-import com.example.coffeeshop_20.SbObject
 import com.example.coffeeshop_20.TempData
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import io.github.jan.supabase.postgrest.postgrest
+import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
-import org.json.JSONArray
 
 class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): RecyclerView.Adapter<CustomAdapterProduct.ViewHolder>() {
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
@@ -34,7 +25,7 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
         var weight: TextView = itemView.findViewById(R.id.short_description);
         var price: TextView = itemView.findViewById(R.id.price)
         var image: ImageView = itemView.findViewById(R.id.imageMenu)
-
+        var btnAdd: ImageView = itemView.findViewById(R.id.add_cartView)
 
         init {
             itemView.setOnClickListener(this)
@@ -46,6 +37,7 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
     }
 
 
+    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
         holder.name.text = data[position].title;
@@ -53,8 +45,40 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
         holder.weight.text = data[position].weight;
         holder.image.setImageDrawable(data[position].image)
 
-        holder.itemView.setOnClickListener(){
+        updateAddToCartButton(holder, position)
+    }
 
+    private fun updateAddToCartButton(holder: ViewHolder, position: Int) {
+        var productFound = false
+
+
+
+
+
+
+
+        holder.btnAdd.setOnClickListener(){
+
+            if(TempData.newOrder == null)
+            {
+                runBlocking {
+                    ConnectSupaBase().insertOrder()
+                }
+            }
+            else
+            {
+                val tempCartItem = DataClass.Cart(1,data[position].id,1 ,TempData.newOrder.id)
+                TempData.newCart.add(tempCartItem)
+                holder.btnAdd.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.favor_mark))
+                holder.btnAdd.isEnabled = false;
+                try {
+                    FragmentCart.customAdapterCart.notifyDataSetChanged()
+                }
+                catch (_:Exception){}
+            }
+        }
+
+        holder.itemView.setOnClickListener(){
 
             val layout = LayoutInflater.from(holder.itemView.context);
 
@@ -68,6 +92,7 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             btnClose.setOnClickListener {
                 bottomSheetDialog.dismiss();
             }
+
 
             val weight = view.findViewById<TextView>(R.id.weightView)
             weight.text = data[position].weight;
@@ -94,7 +119,11 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
                         if (data[position].id == TempData.favorArray[i].id_product) {
                             searchItem = true
                             btnFvr.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.heart))
-                            ConnectSupaBase().removeFavor(data[position].id)
+
+                            GlobalScope.launch {
+                                ConnectSupaBase().removeFavor(data[position].id)
+                            }
+
                             break
                         }
                     }
@@ -110,6 +139,30 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
                 }
             }
 
+
+
+            val btnAdd2 = view.findViewById<Button>(R.id.addView)
+            btnAdd2.setOnClickListener(){
+
+                val tempCartItem = DataClass.Cart(1,data[position].id,1 ,TempData.newOrder.id)
+                TempData.newCart.add(tempCartItem)
+                btnAdd2.setTextColor(holder.itemView.context.getColor(R.color.blue))
+                holder.btnAdd.isEnabled = false;
+                try {
+                    FragmentCart.customAdapterCart.notifyDataSetChanged()
+                }
+                catch (_:Exception){}
+            }
+
+            if (TempData.newCart.size != 0) {
+                for (j in 0 until TempData.newCart.size) {
+                    if (TempData.newCart[j].id_product == data[position].id) {
+                        btnAdd2.setTextColor(holder.itemView.context.getColor(R.color.blue))
+                        break;
+                    }
+                }
+            }
+
             val image = view.findViewById<ImageView>(R.id.imageVew);
             image.setImageDrawable(data[position].image)
 
@@ -121,10 +174,6 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
 
             // Отображение BottomSheet
             bottomSheetDialog.show()
-
-        }
-
-        holder.itemView.findViewById<ImageView>(R.id.add_cartView).setOnClickListener(){
 
         }
     }

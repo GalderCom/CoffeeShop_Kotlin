@@ -59,15 +59,8 @@ class ActivityMain : AppCompatActivity() {
         ).commit();
         WorkWithMenuBtn();
 
-        lifecycleScope.launch {
+        ConnectSupaBase().selectImage();
 
-            Handler(Looper.getMainLooper()).postDelayed({
-                TempData.finish = false;
-                ConnectSupaBase().selectImage();
-                TempData.finish = true;
-            },100)
-
-        }
     }
 
     @SuppressLint("VisibleForTests")

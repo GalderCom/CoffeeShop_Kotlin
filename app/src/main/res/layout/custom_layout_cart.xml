@@ -1,20 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="115dp"
+    android:layout_height="100dp"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@drawable/favor_bcg"
-    android:layout_marginStart="25sp"
-    android:layout_marginEnd="25dp">
+    android:layout_marginBottom="15dp">
         <LinearLayout
             android:layout_gravity="center_vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
                 <androidx.cardview.widget.CardView
                     android:layout_gravity="center_vertical"
-                    android:layout_width="90dp"
+                    android:layout_width="75dp"
                     android:backgroundTint="@color/transparent"
-                    android:layout_height="90dp"
+                    android:layout_height="75dp"
                     android:layout_marginStart="15dp"
                     app:cardCornerRadius="10dp">
 
@@ -38,6 +37,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content">
                                 <TextView
+                                    android:id="@+id/cart_name"
                                     android:layout_marginTop="-5dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -47,6 +47,7 @@
                                     android:textSize="16sp"
                                     android:letterSpacing="0.02"/>
                                 <TextView
+                                    android:id="@+id/cart_desc"
                                     android:layout_marginTop="-4dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -64,6 +65,7 @@
                             android:layout_height="wrap_content">
 
                                 <TextView
+                                    android:id="@+id/cart_price"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="160"
@@ -86,30 +88,29 @@
                             android:layout_marginEnd="13dp"
                             android:layout_gravity="center|end"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content">
-
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/favor_bcg">
                                 <ImageView
-                                    android:layout_gravity="bottom"
-                                    android:layout_width="19dp"
-                                    android:layout_height="28dp"
-                                    android:background="@drawable/select_coffee"
-                                    android:backgroundTint="@color/white"/>
-
+                                    android:id="@+id/btnMinus"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/button_minus"/>
+                                <TextView
+                                    android:id="@+id/cart_count"
+                                    android:gravity="center"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:textSize="20sp"
+                                    android:text="1"
+                                    android:textColor="@color/white"
+                                    android:textAlignment="center"
+                                    android:fontFamily="@font/sans_caption_regular"
+                                    android:maxLength="1"/>
                                 <ImageView
-                                    android:layout_gravity="bottom"
-                                    android:layout_marginStart="12dp"
-                                    android:layout_marginEnd="12dp"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@drawable/select_coffee"
-                                    android:backgroundTint="@color/white"/>
-
-                                <ImageView
-                                    android:layout_gravity="bottom"
-                                    android:layout_width="30dp"
-                                    android:layout_height="45dp"
-                                    android:background="@drawable/select_coffee" />
-
+                                    android:id="@+id/btnPlus"
+                                    android:layout_width="40dp"
+                                    android:layout_height="40dp"
+                                    android:src="@drawable/button_plus"/>
 
                         </LinearLayout>
 

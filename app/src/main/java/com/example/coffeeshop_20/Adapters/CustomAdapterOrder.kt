@@ -37,7 +37,18 @@ class CustomAdapterOrder (private var data: ArrayList<DataClass.Orders>): Recycl
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
+
         holder.status.text = data[position].status
+
+        when(data[position].status)
+        {
+            "Отменен"->{holder.status.setTextColor(holder.itemView.context.getColor(R.color.red))}
+            "Выполнен"->{holder.status.setTextColor(holder.itemView.context.getColor(R.color.green))}
+            "Оформлен"->{holder.status.setTextColor(holder.itemView.context.getColor(R.color.white))}
+        }
+
+
+
         holder.date.text = data[position].date
         holder.address.text = data[position].address
         holder.price.text = data[position].price.toString()
@@ -52,9 +63,6 @@ class CustomAdapterOrder (private var data: ArrayList<DataClass.Orders>): Recycl
                 holder.recycler.adapter = adapter
             }
         }
-
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

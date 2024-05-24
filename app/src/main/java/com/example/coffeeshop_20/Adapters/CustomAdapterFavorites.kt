@@ -16,6 +16,9 @@ import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import com.google.android.material.bottomsheet.BottomSheetDialog
+import kotlinx.coroutines.DelicateCoroutinesApi
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 class CustomAdapterFavorites(private var data: ArrayList<DataClass.Favor>): RecyclerView.Adapter<CustomAdapterFavorites.ViewHolder>(){
@@ -36,6 +39,7 @@ class CustomAdapterFavorites(private var data: ArrayList<DataClass.Favor>): Recy
         }
     }
 
+    @OptIn(DelicateCoroutinesApi::class)
     @SuppressLint("NotifyDataSetChanged")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
@@ -84,18 +88,11 @@ class CustomAdapterFavorites(private var data: ArrayList<DataClass.Favor>): Recy
             }
         }
 
-        var lastClickTime: Long = 0
         holder.btnRemove.setOnClickListener(){
-
-            val currentTime = System.currentTimeMillis()
-            if (currentTime - lastClickTime > 5000) { // Проверяем, прошло ли уже 1 секунда с последнего клика
+            GlobalScope.launch {
                 ConnectSupaBase().removeFavor(data[position].id_product)
-                lastClickTime = currentTime // Обновляем время последнего клика
             }
-
         }
-
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

@@ -2,55 +2,43 @@ package com.example.coffeeshop_20
 
 import android.annotation.SuppressLint
 import android.content.Context
-import android.graphics.BitmapFactory
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
-import android.opengl.Visibility
 import android.os.StrictMode
-import android.util.Log
 import android.view.View
-import android.widget.TextView
 import android.widget.Toast
 import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.Fragments.FragmentMyOrder
 import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
-import com.example.coffeeshop_20.Fragments.FragmentSignUp
-import io.github.jan.supabase.SupabaseClient
-import io.github.jan.supabase.createSupabaseClient
-import io.github.jan.supabase.gotrue.Auth
 import io.github.jan.supabase.gotrue.OtpType
-import io.github.jan.supabase.gotrue.SessionManager
-import io.github.jan.supabase.gotrue.SessionStatus
-import io.github.jan.supabase.gotrue.admin.AdminUserBuilder
 import io.github.jan.supabase.gotrue.auth
-import io.github.jan.supabase.gotrue.providers.builtin.Email
 import io.github.jan.supabase.gotrue.providers.builtin.OTP
 import io.github.jan.supabase.gotrue.user.UserInfo
 import io.github.jan.supabase.gotrue.user.UserSession
-import io.github.jan.supabase.postgrest.Postgrest
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.postgrest
-import io.github.jan.supabase.postgrest.query.Columns
-import io.github.jan.supabase.postgrest.query.Returning
-import io.github.jan.supabase.storage.Bucket
-import io.github.jan.supabase.storage.Storage
-import io.github.jan.supabase.storage.storage
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.coroutineScope
-import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withContext
 import org.json.JSONArray
-import org.json.JSONObject
 import java.net.URL
 
 
 class ConnectSupaBase {
+
+    suspend fun insertOrder(){
+        GlobalScope.launch {
+            val uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
+            val order = DataClass.OrderInsert(uuid);
+            SbObject.client().postgrest["Orders"].insert(order)
+            selectOrder()
+        }
+    }
+
 
 
     fun signUp() {
@@ -152,7 +140,7 @@ class ConnectSupaBase {
 
     }
 
-   suspend fun selectUserAddress() {
+    suspend fun selectUserAddress() {
         coroutineScope {
             val address = SbObject.client().postgrest["AdressUsers"].select()
             val arrayObject = JSONArray(address.data)
@@ -214,7 +202,7 @@ class ConnectSupaBase {
         comm: String
     ) {
 
-       val uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
+        val uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id;
         val address =
             DataClass.SaveAddressInsert(uuid, street, name, house, enter, floor, flat, comm);
         SbObject.client().postgrest["AdressUsers"].insert(address)
@@ -480,7 +468,6 @@ class ConnectSupaBase {
         }
 
     }
-
     @SuppressLint("NotifyDataSetChanged")
     fun selectImage() {
         GlobalScope.launch {
@@ -504,6 +491,9 @@ class ConnectSupaBase {
         }
     }
 
+
+
+
     fun downloadImage(url: String): Drawable? {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
@@ -518,7 +508,7 @@ class ConnectSupaBase {
         }
         return null
     }
-    
+
 
 
     @SuppressLint("NotifyDataSetChanged")
@@ -559,12 +549,12 @@ class ConnectSupaBase {
         }
     }
 
-   suspend fun saveSessionClient(){
+    suspend fun saveSessionClient(){
         val session: UserSession? = SbObject.client().auth.currentSessionOrNull();
         if (session != null) {
-        SbObject.supaBase.auth.sessionManager.saveSession(session)
+            SbObject.supaBase.auth.sessionManager.saveSession(session)
         }
-   }
+    }
 
     suspend fun loadSessionClient(): UserInfo? {
         SbObject.client().auth.sessionManager.loadSession()

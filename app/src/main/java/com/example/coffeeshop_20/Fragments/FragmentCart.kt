@@ -5,42 +5,33 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.RecyclerView
+import com.example.coffeeshop_20.Adapters.CustomAdapterCart
+import com.example.coffeeshop_20.Adapters.CustomAdapterFavorites
 import com.example.coffeeshop_20.R
+import com.example.coffeeshop_20.TempData
 
-/**
- * A simple [Fragment] subclass.
- * Use the [FragmentCart.newInstance] factory method to
- * create an instance of this fragment.
- */
 class FragmentCart : Fragment() {
 
+    lateinit var  mRecyclerCart: RecyclerView;
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
+    companion object{
+        lateinit var customAdapterCart: CustomAdapterCart;
+        var valueCount = 0;
 
     }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cart, container, false)
-    }
+        val view = inflater.inflate(R.layout.fragment_cart,container,false)
 
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment Fragment_Cart.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            FragmentCart().apply {
-            }
+
+       mRecyclerCart = view.findViewById(R.id.cart_list)
+       customAdapterCart = CustomAdapterCart(TempData.newCart)
+       mRecyclerCart.adapter = customAdapterCart
+
+
+        return view
     }
 }
