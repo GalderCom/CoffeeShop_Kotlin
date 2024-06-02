@@ -42,9 +42,16 @@ class ActivityMain : AppCompatActivity() {
         ConnectSupaBase().selectFavor();
 
         GlobalScope.launch {
-            ConnectSupaBase().selectUserAddress()
-            ConnectSupaBase().selectOrder()
-            ConnectSupaBase().selectCart()
+            try {
+                if(TempData.saveAddressArray.isEmpty()){
+                    ConnectSupaBase().selectUserAddress()
+                    TempData.selectGender = TempData.user.gender
+                    ConnectSupaBase().selectOrder()
+                    ConnectSupaBase().selectCart()
+                }
+            }
+            catch (ex: Exception){}
+
         }
 
 

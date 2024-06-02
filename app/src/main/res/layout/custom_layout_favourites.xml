@@ -77,11 +77,12 @@
         android:background="@drawable/favour_cross"
         android:layout_margin="2dp"/>
 
-    <Button
+  <!--  <ImageView
+        android:id="@+id/btnAdd"
         android:layout_gravity="end|bottom"
-        android:layout_width="35dp"
-        android:layout_height="28dp"
-        android:background="@drawable/favor_plus"
-        android:layout_margin="2dp"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/favor_plus"
+        android:layout_margin="2dp" />-->
 
 </FrameLayout>

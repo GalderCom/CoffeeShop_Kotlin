@@ -6,9 +6,6 @@
     android:background="@color/blue"
     android:orientation="vertical">
 
-
-
-
     <FrameLayout
         android:id="@+id/mainFragmentContainer"
         android:layout_weight="1"
@@ -50,13 +47,6 @@
                 />
 
         </LinearLayout>
-
-
-
-
-
-
-
 
         <LinearLayout
             android:id="@+id/menu_orderButton"

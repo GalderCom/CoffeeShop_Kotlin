@@ -105,43 +105,46 @@ class FragmentConfirmCode : Fragment() {
 
 
         val btn = view.findViewById<Button>(R.id.button_Continue_code);
-        btn.setOnClickListener(){
+        btn.setOnClickListener() {
 
             var code = "";
             var empty = false;
 
+           // Цикл для прохода по всем элементам массива editTexts, кроме последнего
             for (i in 0 until editTexts.size - 1) {
-                if(editTexts[i].text.isNotEmpty()){
-                    code +=  editTexts[i].text.toString()
-                }
-                else{
+                // Проверяем, не пустое ли значение в текущем элементе editText
+                if (editTexts[i].text.isNotEmpty()) {
+                    // Если не пустое, добавляем значение в переменную code
+                    code += editTexts[i].text.toString()
+                } else {
+                    // Если пустое значение, устанавливаем флаг empty в true
                     empty = true
                 }
             }
 
             runBlocking {
-                if (!empty){
-                    when( ConnectSupaBase().verifyConfCode(code, value.toString(),view)){
+                // Проверяем, все ли поля были заполнены
+                if (!empty) {
+                    // Проверяем верность кода с помощью функции verifyConfCode из класса ConnectSupaBase
+                    when (ConnectSupaBase().verifyConfCode(code, value.toString(), view)) {
+                        // Если код верен
                         true -> {
-                            val  intent = Intent(context, ActivityMain::class.java)
+                            // Создаем Intent для перехода на ActivityMain
+                            val intent = Intent(context, ActivityMain::class.java)
                             startActivity(intent)
                             activity?.finish()
                         }
+                        // Если код неверен
                         false -> {
-                          //  Toast.makeText(view.context, "Не верный код", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(view.context, "Не верный код", Toast.LENGTH_SHORT).show()
                         }
                     }
-                }
-                else
-                {
+                } else {
+                    // Показываем сообщение о том, что не все поля заполнены
                     Toast.makeText(view.context, "Введите код", Toast.LENGTH_SHORT).show()
                 }
-
-
             }
-
         }
-
         return view
     }
 

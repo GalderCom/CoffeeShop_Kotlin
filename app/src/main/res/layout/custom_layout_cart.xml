@@ -14,7 +14,7 @@
                     android:layout_width="75dp"
                     android:backgroundTint="@color/transparent"
                     android:layout_height="75dp"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="13dp"
                     app:cardCornerRadius="10dp">
 
                         <ImageView
@@ -38,7 +38,6 @@
                             android:layout_height="wrap_content">
                                 <TextView
                                     android:id="@+id/cart_name"
-                                    android:layout_marginTop="-5dp"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="Капучино"
@@ -90,11 +89,13 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:background="@drawable/favor_bcg">
-                                <ImageView
+                                <ImageButton
                                     android:id="@+id/btnMinus"
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/button_minus"/>
+                                    android:src="@drawable/button_minus"
+                                    android:scaleType="centerCrop"
+                                    android:background="@color/transparent"/>
                                 <TextView
                                     android:id="@+id/cart_count"
                                     android:gravity="center"
@@ -106,11 +107,13 @@
                                     android:textAlignment="center"
                                     android:fontFamily="@font/sans_caption_regular"
                                     android:maxLength="1"/>
-                                <ImageView
+                                <ImageButton
                                     android:id="@+id/btnPlus"
                                     android:layout_width="40dp"
                                     android:layout_height="40dp"
-                                    android:src="@drawable/button_plus"/>
+                                    android:src="@drawable/button_plus"
+                                    android:scaleType="centerCrop"
+                                    android:background="@color/transparent"/>
 
                         </LinearLayout>
 

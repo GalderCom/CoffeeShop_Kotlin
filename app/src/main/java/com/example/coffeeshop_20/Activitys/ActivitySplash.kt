@@ -1,3 +1,4 @@
+
 package com.example.coffeeshop_20.Activitys
 
 import android.content.Intent
@@ -56,6 +57,9 @@ class ActivitySplash : AppCompatActivity() {
                             TempData.selectGender = TempData.user.gender
                             ConnectSupaBase().selectFavor()
                             ConnectSupaBase().selectUserAddress()
+                            ConnectSupaBase().selectOrder()
+                            ConnectSupaBase().selectCart()
+
 
                             val intent = Intent(ctx, ActivityMain::class.java)
                             startActivity(intent);
@@ -68,7 +72,7 @@ class ActivitySplash : AppCompatActivity() {
                         val c = ex;
                         Toast.makeText(ctx, "Нет сети", Toast.LENGTH_SHORT).show()
                     }
-                    delay(3000)
+                    delay(1000)
                 }
             }
         }, 500)

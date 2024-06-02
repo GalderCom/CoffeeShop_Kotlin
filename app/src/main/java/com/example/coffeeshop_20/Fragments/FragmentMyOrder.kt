@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Adapters.CustomAdapterOrder
 import com.example.coffeeshop_20.R
@@ -36,6 +37,32 @@ class FragmentMyOrder : Fragment() {
                 R.id.mainFragmentContainer, FragmentProfile()).commit()
 
         }
+
+
+        val label: TextView = view.findViewById(R.id.label)
+        mRecyclerOrder.addOnChildAttachStateChangeListener(object: RecyclerView.OnChildAttachStateChangeListener{
+            override fun onChildViewAttachedToWindow(view: View) {
+                if (FragmentCart.customAdapterCart.itemCount != 0)
+                {
+                    label.visibility = View.GONE;
+                }
+                else
+                {
+                    label.visibility = View.VISIBLE;
+                }
+            }
+
+            override fun onChildViewDetachedFromWindow(view: View) {
+                if (FragmentCart.customAdapterCart.itemCount != 0)
+                {
+                    label.visibility = View.GONE;
+                }
+                else
+                {
+                    label.visibility = View.VISIBLE;
+                }
+            }
+        })
 
         return view
     }

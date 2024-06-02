@@ -4,16 +4,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.DataClass
-import com.example.coffeeshop_20.Fragments.FragmentMyData
-import com.example.coffeeshop_20.Fragments.FragmentSignUp
+import com.example.coffeeshop_20.Fragments.FragmentCart
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 
 class CustomAdapterCart (private var data: ArrayList<DataClass.Cart>): RecyclerView.Adapter<CustomAdapterCart.ViewHolder>() {
+
 
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -23,10 +24,9 @@ class CustomAdapterCart (private var data: ArrayList<DataClass.Cart>): RecyclerV
         val desc :TextView = itemView.findViewById(R.id.cart_desc)
         val price: TextView = itemView.findViewById(R.id.cart_price)
         val count: TextView = itemView.findViewById(R.id.cart_count)
+        val btnPlus: ImageButton = itemView.findViewById(R.id.btnPlus)
+        val btnMinus: ImageButton = itemView.findViewById(R.id.btnMinus)
 
-
-        val btnPlus: ImageView = itemView.findViewById(R.id.btnPlus)
-        val btnMinus: ImageView = itemView.findViewById(R.id.btnMinus)
 
         init {
             itemView.setOnClickListener(this)
@@ -35,9 +35,10 @@ class CustomAdapterCart (private var data: ArrayList<DataClass.Cart>): RecyclerV
         override fun onClick(v: View?) {
             listener.onClick(v)
         }
+
     }
 
-    @SuppressLint("NotifyDataSetChanged")
+    @SuppressLint("NotifyDataSetChanged", "SetTextI18n")
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
 
@@ -55,26 +56,26 @@ class CustomAdapterCart (private var data: ArrayList<DataClass.Cart>): RecyclerV
             }
         }
 
-
-
-
         holder.btnPlus.setOnClickListener(){
             if(holder.count.text.toString().toInt() < 5)
             {
-                holder.count.text = (holder.count.text.toString().toInt() + 1).toString()
+                TempData.newCart[position].count ++
+                holder.count.text = TempData.newCart[position].count.toString()
+                FragmentCart.customAdapterCart.notifyDataSetChanged()
             }
         }
 
         holder.btnMinus.setOnClickListener(){
             if(holder.count.text.toString().toInt() > 1){
-                holder.count.text = (holder.count.text.toString().toInt() - 1).toString()
+                TempData.newCart[position].count --
+                holder.count.text = TempData.newCart[position].count.toString()
+                FragmentCart.customAdapterCart.notifyDataSetChanged()
             }
             else if(holder.count.text.toString().toInt() == 1)
             {
                 TempData.newCart.remove(TempData.newCart[position])
                 notifyDataSetChanged()
             }
-
         }
 
     }
@@ -89,4 +90,5 @@ class CustomAdapterCart (private var data: ArrayList<DataClass.Cart>): RecyclerV
     override fun getItemCount(): Int {
         return data.size
     }
+
 }

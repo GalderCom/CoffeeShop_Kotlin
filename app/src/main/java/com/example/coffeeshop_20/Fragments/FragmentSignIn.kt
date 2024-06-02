@@ -41,6 +41,7 @@ class FragmentSignIn : Fragment() {
                 try {
                     TempData.user.email = emailView.text.toString()
                     runBlocking {
+                        //Производим авторизацию пользователя
                         ConnectSupaBase().signIn();
                     }
                     parentFragmentManager.beginTransaction().replace(
@@ -51,8 +52,7 @@ class FragmentSignIn : Fragment() {
                 catch (ex:Exception) {
 
                     val valueInBrackets = ex.message.toString();
-
-
+                    //Если пользователь не найден производится переходн на фрагмент регистрации
                     if(valueInBrackets.contains("Signups not allowed for otp"))
                     {
 
@@ -64,6 +64,7 @@ class FragmentSignIn : Fragment() {
 
                     }
                     else if(valueInBrackets.contains("60 second")) {
+                        //если код запрошен и пользователь перезашел в приложение
                         parentFragmentManager.beginTransaction().replace(
                             R.id.mainFragmentContainer,
                             FragmentConfirmCode(),"OTP"

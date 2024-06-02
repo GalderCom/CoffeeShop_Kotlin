@@ -117,7 +117,6 @@ class ConnectSupaBase {
         }
     }
     suspend fun selectUser() {
-
         val user = SbObject.client().postgrest["Users"].select()
 
         val itemObj = JSONArray(user.data).getJSONObject(0)
@@ -136,8 +135,6 @@ class ConnectSupaBase {
             email
         )
         TempData.user = tempItem;
-
-
     }
 
     suspend fun selectUserAddress() {
@@ -146,7 +143,6 @@ class ConnectSupaBase {
             val arrayObject = JSONArray(address.data)
 
             val tempSaveAddressArray = mutableListOf<DataClass.SaveAddress>()
-
             for (i in 0 until arrayObject.length()) {
 
                 val itemObj = arrayObject.getJSONObject(i)

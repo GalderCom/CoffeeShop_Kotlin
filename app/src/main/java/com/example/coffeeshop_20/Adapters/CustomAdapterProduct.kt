@@ -16,7 +16,6 @@ import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): RecyclerView.Adapter<CustomAdapterProduct.ViewHolder>() {
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
@@ -25,19 +24,14 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
         var weight: TextView = itemView.findViewById(R.id.short_description);
         var price: TextView = itemView.findViewById(R.id.price)
         var image: ImageView = itemView.findViewById(R.id.imageMenu)
-        var btnAdd: ImageView = itemView.findViewById(R.id.add_cartView)
-
         init {
             itemView.setOnClickListener(this)
         }
-
         override fun onClick(v: View?) {
             listener.onClick(v)
         }
     }
 
-
-    @OptIn(DelicateCoroutinesApi::class)
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.itemView.tag = data[position];
         holder.name.text = data[position].title;
@@ -47,36 +41,7 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
 
         updateAddToCartButton(holder, position)
     }
-
     private fun updateAddToCartButton(holder: ViewHolder, position: Int) {
-        var productFound = false
-
-
-
-
-
-
-
-        holder.btnAdd.setOnClickListener(){
-
-            if(TempData.newOrder == null)
-            {
-                runBlocking {
-                    ConnectSupaBase().insertOrder()
-                }
-            }
-            else
-            {
-                val tempCartItem = DataClass.Cart(1,data[position].id,1 ,TempData.newOrder.id)
-                TempData.newCart.add(tempCartItem)
-                holder.btnAdd.setImageDrawable(holder.itemView.context.getDrawable(R.drawable.favor_mark))
-                holder.btnAdd.isEnabled = false;
-                try {
-                    FragmentCart.customAdapterCart.notifyDataSetChanged()
-                }
-                catch (_:Exception){}
-            }
-        }
 
         holder.itemView.setOnClickListener(){
 
@@ -85,8 +50,13 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             val bottomSheetDialog = BottomSheetDialog(holder.itemView.context)
 
 
+
             val view = layout.inflate(R.layout.bottom_sheet_fragment, null)
             bottomSheetDialog.setContentView(view)
+
+
+            val price = view.findViewById<TextView>(R.id.price)
+            price.text = data[position].price.toString()
 
            val btnClose = view.findViewById<ImageView>(R.id.crossView)
             btnClose.setOnClickListener {
@@ -144,10 +114,31 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             val btnAdd2 = view.findViewById<Button>(R.id.addView)
             btnAdd2.setOnClickListener(){
 
-                val tempCartItem = DataClass.Cart(1,data[position].id,1 ,TempData.newOrder.id)
-                TempData.newCart.add(tempCartItem)
-                btnAdd2.setTextColor(holder.itemView.context.getColor(R.color.blue))
-                holder.btnAdd.isEnabled = false;
+                if (btnAdd2.text == "Добавить"){
+                    val tempCartItem = DataClass.Cart(id_product =  data[position].id, count = 1 , id_order = TempData.newOrder.id)
+                    TempData.newCart.add(tempCartItem)
+                    btnAdd2.backgroundTintList = view.context.getResources().getColorStateList(R.color.nice_gray);
+
+                    btnAdd2.setTextColor(holder.itemView.context.getColor(R.color.white))
+                    btnAdd2.setText("Убрать")
+                }
+                else
+                {
+                    //val tempCartItem = DataClass.Cart(id_product =  data[position].id, count = 1 , id_order = TempData.newOrder.id)
+
+                    for (i in 0 until TempData.newCart.size){
+                        if(TempData.newCart[i].id_product == data[position].id)
+                        {
+                            TempData.newCart.remove(TempData.newCart[i])
+                            break
+                        }
+                    }
+
+                    btnAdd2.backgroundTintList = null
+                    btnAdd2.setTextColor(holder.itemView.context.getColor(R.color.white))
+                    btnAdd2.setText("Добавить")
+                }
+
                 try {
                     FragmentCart.customAdapterCart.notifyDataSetChanged()
                 }
@@ -157,7 +148,9 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             if (TempData.newCart.size != 0) {
                 for (j in 0 until TempData.newCart.size) {
                     if (TempData.newCart[j].id_product == data[position].id) {
-                        btnAdd2.setTextColor(holder.itemView.context.getColor(R.color.blue))
+                        btnAdd2.setTextColor(holder.itemView.context.getColor(R.color.white))
+                        btnAdd2.backgroundTintList = view.context.getResources().getColorStateList(R.color.nice_gray);
+                        btnAdd2.setText("Убрать")
                         break;
                     }
                 }
@@ -180,7 +173,7 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.custom_layout_menu, parent, false)
+            .inflate(R.layout.custom_layout_product, parent, false)
         return ViewHolder(view, View.OnClickListener {
         })
 

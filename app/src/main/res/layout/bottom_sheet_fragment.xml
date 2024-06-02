@@ -83,18 +83,17 @@
                     android:layout_marginTop="0dp"
                     android:layout_gravity="start|center"/>
 
-                <TextView
-                    android:id="@+id/weightView"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/oswald_light"
-                    android:letterSpacing="0.05"
-                    android:textColor="@color/main_orange"
-                    android:textSize="16dp"
-                    android:text="Вес"
-                    android:layout_gravity="end|center"/>
-
             </FrameLayout>
+            <TextView
+                android:id="@+id/weightView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/oswald_light"
+                android:letterSpacing="0.05"
+                android:textColor="@color/main_orange"
+                android:textSize="16dp"
+                android:text="Вес"
+                />
 
 
             <ScrollView
@@ -129,7 +128,7 @@
                     android:layout_height="wrap_content">
 
                     <TextView
-                        android:id="@+id/priceView"
+                        android:id="@+id/price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/oswald_medium"

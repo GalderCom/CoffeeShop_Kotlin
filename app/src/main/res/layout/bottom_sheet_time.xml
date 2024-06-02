@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/bcg_bottom_sheet">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <Button
+            android:layout_gravity="top|center"
+            android:layout_margin="12dp"
+            android:layout_width="80dp"
+            android:layout_height="3.5dp"
+            android:background = "@drawable/line"
+            android:scaleType="centerCrop"/>
+    </FrameLayout>
+
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_marginTop="5dp"
+                android:gravity="center"
+                android:padding="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/favor_bcg"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Адрес"
+                            android:textSize="16sp"
+                            android:textColor="@color/gray"
+                            android:fontFamily="@font/raleway_regular"
+                            android:letterSpacing="0.13"/>
+                    </LinearLayout>
+
+                    <FrameLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        <TextView
+                            android:id="@+id/genderText"
+                            android:layout_marginTop="4dp"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:backgroundTint="#00FFFFFF"
+                            android:fontFamily="@font/raleway_regular"
+                            android:paddingTop="0dp"
+                            android:paddingBottom="3dp"
+                            android:textColor="@color/white"
+                            android:textSize="16sp"
+                            android:letterSpacing="0.04"
+                            android:inputType="text"/>
+
+                        <FrameLayout
+                            android:id="@+id/btnGender"
+                            android:layout_gravity="end|center"
+                            android:layout_width="50dp"
+                            android:layout_height="30dp">
+                            <ImageView
+                                android:layout_gravity="end|center"
+                                android:id="@+id/arrowGedner"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:src="@drawable/arrow"
+                                android:rotation="90"
+                                android:scaleType="centerCrop"
+                                android:layout_marginEnd="5dp" />
+                        </FrameLayout>
+                    </FrameLayout>
+                    <ImageView
+                        android:scaleType="centerCrop"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:src="@drawable/line_smal"/>
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:visibility="gone"
+                        android:id="@+id/address_list"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        android:layout_height="wrap_content"
+                        android:layout_width="match_parent" />
+
+                </LinearLayout>
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:layout_marginTop="10dp"
+                    android:id="@+id/time_list"
+                    app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+                    android:layout_height="wrap_content"
+                    android:layout_width="wrap_content"
+                    tools:itemCount="8"
+                    app:spanCount="4" />
+
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/orange_line"
+                    android:scaleType="centerCrop"/>
+                <FrameLayout
+                    android:layout_marginTop="5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="30dp">
+                    <TextView
+                        android:gravity="left"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="Сумма:"
+                        style="@style/menu_text"
+                        android:layout_marginStart="10dp"
+                        android:textColor="@color/gray"
+                        android:layout_marginEnd="20dp"
+                        />
+
+                    <LinearLayout
+                        android:layout_marginEnd="10dp"
+                        android:layout_gravity="center|end"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:id="@+id/priceView"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/oswald_medium"
+                            android:letterSpacing="0.05"
+                            android:text="0"
+                            android:textColor="@color/white"
+                            android:textSize="18sp" />
+                        <ImageView
+                            android:layout_marginStart="3dp"
+                            android:layout_marginTop="2dp"
+                            android:layout_gravity="center_vertical"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:src="@drawable/ico_rub"/>
+                    </LinearLayout>
+                </FrameLayout>
+            </LinearLayout>
+
+
+
+
+            <Button
+                android:id="@+id/addView"
+                android:layout_gravity="end"
+                android:layout_marginTop="10dp"
+                android:layout_width="match_parent"
+                style="@style/style_main_button"
+                android:text="Оформить"
+                android:layout_marginBottom="10dp"/>
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>

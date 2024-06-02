@@ -90,7 +90,7 @@ class DataClass {
     data class Cart(
         val id: Int = 0,
         val id_product: Int = 0,
-        val count: Int = 0,
+        var count: Int = 0,
         val id_order:Int = 0
     )
     data class Status(

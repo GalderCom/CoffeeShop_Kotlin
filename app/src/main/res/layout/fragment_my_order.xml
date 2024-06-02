@@ -45,7 +45,7 @@
         app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
 
     <TextView
-        android:id="@+id/nullArray"
+        android:id="@+id/label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Пусто"
