@@ -43,7 +43,7 @@ class CustomAdapterCart (private var data: ArrayList<DataClass.Cart>): RecyclerV
         holder.itemView.tag = data[position];
 
 
-        holder.count.text = data[position].count.toString()
+        holder.count.text = data[position].count_.toString()
         for (i in 0 until TempData.productArray.size)
         {
             if(data[position].id_product == TempData.productArray[i].id){
@@ -59,16 +59,16 @@ class CustomAdapterCart (private var data: ArrayList<DataClass.Cart>): RecyclerV
         holder.btnPlus.setOnClickListener(){
             if(holder.count.text.toString().toInt() < 5)
             {
-                TempData.newCart[position].count ++
-                holder.count.text = TempData.newCart[position].count.toString()
+                TempData.newCart[position].count_ ++
+                holder.count.text = TempData.newCart[position].count_.toString()
                 FragmentCart.customAdapterCart.notifyDataSetChanged()
             }
         }
 
         holder.btnMinus.setOnClickListener(){
             if(holder.count.text.toString().toInt() > 1){
-                TempData.newCart[position].count --
-                holder.count.text = TempData.newCart[position].count.toString()
+                TempData.newCart[position].count_ --
+                holder.count.text = TempData.newCart[position].count_.toString()
                 FragmentCart.customAdapterCart.notifyDataSetChanged()
             }
             else if(holder.count.text.toString().toInt() == 1)

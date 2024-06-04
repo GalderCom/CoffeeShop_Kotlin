@@ -6,11 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 
 class CustomAdapterTime (private var data: ArrayList<String>): RecyclerView.Adapter<CustomAdapterTime.ViewHolder>() {
+
 
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -25,6 +25,9 @@ class CustomAdapterTime (private var data: ArrayList<String>): RecyclerView.Adap
         }
     }
 
+
+    var time: String = ""
+
     private var startClick = true;
     var row_index = -1; //индекс элесентов
 
@@ -33,6 +36,7 @@ class CustomAdapterTime (private var data: ArrayList<String>): RecyclerView.Adap
         holder.itemView.tag = data[position];
         holder.title.text = data[position];
 
+        time = data[0]
 
         holder.title.setOnClickListener {
 
@@ -43,6 +47,7 @@ class CustomAdapterTime (private var data: ArrayList<String>): RecyclerView.Adap
 
                 notifyDataSetChanged();
 
+                time = data[position]
                 // FragmentMenu.customAdapterProduct.sort()
 
                 TempData().sortProduct();

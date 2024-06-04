@@ -47,7 +47,7 @@ dependencies {
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.6.0")
     implementation("io.github.jan-tennert.supabase:storage-kt")
     implementation("io.github.jan-tennert.supabase:gotrue-kt")
-
+    implementation("io.github.jan-tennert.supabase:functions-kt")
 
 
     implementation("com.google.android.material:material:1.3.0Э")

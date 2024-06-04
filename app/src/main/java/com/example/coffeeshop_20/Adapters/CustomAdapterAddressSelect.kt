@@ -4,18 +4,17 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RadioButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.Fragments.FragmentCart
-import com.example.coffeeshop_20.Fragments.FragmentMyData
-import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 
 class CustomAdapterAddressSelect (private var data: ArrayList<DataClass.SaveAddress>): RecyclerView.Adapter<CustomAdapterAddressSelect.ViewHolder>() {
+
+    var id_address: Int = 0
+
 
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
         RecyclerView.ViewHolder(itemView), View.OnClickListener {
@@ -36,25 +35,29 @@ class CustomAdapterAddressSelect (private var data: ArrayList<DataClass.SaveAddr
         holder.itemView.tag = data[position];
         holder.name.text = data[position].name;
 
+        id_address = TempData.saveAddressArray[0].id
+
         val address = data[position].street + ", д " + data[position].house
 
         holder.address.text = address
 
 
         holder.itemView.setOnClickListener {
-            try {
-                FragmentCart.textAddress.text = data[position].name;
+
+                FragmentCart.textAddress.text = TempData.saveAddressArray[position].name + ", "+ TempData.saveAddressArray[position].street +", " + TempData.saveAddressArray[position].house
                 FragmentCart.mRecyclerViewAddress.visibility = View.GONE;
                 FragmentCart.imageArrow.rotation = holder.itemView.rotation.plus(90)
                 TempData.selectGender = data[position].id
-            }
-            catch (ex: Exception)
+                id_address = data[position].id
+
+
+           /* catch (ex: Exception)
             {
                 FragmentCart.textAddress.text = data[position].name;
                 FragmentCart.mRecyclerViewAddress.visibility = View.GONE;
                 FragmentCart.imageArrow.rotation  = holder.itemView.rotation.plus(90)
                 TempData.selectGender = data[position].id
-            }
+            }*/
 
         }
     }

@@ -5,16 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.EditText
 import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
 import com.example.coffeeshop_20.Adapters.CustomAdapterProduct
-import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import java.time.LocalTime
 
 class FragmentMenu : Fragment() {

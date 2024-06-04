@@ -1,17 +1,13 @@
 package com.example.coffeeshop_20.Activitys
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Looper
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.LinearLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContentProviderCompat.requireContext
-import androidx.lifecycle.lifecycleScope
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.Fragments.FragmentAddAddress
 import com.example.coffeeshop_20.Fragments.FragmentCart
@@ -20,12 +16,12 @@ import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.Fragments.FragmentMyData
 import com.example.coffeeshop_20.Fragments.FragmentProfile
 import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
+import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import com.example.coffeeshop_20.newDialogView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlin.system.exitProcess
 
 class ActivityMain : AppCompatActivity() {
 
@@ -33,17 +29,32 @@ class ActivityMain : AppCompatActivity() {
     companion object{
         @SuppressLint("StaticFieldLeak")
         lateinit var bottomNavigationLayout: LinearLayout;
+
+         lateinit var textMenuMENU: TextView ;
+         lateinit var textMenuORDER: TextView;
+
+         lateinit var textMenuHEART: TextView;
+         lateinit var textMenuACCOUNT: TextView;
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
-        ConnectSupaBase().selectFavor();
 
+        if (TempData.user.name == ""){
+            Toast.makeText(this, "Введите необходимые данные", Toast.LENGTH_SHORT).show()
+            supportFragmentManager.beginTransaction().replace(
+                R.id.mainFragmentContainer,
+                FragmentSignUp(), "SignUp"
+            ).commit()
+            finish()
+        }
+
+        ConnectSupaBase().selectFavor();
         GlobalScope.launch {
             try {
-                if(TempData.saveAddressArray.isEmpty()){
+                if(TempData.cartArray.isEmpty()){
                     ConnectSupaBase().selectUserAddress()
                     TempData.selectGender = TempData.user.gender
                     ConnectSupaBase().selectOrder()
@@ -151,11 +162,7 @@ class ActivityMain : AppCompatActivity() {
 
 
 
-    private lateinit var textMenuMENU: TextView;
-    private lateinit var textMenuORDER: TextView;
 
-    private lateinit var textMenuHEART: TextView;
-    private lateinit var textMenuACCOUNT: TextView;
     
     private fun WorkWithMenuBtn()
     {
@@ -208,7 +215,7 @@ class ActivityMain : AppCompatActivity() {
     }
 
 
-    private fun UnSelect(view: View) {
+     fun UnSelect(view: View) {
 
         if(view.visibility != View.VISIBLE)
         {

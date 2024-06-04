@@ -1,10 +1,6 @@
 package com.example.coffeeshop_20
 
 import android.annotation.SuppressLint
-import android.content.Context
-import android.graphics.drawable.Drawable
-import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
-import com.example.coffeeshop_20.Adapters.CustomAdapterProduct
 import com.example.coffeeshop_20.Fragments.FragmentMenu
 
 class TempData {

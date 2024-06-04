@@ -32,14 +32,14 @@ class CustomAdapterCartInOrder  (private var data: ArrayList<DataClass.Cart>): R
 
 
 
-        holder.count.text = data[position].count.toString()
+        holder.count.text = data[position].count_.toString()
 
         for (i in 0 until TempData.productArray.size)
         {
             if(data[position].id_product == TempData.productArray[i].id)
             {
                 holder.name.text = TempData.productArray[i].title
-                holder.price.text = (TempData.productArray[i].price * data[position].count).toString()
+                holder.price.text = (TempData.productArray[i].price * data[position].count_).toString()
                 break
             }
         }

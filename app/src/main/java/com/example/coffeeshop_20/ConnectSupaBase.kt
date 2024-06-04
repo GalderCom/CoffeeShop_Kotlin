@@ -18,6 +18,7 @@ import io.github.jan.supabase.gotrue.user.UserInfo
 import io.github.jan.supabase.gotrue.user.UserSession
 import io.github.jan.supabase.postgrest.from
 import io.github.jan.supabase.postgrest.postgrest
+import io.github.jan.supabase.postgrest.query.Columns
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.coroutineScope
@@ -29,17 +30,6 @@ import java.net.URL
 
 
 class ConnectSupaBase {
-
-    suspend fun insertOrder(){
-        GlobalScope.launch {
-            val uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
-            val order = DataClass.OrderInsert(uuid);
-            SbObject.client().postgrest["Orders"].insert(order)
-            selectOrder()
-        }
-    }
-
-
 
     fun signUp() {
         runBlocking {
@@ -209,9 +199,9 @@ class ConnectSupaBase {
     fun selectOrder()
     {
         GlobalScope.launch {
+            TempData.ordersArray.clear()
             val orders = SbObject.client().postgrest["Orders"].select()
             val arrayObject = JSONArray(orders.data)
-
 
             for (i in 0 until arrayObject.length()) {
 
@@ -268,6 +258,7 @@ class ConnectSupaBase {
     }
 
     suspend fun selectCart(){
+        TempData.cartArray.clear()
         val Obj = SbObject.client().postgrest["Cart"].select()
         val arrayObject = JSONArray(Obj.data)
 
@@ -283,6 +274,13 @@ class ConnectSupaBase {
             val cart = DataClass.Cart(id,id_product,count,id_order)
 
             TempData.cartArray.add(cart)
+
+            try {
+                FragmentMyOrder().customAdapterOrder.notifyDataSetChanged()
+            }
+            catch (ex: Exception){
+
+            }
         }
     }
 
@@ -489,7 +487,6 @@ class ConnectSupaBase {
 
 
 
-
     fun downloadImage(url: String): Drawable? {
         val policy = StrictMode.ThreadPolicy.Builder().permitAll().build()
         StrictMode.setThreadPolicy(policy)
@@ -545,6 +542,27 @@ class ConnectSupaBase {
         }
     }
 
+
+
+    suspend fun insertOrder(time: String,date: String, id_address: Int, price: Int){
+
+            val uuid = SbObject.client().auth.retrieveUserForCurrentSession(updateSession = true).id
+            val order = DataClass.OrderInsert(id_user = uuid, time = time, id_address = id_address, date = date, price = price)
+            val insertedOrder = SbObject.client().postgrest["Orders"].insert(order){
+                select(columns = Columns.raw("id"))
+            }.decodeSingle<DataClass.OrderInsert>()
+            selectOrder()
+
+            if (TempData.newCart.isNotEmpty()) {
+                for (cartItem in TempData.newCart) {
+                    cartItem.id_order = insertedOrder.id!!
+                    SbObject.client().postgrest["Cart"].insert(cartItem)
+                }
+                selectCart()
+            }
+
+    }
+
     suspend fun saveSessionClient(){
         val session: UserSession? = SbObject.client().auth.currentSessionOrNull();
         if (session != null) {
@@ -561,4 +579,5 @@ class ConnectSupaBase {
     {
         SbObject.client().auth.sessionManager.deleteSession()
     }
+
 }

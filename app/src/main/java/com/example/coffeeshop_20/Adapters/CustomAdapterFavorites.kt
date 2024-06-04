@@ -1,27 +1,22 @@
 package com.example.coffeeshop_20.Adapters
 
 import android.annotation.SuppressLint
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.Fragments.FragmentCart
-import com.example.coffeeshop_20.Fragments.FragmentFavourites
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class CustomAdapterFavorites(private var data: ArrayList<DataClass.Favor>): RecyclerView.Adapter<CustomAdapterFavorites.ViewHolder>(){
     class ViewHolder(itemView: View, private val listener: View.OnClickListener) :
@@ -116,7 +111,7 @@ class CustomAdapterFavorites(private var data: ArrayList<DataClass.Favor>): Recy
                     btnAdd2.setOnClickListener(){
 
                         if (btnAdd2.text == "Добавить"){
-                            val tempCartItem = DataClass.Cart(id_product =  data[position].id_product, count = 1 , id_order = TempData.newOrder.id)
+                            val tempCartItem = DataClass.Cart(id_product =  data[position].id_product, count_ = 1 , id_order = TempData.newOrder.id)
                             TempData.newCart.add(tempCartItem)
                             btnAdd2.backgroundTintList = view.context.getResources().getColorStateList(R.color.nice_gray);
 

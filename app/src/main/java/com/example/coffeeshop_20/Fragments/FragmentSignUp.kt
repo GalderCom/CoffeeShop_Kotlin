@@ -1,7 +1,6 @@
 package com.example.coffeeshop_20.Fragments
 
 import android.annotation.SuppressLint
-import android.content.Intent
 import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
@@ -16,12 +15,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coffeeshop_20.Activitys.ActivityMain
 import com.example.coffeeshop_20.Adapters.CustomAdapterGender
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
-import kotlinx.coroutines.GlobalScope
 
 class FragmentSignUp : Fragment() {
 
@@ -92,7 +89,6 @@ class FragmentSignUp : Fragment() {
 
                         TempData.user.name = nameText.text.toString()
                         TempData.user.birthday = birthDayText.text.toString()
-
 
                         parentFragmentManager.beginTransaction().replace(
                             R.id.mainFragmentContainer,

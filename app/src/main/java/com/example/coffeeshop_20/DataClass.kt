@@ -1,14 +1,6 @@
 package com.example.coffeeshop_20
 
-import android.content.res.Resources
 import android.graphics.drawable.Drawable
-import android.icu.text.CaseMap.Title
-import android.media.Image
-import android.os.VibrationEffect.Composition
-import io.github.jan.supabase.gotrue.admin.AdminUserBuilder
-import kotlinx.datetime.LocalDate
-import kotlinx.datetime.toDatePeriod
-import java.util.Date
 
 class DataClass {
 
@@ -75,23 +67,26 @@ class DataClass {
         val date: String = "" ,
         val address: String = "",
         val price: Int = 0,
-        val status: String = ""
+        val status: String = "",
+        val time: String = ""
     )
 
     @kotlinx.serialization.Serializable
     data class OrderInsert(
+        val id: Int? = 0,
         val id_user: String = "",
         val date: String = "" ,
         val id_address: Int = 0,
         val price: Int = 0,
-        val status: Int = 0
+        val status: Int = 0,
+        val time: String = ""
     )
     @kotlinx.serialization.Serializable
     data class Cart(
         val id: Int = 0,
         val id_product: Int = 0,
-        var count: Int = 0,
-        val id_order:Int = 0
+        var count_: Int = 0,
+        var id_order:Int = 0
     )
     data class Status(
         val id: Int = 0,

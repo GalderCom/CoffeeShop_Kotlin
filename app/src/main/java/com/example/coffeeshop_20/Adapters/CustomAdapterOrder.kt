@@ -7,8 +7,6 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.DataClass
-import com.example.coffeeshop_20.Fragments.FragmentMyData
-import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 
@@ -46,6 +44,7 @@ class CustomAdapterOrder (private var data: ArrayList<DataClass.Orders>): Recycl
             "Отменен"->{holder.status.setTextColor(holder.itemView.context.getColor(R.color.red))}
             "Выполнен"->{holder.status.setTextColor(holder.itemView.context.getColor(R.color.green))}
             "Оформлен"->{holder.status.setTextColor(holder.itemView.context.getColor(R.color.white))}
+            "Доставляется"->{holder.status.setTextColor(holder.itemView.context.getColor(R.color.white))}
         }
 
 // Устанавливаем дату, адрес и цену заказа

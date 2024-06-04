@@ -13,7 +13,6 @@ import com.example.coffeeshop_20.Fragments.FragmentCart
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import com.google.android.material.bottomsheet.BottomSheetDialog
-import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
@@ -115,7 +114,7 @@ class CustomAdapterProduct(private var data: ArrayList<DataClass.Products>): Rec
             btnAdd2.setOnClickListener(){
 
                 if (btnAdd2.text == "Добавить"){
-                    val tempCartItem = DataClass.Cart(id_product =  data[position].id, count = 1 , id_order = TempData.newOrder.id)
+                    val tempCartItem = DataClass.Cart(id_product =  data[position].id, count_ = 1 , id_order = TempData.newOrder.id)
                     TempData.newCart.add(tempCartItem)
                     btnAdd2.backgroundTintList = view.context.getResources().getColorStateList(R.color.nice_gray);
 

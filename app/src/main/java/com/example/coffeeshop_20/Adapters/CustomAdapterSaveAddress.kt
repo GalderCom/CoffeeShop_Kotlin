@@ -1,21 +1,16 @@
 package com.example.coffeeshop_20.Adapters
 
 import android.annotation.SuppressLint
-import android.app.FragmentManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
-import androidx.fragment.app.FragmentActivity
-import androidx.fragment.app.FragmentTransaction
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Activitys.ActivityMain
 import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.Fragments.FragmentAddAddress
-import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import com.example.coffeeshop_20.R
 
 

@@ -11,8 +11,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Adapters.CustomAdapterOrder
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
-import com.example.coffeeshop_20.newDialogView
-
 class FragmentMyOrder : Fragment() {
 
     lateinit var  mRecyclerOrder: RecyclerView;
@@ -29,7 +27,6 @@ class FragmentMyOrder : Fragment() {
         customAdapterOrder = CustomAdapterOrder(TempData.ordersArray)
         mRecyclerOrder.adapter = customAdapterOrder
 
-
         val buttonBack: ImageButton = view.findViewById(R.id.button_back);
         buttonBack.setOnClickListener(){
 
@@ -42,25 +39,29 @@ class FragmentMyOrder : Fragment() {
         val label: TextView = view.findViewById(R.id.label)
         mRecyclerOrder.addOnChildAttachStateChangeListener(object: RecyclerView.OnChildAttachStateChangeListener{
             override fun onChildViewAttachedToWindow(view: View) {
-                if (FragmentCart.customAdapterCart.itemCount != 0)
-                {
-                    label.visibility = View.GONE;
-                }
-                else
-                {
-                    label.visibility = View.VISIBLE;
-                }
+
+                    if (customAdapterOrder.itemCount != 0)
+                    {
+                        label.visibility = View.GONE;
+                    }
+                    else
+                    {
+                        label.visibility = View.VISIBLE;
+                    }
+
             }
 
             override fun onChildViewDetachedFromWindow(view: View) {
-                if (FragmentCart.customAdapterCart.itemCount != 0)
-                {
-                    label.visibility = View.GONE;
-                }
-                else
-                {
-                    label.visibility = View.VISIBLE;
-                }
+
+                    if (customAdapterOrder.itemCount != 0)
+                    {
+                        label.visibility = View.GONE;
+                    }
+                    else
+                    {
+                        label.visibility = View.VISIBLE;
+                    }
+
             }
         })
 

@@ -2,8 +2,6 @@ package com.example.coffeeshop_20.Fragments
 
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,20 +13,12 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageButton
 import android.widget.ImageView
-import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
-import com.example.coffeeshop_20.Activitys.ActivityMain
-import com.example.coffeeshop_20.Adapters.CustomAdapterFavorites
-import com.example.coffeeshop_20.Adapters.CustomAdapterSaveAddress
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import com.example.coffeeshop_20.newDialogView
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 
@@ -98,12 +88,18 @@ class FragmentAddAddress : Fragment() {
                 dialog.setPositiveButtonClickListener(){
                     dialog.dismiss()
                         runBlocking {
-                            ConnectSupaBase().removeUserAddress(idAddress)
-                            Toast.makeText(view.context,"Адрес удален",Toast.LENGTH_SHORT).show()
+                            try {
+                                ConnectSupaBase().removeUserAddress(idAddress)
+                                Toast.makeText(view.context,"Адрес удален",Toast.LENGTH_SHORT).show()
 
-                            parentFragmentManager.beginTransaction().replace(
-                                R.id.mainFragmentContainer,
-                                FragmentSaveAddress(),"Save_Address").commit();
+                                parentFragmentManager.beginTransaction().replace(
+                                    R.id.mainFragmentContainer,
+                                    FragmentSaveAddress(),"Save_Address").commit();
+                            }
+                            catch (ex: Exception){
+                                Toast.makeText(view.context,"Не возможно удалить!",Toast.LENGTH_SHORT).show()
+
+                            }
 
                         }
 

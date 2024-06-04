@@ -15,13 +15,10 @@ import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.TextView
 import android.widget.Toast
-import androidx.lifecycle.lifecycleScope
 import com.example.coffeeshop_20.Activitys.ActivityMain
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 import java.util.Timer
 import java.util.TimerTask
@@ -130,9 +127,21 @@ class FragmentConfirmCode : Fragment() {
                         // Если код верен
                         true -> {
                             // Создаем Intent для перехода на ActivityMain
-                            val intent = Intent(context, ActivityMain::class.java)
-                            startActivity(intent)
-                            activity?.finish()
+
+                            if (TempData.user.name != "")
+                            {
+                                val intent = Intent(context, ActivityMain::class.java)
+                                startActivity(intent)
+                                activity?.finish()
+                            }
+                            else
+                            {
+                                Toast.makeText(view.context, "Введите необходимые данные", Toast.LENGTH_SHORT).show()
+                                parentFragmentManager.beginTransaction().replace(
+                                    R.id.mainFragmentContainer,
+                                    FragmentSignUp(), "SignUp"
+                                ).commit()
+                            }
                         }
                         // Если код неверен
                         false -> {

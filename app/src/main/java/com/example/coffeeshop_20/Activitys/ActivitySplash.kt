@@ -5,22 +5,16 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.os.Looper
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.view.WindowCompat
 import androidx.lifecycle.lifecycleScope
-import com.example.coffeeshop_20.Adapters.CustomAdapterProduct
 import com.example.coffeeshop_20.ConnectSupaBase
-import com.example.coffeeshop_20.Fragments.FragmentMenu
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
-import io.github.jan.supabase.gotrue.user.UserSession
-import io.ktor.http.Url
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.runBlocking
 
 class ActivitySplash : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

@@ -1,6 +1,5 @@
 package com.example.coffeeshop_20.Fragments
 
-import android.content.Intent
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -9,13 +8,9 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import com.example.coffeeshop_20.Activitys.ActivityMain
-import com.example.coffeeshop_20.Activitys.ActivityStart
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
-import com.example.coffeeshop_20.newDialogView
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
 
 

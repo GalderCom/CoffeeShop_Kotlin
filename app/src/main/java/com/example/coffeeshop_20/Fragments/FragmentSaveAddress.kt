@@ -9,10 +9,7 @@ import android.widget.Button
 import android.widget.ImageButton
 import android.widget.TextView
 import android.widget.Toast
-import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
-import com.example.coffeeshop_20.Activitys.ActivityMain
-import com.example.coffeeshop_20.Adapters.CustomAdapterFavorites
 import com.example.coffeeshop_20.Adapters.CustomAdapterSaveAddress
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
@@ -45,7 +42,6 @@ class FragmentSaveAddress : Fragment() {
         {
             label.visibility = View.VISIBLE
         }
-
 
         val addBtn: Button = view.findViewById(R.id.btn_addAddress)
         addBtn.setOnClickListener(){

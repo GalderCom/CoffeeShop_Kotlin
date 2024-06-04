@@ -15,16 +15,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Adapters.CustomAdapterGender
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
 import com.example.coffeeshop_20.newDialogView
-import io.ktor.http.cio.parseRequest
-import kotlinx.coroutines.launch
-
 class FragmentMyData : Fragment() {
 
 
@@ -57,8 +53,13 @@ class FragmentMyData : Fragment() {
             {
                 val dialog = newDialogView(view.context)
                 dialog.text.setText("Вернутся без сохранения?")
+
                 dialog.setPositiveButtonClickListener(){
+
+
                     dialog.dismiss()
+                    TempData.selectGender = TempData.selectGender
+
                     parentFragmentManager.beginTransaction().replace(
                         R.id.mainFragmentContainer, FragmentProfile()).commit()
 
@@ -66,6 +67,7 @@ class FragmentMyData : Fragment() {
                 }
                 dialog.setNegativeButtonClickListener(){
                     dialog.dismiss()
+                    TempData.selectGender = TempData.selectGender
                 }
                 dialog.show()
             }
