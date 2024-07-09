@@ -38,6 +38,8 @@ class FragmentSignUp : Fragment() {
         val  view = inflater.inflate(R.layout.fragment_sign_up, container, false)
 
         init(view)
+
+
         crossBtn.setOnClickListener(){
             birthDayText.text.clear();
         }

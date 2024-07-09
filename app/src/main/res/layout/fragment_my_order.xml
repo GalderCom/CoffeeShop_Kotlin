@@ -30,33 +30,76 @@
             android:scaleType="center"
             android:layout_gravity="start" />
 
+        <ImageView
+            android:visibility="invisible"
+            android:id="@+id/button_update"
+            android:layout_width="42dp"
+            android:layout_height="42dp"
+            android:src="@drawable/update"
+            android:scaleType="center"
+            android:layout_gravity="end" />
+
     </FrameLayout>
 
-
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/order_list"
-        android:layout_marginTop="30dp"
-        android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         android:orientation="vertical"
-        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager" />
+        android:padding="20dp">
 
-    <TextView
-        android:id="@+id/label"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Пусто"
-        android:layout_gravity="center"
-        android:textSize="20dp"
-        android:fontFamily="@font/oswal_regular"
-        android:layout_marginBottom="5dp"
-        android:textColor="@color/gray"/>
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:clickable="false"
+                    android:scrollbars="none"
+                    android:id="@+id/active_order_list"
+                    android:layout_marginTop="30dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
 
+                <ImageView
+                    android:id="@+id/line"
+                    android:layout_marginTop="-5dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:src="@drawable/orange_line"
+                    android:scaleType="centerCrop"
+                    android:layout_marginBottom="15dp"/>
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:clickable="false"
+                    android:scrollbars="none"
+                    android:id="@+id/order_list"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+                <TextView
+                    android:id="@+id/label"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Пусто"
+                    android:layout_gravity="center"
+                    android:textSize="20dp"
+                    android:fontFamily="@font/oswal_regular"
+                    android:layout_marginBottom="5dp"
+                    android:textColor="@color/gray"/>
+
+            </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+    </LinearLayout>
 
 </LinearLayout>

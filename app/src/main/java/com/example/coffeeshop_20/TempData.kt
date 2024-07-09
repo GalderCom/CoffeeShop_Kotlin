@@ -2,6 +2,7 @@ package com.example.coffeeshop_20
 
 import android.annotation.SuppressLint
 import com.example.coffeeshop_20.Fragments.FragmentMenu
+import com.example.coffeeshop_20.Fragments.FragmentMyOrder
 
 class TempData {
 
@@ -14,6 +15,8 @@ class TempData {
         val genderArray:ArrayList<DataClass.Gender> = arrayListOf(DataClass.Gender(1,"Мужской"), DataClass.Gender(2,"Женский"))
         var saveAddressArray:ArrayList<DataClass.SaveAddress> = ArrayList();
         var ordersArray:ArrayList<DataClass.Orders> = ArrayList();
+        var orderActive: ArrayList<DataClass.Orders> = ArrayList();
+
         var addressArray: ArrayList<String> = ArrayList()
         var statusArray:ArrayList<DataClass.Status> = ArrayList()
         var cartArray:ArrayList<DataClass.Cart> = ArrayList()
@@ -46,6 +49,29 @@ class TempData {
                 catch (_: Exception) { }
             }
         }
+    }
+
+    fun sortOrders(orders: ArrayList<DataClass.Orders>){
+        // Сортировка по id по возрастанию
+        orders.sortByDescending { it.id }
+
+        // Создание временного списка для элементов с status = 2
+        val status2Orders = orders.filter { it.status == "Оформлен" || it.status == "Доставляется" || it.status == "Принят" }
+
+        // Удаление элементов с status = 2 из исходного списка
+        orders.removeAll(status2Orders)
+
+        // Создание нового отсортированного списка, добавление элементов с status = 2 в начало
+         ordersArray =  orders
+         orderActive = status2Orders as ArrayList<DataClass.Orders>
+
+        try {
+            FragmentMyOrder.customAdapterOrder.notifyDataSetChanged()
+            FragmentMyOrder.customAdapterOrderActive.notifyDataSetChanged()
+        } catch (ex: Exception) {
+            // Handle exception
+        }
+
     }
 
 }

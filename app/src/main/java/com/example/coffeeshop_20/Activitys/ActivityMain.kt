@@ -117,6 +117,7 @@ class ActivityMain : AppCompatActivity() {
                     supportFragmentManager.beginTransaction().replace(
                         R.id.mainFragmentContainer, FragmentProfile()).commit()
                 }
+
             }
             "Add_Address" -> {
                 if(FragmentAddAddress.name.text.isNotEmpty() || FragmentAddAddress.comm.text.isNotEmpty() || FragmentAddAddress.house.text.isNotEmpty() || FragmentAddAddress.floor.text.isNotEmpty() || FragmentAddAddress.entrance.text.isNotEmpty() || FragmentAddAddress.flat.text.isNotEmpty() || FragmentAddAddress.streetText.text.isNotEmpty())
@@ -137,7 +138,6 @@ class ActivityMain : AppCompatActivity() {
                 }
                 else
                 {
-
                     supportFragmentManager.beginTransaction().replace(
                         R.id.mainFragmentContainer, FragmentSaveAddress(),"Save_Address").commit()
                 }

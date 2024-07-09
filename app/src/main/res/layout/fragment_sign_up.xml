@@ -79,7 +79,7 @@
                         android:textColor="@color/white"
                         android:textSize="16sp"
                         android:letterSpacing="0.04"
-                        android:inputType="text"/>
+                        android:inputType="textCapWords"/>
 
                     <ImageView
                         android:scaleType="centerCrop"

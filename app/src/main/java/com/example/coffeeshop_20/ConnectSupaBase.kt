@@ -56,6 +56,7 @@ class ConnectSupaBase {
             SbObject.client().postgrest["Users"].insert(user)
         }
     }
+
     suspend fun verifyConfCode(code: String, value: String,view: View): Boolean {
         return try {
             when(value)
@@ -196,9 +197,8 @@ class ConnectSupaBase {
 
     }
 
-    fun selectOrder()
+   suspend fun selectOrder()
     {
-        GlobalScope.launch {
             TempData.ordersArray.clear()
             val orders = SbObject.client().postgrest["Orders"].select()
             val arrayObject = JSONArray(orders.data)
@@ -232,12 +232,8 @@ class ConnectSupaBase {
                 TempData.ordersArray.add(saveAddress)
             }
 
-            try {
-                FragmentMyOrder().customAdapterOrder.notifyDataSetChanged()
-            } catch (ex: Exception) {
-                // Handle exception
-            }
-        }
+            TempData().sortOrders(TempData.ordersArray)
+
     }
 
 
@@ -257,31 +253,35 @@ class ConnectSupaBase {
         }
     }
 
-    suspend fun selectCart(){
+     suspend fun selectCart(){
         TempData.cartArray.clear()
-        val Obj = SbObject.client().postgrest["Cart"].select()
-        val arrayObject = JSONArray(Obj.data)
 
-        for (i in 0 until arrayObject.length()) {
+            val Obj = SbObject.client().postgrest["Cart"].select()
+            val arrayObject = JSONArray(Obj.data)
 
-            val itemObj = arrayObject.getJSONObject(i)
-            val id = itemObj.getInt("id")
-            val id_product = itemObj.getInt("id_product")
-            val count = itemObj.getInt("count_")
-            val id_order = itemObj.getInt("id_order")
+            for (i in 0 until arrayObject.length()) {
+
+                val itemObj = arrayObject.getJSONObject(i)
+                val id = itemObj.getInt("id")
+                val id_product = itemObj.getInt("id_product")
+                val count = itemObj.getInt("count_")
+                val id_order = itemObj.getInt("id_order")
 
 
-            val cart = DataClass.Cart(id,id_product,count,id_order)
+                val cart = DataClass.Cart(id,id_product,count,id_order)
 
-            TempData.cartArray.add(cart)
+                TempData.cartArray.add(cart)
 
-            try {
-                FragmentMyOrder().customAdapterOrder.notifyDataSetChanged()
+                try {
+                    FragmentMyOrder.customAdapterOrder.notifyDataSetChanged()
+                    FragmentMyOrder.customAdapterOrderActive.notifyDataSetChanged()
+                }
+                catch (ex: Exception){
+
+                }
             }
-            catch (ex: Exception){
 
-            }
-        }
+
     }
 
 
