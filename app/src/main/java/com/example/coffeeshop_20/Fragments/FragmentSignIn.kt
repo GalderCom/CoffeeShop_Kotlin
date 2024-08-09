@@ -11,20 +11,25 @@ import android.widget.Toast
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentSignInBinding
 import kotlinx.coroutines.runBlocking
 
 
 class FragmentSignIn : Fragment() {
+
+    private var _binding: FragmentSignInBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_sign_in, container, false)
+        _binding = FragmentSignInBinding.inflate(inflater,container,false)
+        val view = binding.root
 
-        val btnStart: Button = view.findViewById(R.id.btn_start);
-        val emailView = view.findViewById<EditText>(R.id.editText_Email);
+        val btnStart = binding.btnStart
+        val emailView = binding.editTextEmail
 
         emailView.setText(TempData.user.email)
 

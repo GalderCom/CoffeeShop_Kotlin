@@ -18,6 +18,8 @@ import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.DataClass
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.ActivityMainBinding
+import com.example.coffeeshop_20.databinding.FragmentAddAddressBinding
 import com.example.coffeeshop_20.newDialogView
 import kotlinx.coroutines.runBlocking
 
@@ -37,27 +39,31 @@ class FragmentAddAddress : Fragment() {
         lateinit var comm: EditText
         lateinit var streetText: AutoCompleteTextView
     }
+    private var _binding: FragmentAddAddressBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_add_address, container, false)
+        _binding = FragmentAddAddressBinding.inflate(inflater, container,false)
+         val view = binding.root
+        // val view = inflater.inflate(R.layout.fragment_add_address, container, false)
 
-         name = view.findViewById(R.id.nameText);
-         house = view.findViewById(R.id.houseText)
-         floor = view.findViewById(R.id.floorText)
-         entrance = view.findViewById(R.id.entranceText)
-         flat = view.findViewById(R.id.flatText)
-         comm = view.findViewById(R.id.commText)
-         streetText = view.findViewById(R.id.streetText)
+         name = binding.nameText
+         house = binding.houseText
+         floor = binding.floorText
+         entrance = binding.entranceText
+         flat =   binding.flatText
+         comm = binding.commText
+         streetText = binding.streetText
 
         val idAddress = arguments?.getInt("intValue", 0)
 
         var  tempItem: DataClass.SaveAddress = DataClass.SaveAddress()
         if(idAddress != null){
 
-            val btnBack: ImageButton = view.findViewById(R.id.btn_back)
+            val btnBack: ImageButton = binding.btnBack
             btnBack.setOnClickListener(){
 
                 if(name.text.isNotEmpty() || comm.text.isNotEmpty() || house.text.isNotEmpty() || floor.text.isNotEmpty() || entrance.text.isNotEmpty() || flat.text.isNotEmpty() || streetText.text.isNotEmpty())
@@ -79,7 +85,7 @@ class FragmentAddAddress : Fragment() {
 
             }
 
-            val btnDell = view.findViewById<ImageView>(R.id.btn_dell)
+            val btnDell =  binding.btnDell
             btnDell.visibility = View.VISIBLE;
 
             btnDell.setOnClickListener(){
@@ -128,7 +134,7 @@ class FragmentAddAddress : Fragment() {
             comm.setText(tempItem.comm)
 
 
-            val btnSaveAddress = view.findViewById<Button>(R.id.btn_save_address);
+            val btnSaveAddress = binding.btnSaveAddress
             btnSaveAddress.setOnClickListener(){
 
                 if(name.text.isEmpty() || house.text.isEmpty() || streetText.text.isEmpty())
@@ -151,14 +157,12 @@ class FragmentAddAddress : Fragment() {
 
                         Toast.makeText(view.context,"Адрес изменен",Toast.LENGTH_SHORT).show()
                     }
-
                 }
-
             }
         }
         else
         {
-            val btnBack: ImageButton = view.findViewById(R.id.btn_back)
+            val btnBack: ImageButton = binding.btnBack
             btnBack.setOnClickListener(){
 
                 val dialog = newDialogView(view.context)
@@ -173,17 +177,14 @@ class FragmentAddAddress : Fragment() {
                     dialog.dismiss()
                 }
                 dialog.show()
-
             }
-
             val adapter = ArrayAdapter(view.context,android.R.layout.simple_dropdown_item_1line,TempData.addressArray);
             streetText.setAdapter(adapter)
 
             streetText.onItemClickListener = AdapterView.OnItemClickListener { parent, view, position, id ->
                 selectedItem = parent.getItemAtPosition(position).toString()
             }
-
-            val btnSaveAddress = view.findViewById<Button>(R.id.btn_save_address);
+            val btnSaveAddress = binding.btnSaveAddress
             btnSaveAddress.setOnClickListener(){
 
                 if(name.text.isEmpty() || house.text.isEmpty() || streetText.text.isEmpty())

@@ -20,8 +20,11 @@ import com.example.coffeeshop_20.Adapters.CustomAdapterGender
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentMyDataBinding
 import com.example.coffeeshop_20.newDialogView
 class FragmentMyData : Fragment() {
+
+
 
 
     @SuppressLint("StaticFieldLeak")
@@ -34,9 +37,8 @@ class FragmentMyData : Fragment() {
         lateinit var nameText: TextView;
     }
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-    }
+    private var _binding: FragmentMyDataBinding? = null
+    private val binding get() = _binding!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -44,9 +46,12 @@ class FragmentMyData : Fragment() {
 
 
     ): View? {
-       val  view = inflater.inflate(R.layout.fragment_my_data, container, false)
 
-        val buttonBack: ImageButton = view.findViewById(R.id.button_back);
+
+        _binding = FragmentMyDataBinding.inflate(inflater,container,false)
+        val  view = binding.root
+
+        val buttonBack = binding.buttonBack
         buttonBack.setOnClickListener(){
 
             if(TempData.user.name != FragmentMyData.nameText.text.toString() || TempData.user.gender != TempData.selectGender || TempData.user.birthday != FragmentMyData.birthDayText.text.toString())
@@ -94,7 +99,7 @@ class FragmentMyData : Fragment() {
             2 -> {textViewGender.text = "Женский"};
         }
 
-        val btnSave = view.findViewById<Button>(R.id.btn_save);
+        val btnSave =binding.btnSave
         btnSave.setOnClickListener(){
             var errorDate = false
 
@@ -183,7 +188,7 @@ class FragmentMyData : Fragment() {
 
        birthDayText.setText(TempData.user.birthday)
 
-        val btnGender = view.findViewById<FrameLayout>(R.id.btnGender);
+        val btnGender = binding.btnGender
 
         textViewGender.setOnClickListener(){
             viewRecyclerGender(view)
@@ -196,17 +201,17 @@ class FragmentMyData : Fragment() {
     }
     fun init(view : View)
     {
-        arrowGender = view.findViewById<ImageView>(R.id.arrowGedner);
+        arrowGender = binding.arrowGedner
         val customAdapterGender = CustomAdapterGender(TempData.genderArray);
-        textViewGender = view.findViewById<TextView>(R.id.genderText);
-        mRecyclerGender = view.findViewById<RecyclerView>(R.id.gender_list);
+        textViewGender = binding.genderText
+        mRecyclerGender = binding.genderList
         mRecyclerGender.adapter = customAdapterGender;
         mRecyclerGender.visibility = View.GONE
-        birthDayText = view.findViewById(R.id.birthdayView);
-        crossBtn = view.findViewById(R.id.crossBirthday)
-        nameText = view.findViewById(R.id.nameView);
+        birthDayText = binding.birthdayView
+        crossBtn = binding.crossBirthday
+        nameText = binding.nameView
 
-        val nameUser = view.findViewById<EditText>(R.id.nameView);
+        val nameUser =  binding.nameView
         nameUser.setText(TempData.user.name)
     }
     fun viewRecyclerGender(view: View)

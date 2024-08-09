@@ -12,6 +12,7 @@ import com.example.coffeeshop_20.Adapters.CustomAdapterCategory
 import com.example.coffeeshop_20.Adapters.CustomAdapterProduct
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentMenuBinding
 import java.time.LocalTime
 
 class FragmentMenu : Fragment() {
@@ -19,6 +20,9 @@ class FragmentMenu : Fragment() {
 
     lateinit var mRecyclerCategory: RecyclerView;
     lateinit var  mRecyclerProduct: RecyclerView;
+
+    private var _binding: FragmentMenuBinding? = null
+    private val binding get() = _binding!!
 
     companion object{
         lateinit var customAdapterCategory: CustomAdapterCategory;
@@ -34,27 +38,23 @@ class FragmentMenu : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_menu, container, false)
-        init(view)
-        selectData();
 
+        _binding = FragmentMenuBinding.inflate(inflater,container,false)
+        val view = binding.root
         val currentHour = LocalTime.now().hour
 
 
-        val timeText = view.findViewById<TextView>(R.id.timeText)
+        val timeText = binding.timeText
+        mRecyclerCategory = binding.categoryList
+        mRecyclerProduct = binding.productList
+
+
         timeText.text = checkTimeOfDay(currentHour)
-
-
-
-
+        selectData();
 
         return view;
     }
 
-    private fun init(view: View){
-        mRecyclerCategory = view.findViewById(R.id.category_list)
-        mRecyclerProduct = view.findViewById(R.id.product_list);
-    }
     private fun selectData()
     {
         customAdapterCategory = CustomAdapterCategory(TempData.categoryArray)

@@ -15,10 +15,15 @@ import com.example.coffeeshop_20.Activitys.ActivitySplash
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentProfileBinding
 import com.example.coffeeshop_20.newDialogView
 import kotlinx.coroutines.launch
 
 class FragmentProfile : Fragment() {
+
+
+    private var _binding: FragmentProfileBinding? =  null
+    private val binding get()  = _binding!!
 
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
@@ -26,23 +31,24 @@ class FragmentProfile : Fragment() {
         savedInstanceState: Bundle?
 
     ): View? {
-
         var view: View? = null
-        view = inflater.inflate(R.layout.fragment_profile, container, false)
+
+        _binding = FragmentProfileBinding.inflate(inflater,container,false)
+        view = binding.root
 
         ActivityMain.bottomNavigationLayout.visibility = View.VISIBLE;
 
 
-        val name = view.findViewById<TextView>(R.id.nameText);
+        val name = binding.nameText
         name.text = "Привет, ${TempData.user.name}!"
 
 
         val result = TempData.user.email.substringBefore("@")
-        val email = view.findViewById<TextView>(R.id.emailText);
+        val email = binding.emailText
         email.text = result;
 
 
-        val myDataClick: FrameLayout = view.findViewById(R.id.frameLayout_my_data);
+        val myDataClick = binding.frameLayoutMyData
         myDataClick.setOnClickListener() {
             parentFragmentManager.beginTransaction().replace(
                 R.id.mainFragmentContainer,
@@ -53,7 +59,7 @@ class FragmentProfile : Fragment() {
 
         }
 
-        val myOrder: FrameLayout = view.findViewById(R.id.textView_my_order)
+        val myOrder = binding.textViewMyOrder
         myOrder.setOnClickListener(){
 
             parentFragmentManager.beginTransaction().replace(
@@ -65,7 +71,7 @@ class FragmentProfile : Fragment() {
 
         }
 
-        val saveAddressClick: FrameLayout = view.findViewById(R.id.frameLayout_save_address)
+        val saveAddressClick = binding.frameLayoutSaveAddress
         saveAddressClick.setOnClickListener()
         {
             parentFragmentManager.beginTransaction().replace(
@@ -77,7 +83,7 @@ class FragmentProfile : Fragment() {
 
         }
 
-        val btnExit = view.findViewById<FrameLayout>(R.id.btnExit)
+        val btnExit = binding.btnExit
         btnExit.setOnClickListener(){
 
             val dialog = newDialogView(requireContext())

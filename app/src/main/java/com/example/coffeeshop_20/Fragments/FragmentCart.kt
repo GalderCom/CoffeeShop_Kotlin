@@ -18,6 +18,7 @@ import com.example.coffeeshop_20.Adapters.CustomAdapterTime
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentCartBinding
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import kotlinx.coroutines.runBlocking
 import java.text.SimpleDateFormat
@@ -41,17 +42,23 @@ class FragmentCart : Fragment() {
         lateinit var mRecyclerViewAddress: RecyclerView
         lateinit var imageArrow: ImageView
     }
+
+    private var _binding : FragmentCartBinding? = null
+    private val binding get() = _binding!!
+
+
     @SuppressLint("SetTextI18n")
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_cart,container,false)
+        _binding = FragmentCartBinding.inflate(inflater,container,false)
+        val view = binding.root
 
-        label = view.findViewById(R.id.label)
-        priceView = view.findViewById(R.id.priceViewCart)
+        label = binding.label
+        priceView = binding.priceViewCart
 
-        mRecyclerCart = view.findViewById(R.id.cart_list)
+        mRecyclerCart = binding.cartList
         customAdapterCart = CustomAdapterCart(TempData.newCart)
         mRecyclerCart.adapter = customAdapterCart
 
@@ -71,7 +78,7 @@ class FragmentCart : Fragment() {
         val currentTime = Calendar.getInstance()
         val currentHour = currentTime.get(Calendar.HOUR_OF_DAY)
 
-                val btn = view.findViewById<Button>(R.id.btn_making_order)
+                val btn = binding.btnMakingOrder
                 btn.setOnClickListener() {
                     if (currentHour <= 20) {
                         if (TempData.newCart.size != 0) {

@@ -10,12 +10,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Adapters.CustomAdapterFavorites
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentFavouritesBinding
 
 @Suppress("UNREACHABLE_CODE")
 class FragmentFavourites : Fragment() {
 
     lateinit var  mRecyclerFavor: RecyclerView;
-
+    private var _binding: FragmentFavouritesBinding? = null
+    private val binding get() = _binding!!
     companion object{
         lateinit var customAdapterFavorites: CustomAdapterFavorites;
         var valueCount = 0;
@@ -27,10 +29,13 @@ class FragmentFavourites : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_favourites, container, false)
-        val countView = view.findViewById<TextView>(R.id.count_coffee_favourites);
-        mRecyclerFavor = view.findViewById(R.id.favor_list);
-        val label = view.findViewById<TextView>(R.id.nullArray)
+
+        _binding = FragmentFavouritesBinding.inflate(inflater, container, false)
+        val view = binding.root
+
+        val countView = binding.countCoffeeFavourites
+        mRecyclerFavor = binding.favorList
+        val label = binding.nullArray
         countView.text = valueCount.toString();
 
         customAdapterFavorites = CustomAdapterFavorites(TempData.favorArray)

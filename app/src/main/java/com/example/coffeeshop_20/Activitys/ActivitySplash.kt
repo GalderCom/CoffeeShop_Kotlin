@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
+import android.renderscript.ScriptGroup.Binding
 import android.view.animation.AnimationUtils
 import android.widget.ImageView
 import android.widget.Toast
@@ -13,19 +14,25 @@ import androidx.lifecycle.lifecycleScope
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.ActivitySplashBinding
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 
 class ActivitySplash : AppCompatActivity() {
+
+
+    private lateinit var binding: ActivitySplashBinding
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_splash)
+
+        binding = ActivitySplashBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         WindowCompat.setDecorFitsSystemWindows(window, false);
 
-        val loading = findViewById<ImageView>(R.id.loading)
+      
         val rotateAnimation = AnimationUtils.loadAnimation(this, R.anim.loading_anim)
-        loading.startAnimation(rotateAnimation)
+        binding.loading.startAnimation(rotateAnimation)
 
         val ctx = this;
 

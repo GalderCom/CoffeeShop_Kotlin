@@ -19,28 +19,31 @@ import com.example.coffeeshop_20.Fragments.FragmentSaveAddress
 import com.example.coffeeshop_20.Fragments.FragmentSignUp
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.ActivityMainBinding
 import com.example.coffeeshop_20.newDialogView
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 
 class ActivityMain : AppCompatActivity() {
 
-   lateinit var ctx :ActivityMain;
+    lateinit var binding: ActivityMainBinding
+    lateinit var ctx :ActivityMain;
     companion object{
         @SuppressLint("StaticFieldLeak")
         lateinit var bottomNavigationLayout: LinearLayout;
 
-         lateinit var textMenuMENU: TextView ;
+         /*lateinit var textMenuMENU: TextView ;
          lateinit var textMenuORDER: TextView;
 
          lateinit var textMenuHEART: TextView;
-         lateinit var textMenuACCOUNT: TextView;
+         lateinit var textMenuACCOUNT: TextView;*/
     }
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (TempData.user.name == ""){
             Toast.makeText(this, "Введите необходимые данные", Toast.LENGTH_SHORT).show()
@@ -64,12 +67,9 @@ class ActivityMain : AppCompatActivity() {
             catch (ex: Exception){}
 
         }
-
-
         ctx = this;
 
-        bottomNavigationLayout = findViewById(R.id.bottomNavigationLayout);
-
+        bottomNavigationLayout = binding.bottomNavigationLayout
 
         supportFragmentManager.beginTransaction().replace(
             R.id.mainFragmentContainer,
@@ -149,7 +149,7 @@ class ActivityMain : AppCompatActivity() {
                         R.id.mainFragmentContainer,
                         FragmentMenu()
                     ).commit()
-                    UnSelect(textMenuMENU)
+                    UnSelect(binding.menuHome)
                 }
                 else
                 {
@@ -159,32 +159,25 @@ class ActivityMain : AppCompatActivity() {
         }
 
     }
-
-
-
-
     
     private fun WorkWithMenuBtn()
     {
-        textMenuMENU = findViewById(R.id.menu_home)
+       /* textMenuMENU = findViewById(R.id.menu_home)
         textMenuORDER = findViewById(R.id.menu_order)
         textMenuHEART = findViewById(R.id.menu_heart)
         textMenuACCOUNT  = findViewById(R.id.menu_account)
+        */
 
-        
-        val buttonMenu: LinearLayout = findViewById(R.id.menu_menuButton)
-        buttonMenu.setOnClickListener {
-            UnSelect(textMenuMENU)
+        binding.MenuButton.setOnClickListener {
+            UnSelect(binding.menuHome)
             supportFragmentManager.beginTransaction().replace(
                 R.id.mainFragmentContainer,
                 FragmentMenu()
             ).commit();
         }
 
-
-        val buttonOrder: LinearLayout = findViewById(R.id.menu_orderButton)
-        buttonOrder.setOnClickListener {
-            UnSelect(textMenuORDER)
+        binding.menuOrderButton.setOnClickListener {
+            UnSelect(binding.menuOrder)
 
             supportFragmentManager.beginTransaction().replace(
                 R.id.mainFragmentContainer,
@@ -192,20 +185,16 @@ class ActivityMain : AppCompatActivity() {
             ).commit();
         }
 
-
-        val buttonHeart: LinearLayout = findViewById(R.id.menu_heartButton)
-        buttonHeart.setOnClickListener {
-            UnSelect(textMenuHEART)
+        binding.menuHeartButton.setOnClickListener {
+            UnSelect(binding.menuHeart)
             supportFragmentManager.beginTransaction().replace(
                 R.id.mainFragmentContainer,
                 FragmentFavourites()
             ).commit();
         }
 
-
-        val buttonAccount: LinearLayout = findViewById(R.id.menu_accountButton)
-        buttonAccount.setOnClickListener {
-            UnSelect(textMenuACCOUNT)
+        binding.menuAccountButton.setOnClickListener {
+            UnSelect(binding.menuAccount)
 
             supportFragmentManager.beginTransaction().replace(
                 R.id.mainFragmentContainer,
@@ -219,23 +208,16 @@ class ActivityMain : AppCompatActivity() {
 
         if(view.visibility != View.VISIBLE)
         {
-            val tempTextView1 : TextView = findViewById(R.id.menu_home)
-            tempTextView1.visibility = View.GONE;
+            binding.menuHome.visibility = View.GONE;
 
-            val tempTextView2 : TextView = findViewById(R.id.menu_order)
-            tempTextView2.visibility = View.GONE;
+            binding.menuOrder.visibility = View.GONE;
 
-            val tempTextView3 : TextView = findViewById(R.id.menu_heart)
-            tempTextView3.visibility = View.GONE;
+            binding.menuHeart.visibility = View.GONE;
 
-            val tempTextView4 : TextView = findViewById(R.id.menu_account)
-            tempTextView4.visibility = View.GONE;
+            binding.menuHeart.visibility = View.GONE;
 
             view.visibility = View.VISIBLE
             view.startAnimation(AnimationUtils.loadAnimation(this, R.anim.anim_splash_menu));
         }
     }
-
-
-
 }

@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.coffeeshop_20.Adapters.CustomAdapterSaveAddress
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentSaveAddressBinding
 
 class FragmentSaveAddress : Fragment() {
 
@@ -22,15 +23,19 @@ class FragmentSaveAddress : Fragment() {
         lateinit var customAdapterAddress: CustomAdapterSaveAddress;
     }
 
+    private var _binding: FragmentSaveAddressBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_save_address, container, false)
+        _binding = FragmentSaveAddressBinding.inflate(inflater,container,false)
+        val view = binding.root
 
 
-        val label = view.findViewById<TextView>(R.id.nullArray)
-        mRecyclerAdr = view.findViewById<RecyclerView>(R.id.saveAddressList);
+        val label = binding.nullArray
+        mRecyclerAdr = binding.saveAddressList
         customAdapterAddress = CustomAdapterSaveAddress(TempData.saveAddressArray)
 
         if(!TempData.saveAddressArray.isEmpty())
@@ -43,7 +48,7 @@ class FragmentSaveAddress : Fragment() {
             label.visibility = View.VISIBLE
         }
 
-        val addBtn: Button = view.findViewById(R.id.btn_addAddress)
+        val addBtn = binding.btnAddAddress
         addBtn.setOnClickListener(){
 
             if(TempData.saveAddressArray.size != 4){
@@ -58,7 +63,7 @@ class FragmentSaveAddress : Fragment() {
 
         }
 
-        val btnBack: ImageButton = view.findViewById(R.id.btn_back)
+        val btnBack = binding.btnBack
         btnBack.setOnClickListener(){
             parentFragmentManager.beginTransaction().replace(
                 R.id.mainFragmentContainer,

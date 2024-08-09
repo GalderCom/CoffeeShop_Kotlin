@@ -19,6 +19,7 @@ import com.example.coffeeshop_20.Activitys.ActivityMain
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentConfirmCodeBinding
 import kotlinx.coroutines.runBlocking
 import java.util.Timer
 import java.util.TimerTask
@@ -29,30 +30,35 @@ class FragmentConfirmCode : Fragment() {
    lateinit var timerView :TextView
    lateinit var timerLayout :LinearLayout
 
-
+    private var _binding: FragmentConfirmCodeBinding? = null
+    private val binding get() = _binding!!
+   
+   
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
 
-        val view =  inflater.inflate(R.layout.fragment_confirm_code, container, false)
-        sendCod  = view.findViewById<TextView>(R.id.btn_sendCode)
-        timerView = view.findViewById<TextView>(R.id.timerLabel)
-        timerLayout = view.findViewById<LinearLayout>(R.id.layoutTimer)
+        _binding = FragmentConfirmCodeBinding.inflate(inflater,container,false)
+        
+        val view = binding.root
+        sendCod  = binding.btnSendCode
+        timerView = binding.timerLabel
+        timerLayout = binding.layoutTimer
 
 
-        val emailText = view.findViewById<TextView>(R.id.emailText)
+        val emailText = binding.emailText
 
         emailText.setText(TempData.user.email);
 
-        val editText1: EditText = view.findViewById(R.id.editText1)
-        val editText2: EditText = view.findViewById(R.id.editText2)
-        val editText3: EditText = view.findViewById(R.id.editText3)
-        val editText4: EditText = view.findViewById(R.id.editText4)
-        val editText5: EditText = view.findViewById(R.id.editText5)
-        val editText6: EditText = view.findViewById(R.id.editText6)
-        val editText7: EditText = view.findViewById(R.id.editText7)
+        val editText1: EditText = binding.editText1
+        val editText2: EditText = binding.editText2
+        val editText3: EditText = binding.editText3
+        val editText4: EditText = binding.editText4
+        val editText5: EditText = binding.editText5
+        val editText6: EditText = binding.editText6
+        val editText7: EditText = binding.editText7
 
         val editTexts = listOf(editText1, editText2, editText3, editText4, editText5, editText6,editText7)
 
@@ -96,12 +102,12 @@ class FragmentConfirmCode : Fragment() {
 
         if(value == "signUp")
         {
-            val label = view.findViewById<TextView>(R.id.label)
+            val label = binding.label
             label.text = "Регистрация";
         }
 
 
-        val btn = view.findViewById<Button>(R.id.button_Continue_code);
+        val btn = binding.buttonContinueCode
         btn.setOnClickListener() {
 
             var code = "";
@@ -159,8 +165,8 @@ class FragmentConfirmCode : Fragment() {
 
     fun startTimer(view: View){
         TempData.timer = 60;
-        val timerView = view.findViewById<TextView>(R.id.timerLabel)
-        val timerLayout = view.findViewById<LinearLayout>(R.id.layoutTimer)
+        val timerView = binding.timerLabel
+        val timerLayout = binding.layoutTimer
 
         val handler = Handler(Looper.getMainLooper())
         val timer = Timer()

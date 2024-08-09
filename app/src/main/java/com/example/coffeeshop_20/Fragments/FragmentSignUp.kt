@@ -19,6 +19,8 @@ import com.example.coffeeshop_20.Adapters.CustomAdapterGender
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentSignInBinding
+import com.example.coffeeshop_20.databinding.FragmentSignUpBinding
 
 class FragmentSignUp : Fragment() {
 
@@ -31,11 +33,15 @@ class FragmentSignUp : Fragment() {
         lateinit var crossBtn: ImageView;
         lateinit var nameText: TextView;
     }
+
+    private var _binding: FragmentSignUpBinding? = null
+    private val binding get() = _binding!!
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val  view = inflater.inflate(R.layout.fragment_sign_up, container, false)
+        _binding = FragmentSignUpBinding.inflate(inflater,container,false)
+        val  view = binding.root
 
         init(view)
 
@@ -49,7 +55,7 @@ class FragmentSignUp : Fragment() {
             2 -> {textViewGender.text = "Женский"};
         }
 
-        val btnSave = view.findViewById<Button>(R.id.btn_save);
+        val btnSave = binding.btnSave
         btnSave.setOnClickListener(){
             var errorDate = false
 
@@ -80,9 +86,7 @@ class FragmentSignUp : Fragment() {
 
                     else
                     {
-
                         ConnectSupaBase().signUp();
-
 
                         val args = Bundle()
                         args.putString("value", "signUp")
@@ -135,7 +139,7 @@ class FragmentSignUp : Fragment() {
             }
         })
 
-        val btnGender = view.findViewById<FrameLayout>(R.id.btnGender);
+        val btnGender = binding.btnGender
 
         textViewGender.setOnClickListener(){
             viewRecyclerGender(view)
@@ -148,15 +152,15 @@ class FragmentSignUp : Fragment() {
     }
     fun init(view : View)
     {
-        arrowGender = view.findViewById<ImageView>(R.id.arrowGedner);
+        arrowGender = binding.arrowGedner
         val customAdapterGender = CustomAdapterGender(TempData.genderArray);
-        textViewGender = view.findViewById<TextView>(R.id.genderText);
-        mRecyclerGender = view.findViewById<RecyclerView>(R.id.gender_list);
+        textViewGender = binding.genderText
+        mRecyclerGender = binding.genderList
         mRecyclerGender.adapter = customAdapterGender;
         mRecyclerGender.visibility = View.GONE
-        birthDayText = view.findViewById(R.id.birthdayView);
-        crossBtn = view.findViewById(R.id.crossBirthday)
-        nameText = view.findViewById(R.id.nameView);
+        birthDayText = binding.birthdayView
+        crossBtn =  binding.crossBirthday
+        nameText = binding.nameView
     }
     fun viewRecyclerGender(view: View)
     {

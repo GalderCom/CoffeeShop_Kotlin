@@ -14,6 +14,7 @@ import com.example.coffeeshop_20.Adapters.CustomAdapterOrder
 import com.example.coffeeshop_20.ConnectSupaBase
 import com.example.coffeeshop_20.R
 import com.example.coffeeshop_20.TempData
+import com.example.coffeeshop_20.databinding.FragmentMyOrderBinding
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.runBlocking
@@ -26,20 +27,20 @@ class FragmentMyOrder : Fragment() {
         lateinit var customAdapterOrder: CustomAdapterOrder
         lateinit var customAdapterOrderActive: CustomAdapterOrder
     }
+    private var _binding: FragmentMyOrderBinding? = null
+    private val binding get() = _binding!!
 
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val view = inflater.inflate(R.layout.fragment_my_order, container, false)
 
+        _binding = FragmentMyOrderBinding.inflate(inflater,container,false)
+        val view = binding.root
 
-
-
-
-        mRecyclerOrder = view.findViewById(R.id.order_list)
-        mRecyclerOrderActive = view.findViewById(R.id.active_order_list)
+        mRecyclerOrder = binding.orderList
+        mRecyclerOrderActive = binding.activeOrderList
 
         customAdapterOrder = CustomAdapterOrder(TempData.ordersArray)
         customAdapterOrderActive = CustomAdapterOrder(TempData.orderActive)
@@ -48,8 +49,7 @@ class FragmentMyOrder : Fragment() {
         mRecyclerOrderActive.adapter = customAdapterOrderActive
 
 
-
-        val buttonBack: ImageButton = view.findViewById(R.id.button_back);
+        val buttonBack = binding.buttonBack
         buttonBack.setOnClickListener(){
 
             parentFragmentManager.beginTransaction().replace(
@@ -58,7 +58,7 @@ class FragmentMyOrder : Fragment() {
         }
 
 
-        val label: TextView = view.findViewById(R.id.label)
+        val label = binding.label
         mRecyclerOrder.addOnChildAttachStateChangeListener(object: RecyclerView.OnChildAttachStateChangeListener{
             override fun onChildViewAttachedToWindow(view: View) {
 
@@ -87,7 +87,7 @@ class FragmentMyOrder : Fragment() {
             }
         })
 
-        val line = view.findViewById<ImageView>(R.id.line)
+        val line = binding.line
         mRecyclerOrderActive.addOnChildAttachStateChangeListener(object: RecyclerView.OnChildAttachStateChangeListener{
             override fun onChildViewAttachedToWindow(view: View) {
 
@@ -117,7 +117,7 @@ class FragmentMyOrder : Fragment() {
         })
 
 
-        val updateBtn = view.findViewById<ImageView>(R.id.button_update)
+        val updateBtn = binding.buttonUpdate
         updateBtn.setOnClickListener(){
             GlobalScope.launch {
                 ConnectSupaBase().selectOrder()

@@ -11,14 +11,20 @@ android {
     namespace = "com.example.coffeeshop_20"
     compileSdk = 34
 
+
+
     defaultConfig {
         applicationId = "com.example.coffeeshop_20"
         minSdk = 28
         targetSdk = 34
         versionCode = 2
-        versionName = "1.2.2"
+        versionName = "2.0"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildFeatures {
+        viewBinding = true
     }
 
     buildTypes {
